@@ -1,0 +1,23 @@
+@import "variable.sass"
+
+body, html
+  height: 100%
+  line-height: 1
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback'
+  -webkit-tap-highlight-color: transparent
+  background: $color-background
+  color: $color-text
+  .fl
+    float: left
+  .clearifx
+    &:after
+      content: ""
+      display: block
+      height: 0
+      clear: both
+      height: 0
+      font-size: 0
+  .fr
+    float: right
+  a
+    text-decoration: none
