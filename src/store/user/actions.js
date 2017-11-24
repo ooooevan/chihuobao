@@ -1,13 +1,17 @@
 import * as types from './mutations-type'
-import { getSuggestionApi } from 'assets/javascript/api'
-import { _saveAddress } from 'assets/javascript/cache'
+import { getSuggestionApi } from 'common/javascript/api'
+import { _saveExactAddress, _clearExactAddress } from 'common/javascript/cache'
 export function getSuggestion ({commit, state}, str) {
-  const coordinate = state.coordinate
-  getSuggestionApi({coordinate, str}).then(result => {
+  const address = state.inexactAddress[1]  // 选择城市
+  getSuggestionApi({address, str}).then(result => {
     commit(types.SET_SUGGESTIONS_LIST, result)
   })
 }
 
-export function saveAddress ({commit, state}, item) {
-  commit(types.SAVE_ADDRESS, _saveAddress(item))
+export function saveExactAddress ({commit, state}, item) {
+  commit(types.SAVE_EXACT_ADDRESS, _saveExactAddress(item))
+}
+
+export function clearExactAddress ({commit, state}) {
+  commit(types.SAVE_EXACT_ADDRESS, _clearExactAddress())
 }

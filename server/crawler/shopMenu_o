@@ -1,0 +1,86 @@
+[
+  {
+    "description": "大家喜欢吃，才叫真好吃。",
+    "name": "热销"
+  },
+  {
+    "description": "",
+    "name": "公告"
+  },
+  {
+    "description": "本店新推出蛋挞，出炉时间为上午11点30,下午的15点30",
+    "name": "超值套餐新品推出"
+  },
+  {
+    "description": "",
+    "name": "美味披萨"
+  },
+  {
+    "description": "澳洲进口芝士制成的芝士奶盖配与现萃的茶包精华，让你体验不一样的味觉盛宴！",
+    "name": "芝士奶盖现泡茶"
+  },
+  {
+    "description": "玫瑰盐制作成的奶盐奶盖混合现萃茶的淡淡清香，怎一个赞了得！",
+    "name": "奶盐奶盖现泡茶"
+  },
+  {
+    "description": "",
+    "name": "经典奶茶"
+  },
+  {
+    "description": "",
+    "name": "宇治抹茶"
+  },
+  {
+    "description": "",
+    "name": "庄园可可"
+  },
+  {
+    "description": "",
+    "name": "鲜茶和水果（冷饮）"
+  },
+  {
+    "description": "",
+    "name": "益力多优酪乳（冷饮）"
+  },
+  {
+    "description": "",
+    "name": "柠檬看得见"
+  },
+  {
+    "description": "",
+    "name": "薄荷系列（冷饮）"
+  },
+  {
+    "description": "",
+    "name": "春茶系列"
+  },
+  {
+    "description": "寒冬，来一杯姜茶‘暖心一整天！",
+    "name": "川姜系列（热饮）"
+  },
+  {
+    "description": "",
+    "name": "桂圆红枣系列（热饮）"
+  },
+  {
+    "description": "天气原因，送货途中鸡蛋仔变冷酥脆度会下降，望客户理解！",
+    "name": "特色小吃及甜品"
+  },
+  {
+    "description": "",
+    "name": "油炸小吃"
+  },
+  {
+    "description": "",
+    "name": "怀旧零食"
+  },
+  {
+    "description": "",
+    "name": "鲜榨果汁（冷饮）"
+  },
+  {
+    "description": "",
+    "name": "加料区"
+  }
+]

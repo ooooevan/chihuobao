@@ -1,5 +1,7 @@
 <template>
-  <router-view/>
+  <keep-alive>
+    <router-view/>
+  </keep-alive>
 </template>
 
 <script>
@@ -8,5 +10,5 @@ export default {
 </script>
 
 <style lang='sass'>
-  @import './assets/style/index'
+  @import './common/style/index'
 </style>

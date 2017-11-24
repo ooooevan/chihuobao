@@ -60,14 +60,16 @@ export default {
     height: 50px!important
     line-height: 50px
     background: #409eff
+    color: #fff
   .el-container
-    height: calc(100% - 60px)
+    height: calc(100% - 50px)
   .el-aside
     background: #545c64
     width: 230px!important
     .el-menu
-    border-right: none
+      border-right: none
   .el-main
     border: 1px solid #eee
     background: #eee
+    padding: 0
 </style>

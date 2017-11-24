@@ -1,0 +1,110 @@
+{
+  "activities": [
+    {
+      "attribute": "6.0",
+      "description": "新用户下单立减6元(不与其它活动同享)",
+      "icon_color": "70bc46",
+      "icon_name": "首",
+      "id": 604620913,
+      "is_exclusive_with_food_activity": true,
+      "name": "新用户立减(不与其他活动共享)",
+      "tips": "新用户下单立减6元(不与其它活动同享)",
+      "type": 103
+    }
+  ],
+  "address": "广东海洋大学正对面综合楼（飞宏名城）一楼15号店",
+  "albums": [
+    {
+      "count": 1,
+      "cover_image_hash": "6c29c78a08b0a8f463642eadf3d8138ajpeg",
+      "name": "门面",
+      "photos": [
+        {
+          "description": "门头照",
+          "id": 3097445,
+          "image_hash": "6c29c78a08b0a8f463642eadf3d8138ajpeg",
+          "type": "FRONT"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "cover_image_hash": "e95a2c70b64923aa3f1c16e90a47806cjpeg",
+      "name": "大堂",
+      "photos": [
+        {
+          "description": "店内照",
+          "id": 3097446,
+          "image_hash": "e95a2c70b64923aa3f1c16e90a47806cjpeg",
+          "type": "HALL"
+        }
+      ]
+    }
+  ],
+  "authentic_id": 7371986358132846,
+  "delivery_mode": {
+    "border": "FFFFFF",
+    "color": "",
+    "id": 2,
+    "is_solid": true,
+    "text": "商家配送",
+    "text_color": "FFFFFF"
+  },
+  "description": "",
+  "distance": 1056,
+  "favored": false,
+  "flavors": [
+    {
+      "id": 241,
+      "name": "甜品"
+    },
+    {
+      "id": 240,
+      "name": "奶茶果汁"
+    }
+  ],
+  "float_delivery_fee": 0,
+  "float_minimum_order_amount": 10,
+  "id": 1423546,
+  "image_path": "7fbef04af49d56f2507523164760acc7png",
+  "is_new": false,
+  "is_premium": false,
+  "is_stock_empty": 0,
+  "is_valid": 1,
+  "latitude": 21.143804,
+  "longitude": 110.302505,
+  "max_applied_quantity_per_order": 1,
+  "name": "royaltea 皇茶",
+  "next_business_time": "",
+  "only_use_poi": false,
+  "opening_hours": [
+    "10:50/23:55"
+  ],
+  "order_lead_time": 38,
+  "phone": "13435216104 13376716479",
+  "piecewise_agent_fee": {
+    "description": "免配送费",
+    "extra_fee": 0,
+    "is_extra": false,
+    "rules": [
+      {
+        "fee": 0,
+        "price": 10
+      }
+    ],
+    "tips": "免配送费"
+  },
+  "promotion_info": "本店暂时没有女配送员，女生宿舍不能送上楼请谅解！男生宿舍都送上楼的，除非门卫不给上楼",
+  "rating": 4.5,
+  "rating_count": 327,
+  "recent_order_num": 1452,
+  "recommend": {
+    "is_ad": false,
+    "reason": ""
+  },
+  "regular_customer_count": 0,
+  "scheme": "eleme://catering?restaurant_id=1423546",
+  "status": 1,
+  "supports": [],
+  "type": 0
+}

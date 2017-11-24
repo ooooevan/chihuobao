@@ -1,0 +1,218 @@
+[
+  {
+    "address": "广东海洋大学正对面综合楼（飞宏名城）一楼15号店",
+    "description": "",
+    "name": "royaltea 皇茶",
+    "status": 1,
+    "latitude": 21.143804,
+    "longitude": 110.302505,
+    "image_path": "7fbef04af49d56f2507523164760acc7png"
+  },
+  {
+    "address": "广东海洋大学主校区正门口对面月岭村委会综合楼一楼13号",
+    "description": "",
+    "name": "薡御贡茶海大店",
+    "status": 1,
+    "latitude": 21.144709,
+    "longitude": 110.302246,
+    "image_path": "0a745a05b6331743cfd40f686912927cpng"
+  },
+  {
+    "address": "湛江市麻章区海大路4号（优佳广场28号门店）",
+    "description": "内设空调，免费WIFI，环境舒适.",
+    "name": "膳玉贡茶",
+    "status": 5,
+    "latitude": 21.150362,
+    "longitude": 110.301132,
+    "image_path": "39be6f8ea7beb03af0ce855a79361f70jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇广东海洋大学门口湖光路第五间",
+    "description": "",
+    "name": "约吗",
+    "status": 1,
+    "latitude": 21.14457,
+    "longitude": 110.302312,
+    "image_path": "3eeeec80831f7fcdad79fb6c112523c1jpeg"
+  },
+  {
+    "address": "广东海洋大学主校区正门口对面后坛村委会综合楼飞宏名城一楼16号档内",
+    "description": "",
+    "name": "无国界快餐",
+    "status": 5,
+    "latitude": 21.149075,
+    "longitude": 110.301456,
+    "image_path": "7612d81e896ef67bfa31cb0776eefa68jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇后坛村村小组村口牌坊西侧第一幢1号",
+    "description": "新店已搬到海大爱琴海KTV旁边，想吃脆脆的鸡蛋仔欢迎来店里购买。",
+    "name": "食客尚饮",
+    "status": 1,
+    "latitude": 21.143124,
+    "longitude": 110.300309,
+    "image_path": "713036a8e91e52bdee236c761e697962jpeg"
+  },
+  {
+    "address": "湛江市麻章区广东海洋大学主校区小吃街",
+    "description": "洋洋芋圆取名于爱女：小洋洋，每一份我们均用爱制作，为的是为我们海大每一位学子捧上一份：健康的、性格比高的、美味的产品！我们的芋圆系海大首家心血自创水果芋圆，一直被，跟风与模仿但一直未被超越！果饮类外卖均用  （大杯量规格）！",
+    "name": "洋洋饮吧",
+    "status": 1,
+    "latitude": 21.1505294499894,
+    "longitude": 110.30151053601,
+    "image_path": "094c74f9a34163ef2220e54daaef1537jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇后坛村71号房屋",
+    "description": "|台湾贡茶|会员全场饮品尊享九折！宝宝们，快来加入会员吧~",
+    "name": "台湾贡茶",
+    "status": 1,
+    "latitude": 21.144538,
+    "longitude": 110.302736,
+    "image_path": "b6bf92672d6cdbb3c483fc5b28b11e6dpng"
+  },
+  {
+    "address": "广东省湛江市麻章区麻章镇学智路2号",
+    "description": "",
+    "name": "甜谷甜品",
+    "status": 1,
+    "latitude": 21.145094,
+    "longitude": 110.301561,
+    "image_path": "91ea9e52950f2c488802a104ddf09e2cjpeg"
+  },
+  {
+    "address": "湛江市工商局",
+    "description": "叫外卖，上饿了么！",
+    "name": "海云中西美食坊",
+    "status": 5,
+    "latitude": 21.150123,
+    "longitude": 110.301513,
+    "image_path": "41bda1b5c353b9440d5ed57f11a59b95jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇海大路广东海洋大学湖光校区东区网球场器材管理室第1~2号房屋",
+    "description": "1935，一家属于海大人的咖啡厅，位于广东海洋大学校内游泳池旁，有着海大校内外最优雅的环境。主营饮品有咖啡，奶茶，果汁，特饮，冰乐。主食有披萨，意面，焗饭，炒饭等。店里分雨棚雅座，室内空调包间，室外遮阳区，后花园雅座，还有花房，园艺区，水果房。欢迎志同道合的朋友过来玩耍。",
+    "name": "1935咖啡馆",
+    "status": 1,
+    "latitude": 21.147747,
+    "longitude": 110.304713,
+    "image_path": "60a87172401e9b82fe63556da6b076f8jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光岩东广东海洋大学主校区商业服务中心第6号二楼（3）房内",
+    "description": "哥哥雙皮奶校内商業中心5月18號恢復正常營業了！同賀4周年！只要消費麵食，再購買任意飲品可直享半價！\n校外堅品雙皮奶店，價格優惠！是哥哥雙皮奶的旗下品牌：（原川町太郎位置）13437878891，13590051269",
+    "name": "哥哥双皮奶",
+    "status": 1,
+    "latitude": 21.144649,
+    "longitude": 110.301404,
+    "image_path": "8f98d4fd707cafd7ccca50370acce223jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇月岭村委会后坛村村口对面桥头东侧第四号",
+    "description": "",
+    "name": "城乐菜篮子平价商店",
+    "status": 5,
+    "latitude": 21.145606,
+    "longitude": 110.301002,
+    "image_path": "35276982c90e22df25c8d6806c3dae19jpeg"
+  },
+  {
+    "address": "广东海洋大学主校区商业广场第12号内",
+    "description": "",
+    "name": "海大蔬果行",
+    "status": 5,
+    "latitude": 21.144613,
+    "longitude": 110.302315,
+    "image_path": "a56956aff0f2a339890ab23bd2dffc95jpeg"
+  },
+  {
+    "address": "广东海洋大学门口对面（农科所商业街）第2间商铺",
+    "description": "舌尖是你老铁、好吃问你师姐.........",
+    "name": "妈妈的味道",
+    "status": 1,
+    "latitude": 21.143124,
+    "longitude": 110.300309,
+    "image_path": "b67b4ee44a67338199590d4f3af29fe9jpeg"
+  },
+  {
+    "address": "广东海洋大学主校区商业广场第12号内",
+    "description": "",
+    "name": "长生水果蔬阁",
+    "status": 5,
+    "latitude": 21.14515,
+    "longitude": 110.30176,
+    "image_path": "24db0837c72b8743ee7f14b3bad4c8bcjpeg"
+  },
+  {
+    "address": "广东海洋大学主校区学生公寓（海欢）大院内",
+    "description": "大众寿司及将推出药膳营养汤，滋补养颜清热去火。尽请期待",
+    "name": "大众寿司",
+    "status": 5,
+    "latitude": 21.148858,
+    "longitude": 110.303691,
+    "image_path": "b164c1c18f0db29be7d6b6165d215c08jpeg"
+  },
+  {
+    "address": "广东海洋大学主校区正门口对面月岭村委会综合楼飞宏名城一楼7号",
+    "description": "",
+    "name": "碉堡",
+    "status": 5,
+    "latitude": 21.144709,
+    "longitude": 110.302246,
+    "image_path": "2ec03c0b80fd35a5d898e18336459857jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光市场良丰4号内",
+    "description": "海大一品鲜是海大学子自立的品牌，为各位海大的师弟师妹带来美味的食物！",
+    "name": "海大一品鲜",
+    "status": 5,
+    "latitude": 21.144351,
+    "longitude": 110.30153,
+    "image_path": "0082a9c123295ffc8c4ee6a4345dbbdajpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇后坛村10队16号",
+    "description": "请各位宝宝下单时间集中在10:30前&11:30前&12:30前&16:30前&17:30前&18:30前下单，拜托你们了！我们其实很无辜的，商家都不能自己送单进学校。。现在配送团队每次配送都是有时段安排的，如果在这个时间前下单我们可以做到尽可能快送到你的手上❤️❤️❤️",
+    "name": "嘻哈面馆",
+    "status": 5,
+    "latitude": 21.145516,
+    "longitude": 110.30128,
+    "image_path": "cf8285ab0f6e9f390a2694e69011c949jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇湖光市场一楼烧腊行12号",
+    "description": "叫外卖，上饿了么！餐厅联系电话：18802508719；短号：668719",
+    "name": "山东面馆",
+    "status": 5,
+    "latitude": 21.150123,
+    "longitude": 110.301513,
+    "image_path": "af9ff1091746e8cbd4cd216c30419798jpeg"
+  },
+  {
+    "address": "湛江市麻章区湖光镇后坛村67号房内",
+    "description": "",
+    "name": "蔬果兄弟",
+    "status": 1,
+    "latitude": 21.149159,
+    "longitude": 110.304405,
+    "image_path": "1e41e10bcddf902b67f3c461577f15f1jpeg"
+  },
+  {
+    "address": "广东海洋大学主校区门口正对面（麻章区农业科学研究所1号地第二门）",
+    "description": "麻的地道，辣的适口，烫的营养！外卖电话13726902744、17308213002",
+    "name": "辣千骨",
+    "status": 1,
+    "latitude": 21.151325,
+    "longitude": 110.300695,
+    "image_path": "67e08bfdd5eddfcf64d2144e69a1ef91jpeg"
+  },
+  {
+    "address": "广东省湛江市麻章区麻章镇学智路2号",
+    "description": "叫外卖，上饿了么！男生女生送上楼哦",
+    "name": "吃我吧",
+    "status": 5,
+    "latitude": 21.151325,
+    "longitude": 110.300695,
+    "image_path": "0bf522f514e94e3a1f78936ee3d2704ejpeg"
+  }
+]

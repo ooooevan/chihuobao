@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class='home'>
     <div class='searchBox'>
-      <el-autocomplete 
-        placeholder='请输入内容' 
-        ref='input' 
-        v-model='input' 
+      <el-autocomplete
+        placeholder='请输入内容'
+        ref='input'
+        v-model='input'
         class='input-with-cascader'
         valueKey='name'
         popper-class='popper-class'
         :debounce=300
         :fetch-suggestions='querySearchAsync'
-        :trigger-on-focus='false'
+        :trigger-on-focus='true'
         @select='handleSelect'
       ><el-cascader slot='prepend'
           :options='cityOptions'
@@ -22,23 +22,24 @@
         <el-button slot='append' @click='search'>搜索</el-button>
       </el-autocomplete>
     </div>
-    <div class='div'>当前位置：{{locationCascader && locationCascader.length > 0 && locationCascader || location}}</div>
+    <div class='div'>当前城市：{{locationCascader && locationCascader.length > 0 && locationCascader || location}}</div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { getCity } from 'assets/javascript/api'
+import { initCity } from 'common/javascript/api'
 export default {
   data () {
     return {
       location: '请选择',
+      isSelect: false,  // 用户是否手动选择区域
       input: '',
       locationCascader: []
     }
   },
   created () {
-    this._getLocation()
+    this._initCity()
   },
   mounted () {
     const prepend = this.$refs.input.$el.getElementsByClassName('el-input-group__prepend')[0]
@@ -55,11 +56,12 @@ export default {
   },
   watch: {
     suggestionsList (newList) {
-      this.cb(newList)
+      this.cb && this.cb(newList)
     },
     locationCascader (newValue) {
-      console.log(newValue[0])
-      console.log(newValue[1])
+      this._selectLocation([newValue[0], newValue[1] || newValue[0]])
+      this.isSelect = true
+      console.log(`选择了：${newValue.join('')}`)
     }
   },
   methods: {
@@ -67,55 +69,58 @@ export default {
       this.$refs['input'].$el.getElementsByClassName('el-input__inner')[1].focus()
     },
     querySearchAsync (string, cb) {
-      if (string.trim() === '') return
+      if (string.trim() === '') {
+        // eslint-disable-next-line
+        cb([])
+        return
+      }
       this.getSuggestion(string.trim())
       this.cb = cb
     },
     handleSelect (item) {
-      this.saveAddress(item)
+      this.saveExactAddress(item)
       this.$router.push('/place')
     },
-    _getLocation () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          console.log(`经度：${position.coords.longitude}`)
-          console.log(`纬度：${position.coords.latitude}`)
-          this.setCoordinate([position.coords.longitude, position.coords.latitude])
-          getCity(position.coords.latitude, position.coords.longitude).then(result => {
-            // province = result.addressComponent.province
-            // city = result.addressComponent.city
-            // district = result.addressComponent.district
-            // formatted_address = result.formatted_address
-            // console.log(result.formatted_address)
-            this.location = result.addressComponent.city
-            this.pois = result.pois
-          })
-        }, (positionError) => {
-          console.log(`获取位置失败： ${positionError.code}, ${positionError.message}`)
-        })
-      } else {
-        console.log(`浏览器不支持navigator.geolocation定位`)
-      }
+    _selectLocation ([province, city]) {
+      this.setInexactAddress([province, city])
+      this.clearSuggestionsList()
+    },
+    _initCity () {
+      initCity().then(res => {
+        if (!this.isSelect) {
+          console.log(`定位到：${res.province}${res.city}`)
+          this.setInexactAddress([res.province, res.city])
+          this.location = res.city
+        }
+      })
     },
     ...mapActions(
       'user',
       [
         'getSuggestion',
-        'saveAddress'
+        'saveExactAddress'
       ]),
     ...mapMutations({
-      setCoordinate: 'user/SET_COORDINATE'
+      setInexactAddress: 'user/SET_INEXACT_CITY',
+      setCoordinate: 'user/SET_COORDINATE',
+      clearSuggestionsList: 'user/CLEAR_SUGGESTIONS_LIST'
     })
   }
 }
 </script>
 
 <style scoped lang='sass'>
+  $width : 550px
+  .home
+    padding: 1px
+  .input-with-cascader
+    width: $width
   .el-cascader
     width: 100px
   .searchBox
-    width: 50%
-    margin: 0 auto
+    width: $width
+    margin: 200px auto
+
 
   
 </style>

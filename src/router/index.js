@@ -1,32 +1,38 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from 'components/user/index'
-import join from 'components/user/join'
-import home from 'components/user/home'
-import order from 'components/user/order'
-import place from 'components/user/place'
-import userNo from 'components/user/pageNoFind'
+import { _hashExactAddress } from 'common/javascript/cache'
 
-import seller from 'components/seller/seller'
-import sellerHome from 'components/seller/home'
-import sellerInfo from 'components/seller/info'
-import sellerMenu from 'components/seller/menu'
-import sellerNew from 'components/seller/new'
-import sellerOrder from 'components/seller/order'
-import revenue from 'components/seller/revenue'
-import sellerStatistics from 'components/seller/statistics'
-import sellerNo from 'components/seller/pageNoFind'
+// 用户页面
+const index = () => import('components/user/index')
+const join = () => import('components/user/join')
+const home = () => import('components/user/home')
+const order = () => import('components/user/order')
+const place = () => import('components/user/place')
+const register = () => import('components/user/register')
+const shop = () => import('components/user/shop')
+const userNo = () => import('components/user/pageNoFind')
 
-import admin from 'components/admin/admin'
-import adminHome from 'components/admin/home'
-import audit from 'components/admin/audit'
-import adminShops from 'components/admin/shops'
-import statistics from 'components/admin/statistics'
-import adminUser from 'components/admin/user'
-import goodsClassification from 'components/admin/goodsClassification'
-import shopsClassification from 'components/admin/shopsClassification'
-import adminNo from 'components/admin/pageNoFind'
+// 商家页面
+const seller = () => import('components/seller/seller')
+const sellerHome = () => import('components/seller/home')
+const sellerInfo = () => import('components/seller/info')
+const sellerMenu = () => import('components/seller/menu')
+const sellerNew = () => import('components/seller/new')
+const sellerOrder = () => import('components/seller/order')
+const revenue = () => import('components/seller/revenue')
+const sellerStatistics = () => import('components/seller/statistics')
+const sellerNo = () => import('components/seller/pageNoFind')
 
+// 管理员页面
+const admin = () => import('components/admin/admin')
+const adminHome = () => import('components/admin/home')
+const audit = () => import('components/admin/audit')
+const adminShops = () => import('components/admin/shops')
+const statistics = () => import('components/admin/statistics')
+const adminUser = () => import('components/admin/user')
+const goodsClassification = () => import('components/admin/goodsClassification')
+const shopsClassification = () => import('components/admin/shopsClassification')
+const adminNo = () => import('components/admin/pageNoFind')
 Vue.use(Router)
 
 const router = new Router({
@@ -61,7 +67,25 @@ const router = new Router({
         {
           path: '/place',
           name: 'place',
-          component: place
+          component: place,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有地址，没有跳转到选择地址
+            if (_hashExactAddress()) {
+              next()
+            } else {
+              next('/home')
+            }
+          }
+        },
+        {
+          path: 'shop',
+          name: 'shop',
+          component: shop
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: register
         }
       ]
     },
