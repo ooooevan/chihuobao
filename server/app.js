@@ -5,22 +5,28 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
-const index = require('./routes/index')
-const users = require('./routes/users')
-
+const session = require('koa-session2')
+const jwtKoa = require('koa-jwt')
+const jwt = require('jsonwebtoken')
+const phantom = require('phantom')
+// var session = require('koa-generic-session')
+// var MongooseStore = require('koa-session-mongoose')
+var mongoose = require('mongoose')
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost/vue', {useMongoClient: true})
+let db = mongoose.connection
 // error handler
 onerror(app)
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
-
-app.use(views(__dirname + '/views', {
+app.use(require('koa-static')(`${__dirname}/public`))
+app.use(jwtKoa({ secret: 'shared-secret' }).unless({ path: [/^\/public/, /^\/register/, /^\/login/] }))
+app.use(views(`${__dirname}/views`, {
   extension: 'pug'
 }))
 
@@ -32,13 +38,32 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(session({
+  key: 'sessionid---'
+}))
+
+// app.use(async ctx => {
+//   const token = jwt.sign({ name: 'evan' }, 'shhhhh', {expiresIn: 60 * 60}) // 按秒计算
+//   var decoded = jwt.verify(token, 'wsd')
+//   jwt.verify(`${token}1`, 'wsd', function (err, decoded) {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       console.log(decoded.aa)
+//     }
+//   })
+//   ctx.body = token
+// })
+
+// require('./routes/index')(app)
+// require('./app/models/user')
+// require('./app/coltrollers/user')
 
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
-});
+})
 
+db.on('error', console.log.bind(console, '连接错误'))
+db.on('open', console.log.bind(console, '连接成功'))
 module.exports = app

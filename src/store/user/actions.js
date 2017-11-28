@@ -1,5 +1,5 @@
 import * as types from './mutations-type'
-import { getSuggestionApi } from 'common/javascript/api'
+import { getSuggestionApi } from 'common/javascript/userApi'
 import { _saveExactAddress, _clearExactAddress } from 'common/javascript/cache'
 export function getSuggestion ({commit, state}, str) {
   const address = state.inexactAddress[1]  // 选择城市

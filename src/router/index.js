@@ -3,36 +3,38 @@ import Router from 'vue-router'
 import { _hashExactAddress } from 'common/javascript/cache'
 
 // 用户页面
-const index = () => import('components/user/index')
-const join = () => import('components/user/join')
-const home = () => import('components/user/home')
-const order = () => import('components/user/order')
-const place = () => import('components/user/place')
-const register = () => import('components/user/register')
-const shop = () => import('components/user/shop')
-const userNo = () => import('components/user/pageNoFind')
+const index = () => import('pages/user/index')
+const join = () => import('pages/user/join')
+const home = () => import('pages/user/home')
+const order = () => import('pages/user/order')
+const place = () => import('pages/user/place')
+const register = () => import('pages/user/register')
+const login = () => import('pages/user/login')
+const shop = () => import('pages/user/shop')
+const userNo = () => import('pages/user/pageNoFind')
 
 // 商家页面
-const seller = () => import('components/seller/seller')
-const sellerHome = () => import('components/seller/home')
-const sellerInfo = () => import('components/seller/info')
-const sellerMenu = () => import('components/seller/menu')
-const sellerNew = () => import('components/seller/new')
-const sellerOrder = () => import('components/seller/order')
-const revenue = () => import('components/seller/revenue')
-const sellerStatistics = () => import('components/seller/statistics')
-const sellerNo = () => import('components/seller/pageNoFind')
+const seller = () => import('pages/seller/seller')
+const sellerHome = () => import('pages/seller/home')
+const sellerInfo = () => import('pages/seller/info')
+const sellerMenu = () => import('pages/seller/menu')
+const sellerNew = () => import('pages/seller/new')
+const sellerOrder = () => import('pages/seller/order')
+const revenue = () => import('pages/seller/revenue')
+const sellerStatistics = () => import('pages/seller/statistics')
+const sellerNo = () => import('pages/seller/pageNoFind')
 
 // 管理员页面
-const admin = () => import('components/admin/admin')
-const adminHome = () => import('components/admin/home')
-const audit = () => import('components/admin/audit')
-const adminShops = () => import('components/admin/shops')
-const statistics = () => import('components/admin/statistics')
-const adminUser = () => import('components/admin/user')
-const goodsClassification = () => import('components/admin/goodsClassification')
-const shopsClassification = () => import('components/admin/shopsClassification')
-const adminNo = () => import('components/admin/pageNoFind')
+const admin = () => import('pages/admin/admin')
+const adminHome = () => import('pages/admin/home')
+const audit = () => import('pages/admin/audit')
+const adminShops = () => import('pages/admin/shops')
+const statistics = () => import('pages/admin/statistics')
+const adminUser = () => import('pages/admin/user')
+const goodsClassification = () => import('pages/admin/goodsClassification')
+const classification = () => import('pages/admin/classification')
+const shopsClassification = () => import('pages/admin/shopsClassification')
+const adminNo = () => import('pages/admin/pageNoFind')
 Vue.use(Router)
 
 const router = new Router({
@@ -86,6 +88,11 @@ const router = new Router({
           path: '/register',
           name: 'register',
           component: register
+        },
+        {
+          path: '/login',
+          name: 'login',
+          component: login
         }
       ]
     },
@@ -93,7 +100,7 @@ const router = new Router({
       path: '/admin',
       name: 'admin',
       component: admin,
-      redirect: '/admin/home',
+      redirect: '/admin/user',
       children: [
         {
           path: 'home',
@@ -114,6 +121,10 @@ const router = new Router({
         {
           path: 'user',
           component: adminUser
+        },
+        {
+          path: 'classification',
+          component: classification
         },
         {
           path: 'goodsClassification',
