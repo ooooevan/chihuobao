@@ -9,15 +9,12 @@
         <el-form-item prop="pass">
           <el-input placeholder="密码" type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
         </el-form-item>
-        <!-- <el-form-item prop="checkPass">
-          <el-input placeholder="确认密码" type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
-        </el-form-item>-->
         <el-form-item prop="code" class='codeProp'>
-          <el-input class='setCode' placeholder="验证码" type="text" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
+          <el-input class='setCode' placeholder="验证码" type="text" v-model="ruleForm.code" auto-complete="off"></el-input>
           <el-button class='getCode' :disabled='disabled' type="primary" @click="sendCode">{{codeText}}</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button class='submit' type="primary" @click="submitForm('ruleForm')">注册</el-button>
+          <el-button class='submit' type="primary" @click="register('ruleForm')">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -25,6 +22,7 @@
 </template>
 
 <script>
+import { _sendCode, _register } from 'common/javascript/userApi'
 
 export default {
   data () {
@@ -48,17 +46,12 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
-        }
         callback()
       }
     }
-    var validatePass2 = (rule, value, callback) => {
+    var validateCode = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'))
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error('两次输入密码不一致!'))
+        callback(new Error('请输入验证码'))
       } else {
         callback()
       }
@@ -66,15 +59,15 @@ export default {
     return {
       ruleForm: {
         pass: '',
-        checkPass: '',
+        code: '',
         phone: ''
       },
       rules: {
         pass: [
           { validator: validatePass, trigger: 'blur' }
         ],
-        checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
+        code: [
+          { validator: validateCode, trigger: 'blur' }
         ],
         phone: [
           { validator: checkPhone, trigger: 'blur' }
@@ -86,30 +79,78 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
+    register (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          const { pass, code, phone } = this.ruleForm
+          _register(phone, pass, code).then(obj => {
+            if (!obj.code) {
+              this.$message({
+                showClose: true,
+                message: '注册成功，请登录',
+                type: 'success'
+              })
+              this.$router.push('/login')
+            } else if (obj.code === 3) {
+              this.$message({
+                showClose: true,
+                message: '验证码错误',
+                type: 'error'
+              })
+            } else {
+              this.$message({
+                showClose: true,
+                message: '注册失败，请稍后再试',
+                type: 'error'
+              })
+            }
+          })
         } else {
-          console.log('error submit!!')
+          console.log('error submit')
           return false
         }
       })
     },
     sendCode () {
-      this.codeText = `60秒`
-      this.disabled = true
-      // this._sendCode()
-      this.timer = setInterval(() => {
-        this.codeText = parseInt(this.codeText) - 1
-        if (this.codeText === 0) {
-          this.codeText = '获取验证码'
-          this.disabled = false
-          clearInterval(this.timer)
-        } else {
-          this.codeText = `${this.codeText}秒`
-        }
-      }, 1000)
+      const phone = this.ruleForm.phone
+      if (Number.isInteger(phone) && `${phone}`.length === 11) {
+        // 发送验证码
+        this.disabled = true
+        _sendCode(phone).then(obj => {
+          if (obj.code === '1') {
+            this.$message({
+              showClose: true,
+              message: '已发送',
+              type: 'success'
+            })
+            this.codeText = `60秒`
+            this.disabled = true
+            this.timer = setInterval(() => {
+              this.codeText = parseInt(this.codeText) - 1
+              if (this.codeText === 0) {
+                this.codeText = '获取验证码'
+                this.disabled = false
+                clearInterval(this.timer)
+              } else {
+                this.codeText = `${this.codeText}秒`
+              }
+            }, 1000)
+          } else if (obj.code === '603') {
+            this.$message({
+              showClose: true,
+              message: '此手机号已注册，请登录'
+            })
+            this.$router.push('/login')
+          } else {
+            this.$message({
+              showClose: true,
+              message: '发送失败',
+              type: 'error'
+            })
+            this.disabled = false
+          }
+        })
+      }
     }
   }
 }
@@ -118,10 +159,10 @@ export default {
 <style scoped lang='sass'>
 .register
   display: flex
-  min-height: 300px
+  min-height: 620px
   .form
     width: 25%
-    margin: 220px auto 100px
+    margin: auto
     padding: 20px
     border-radius: 5px
     background: #fff

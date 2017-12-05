@@ -10,6 +10,6 @@ export default new Vuex.Store({
   modules: {
     user
   },
-  strict: debug,
+  // strict: debug,
   plugins: debug ? [createLogger()] : []
 })

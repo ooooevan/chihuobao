@@ -48,6 +48,14 @@
           prop="address"
           label="地址">
         </el-table-column>
+         <el-table-column
+          align='center'
+          label="操作">
+          <template slot-scope="scope">
+            <el-button type="text" @click='freeze(scope.row)' size="small">冻结</el-button>
+            <el-button type="text" @click='unFreeze(scope.row)' size="small">解冻</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -105,8 +113,32 @@
       }
     },
     methods: {
+      freeze () {
+        this.$confirm('是否冻结该商铺?', '提示', {
+          confirmButtonText: '冻结',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          // 冻结
+        }).catch(() => {
+          console.log('取消冻结')
+        })
+      },
+      unFreeze () {
+        this.$confirm('是否解冻该商铺?', '提示', {
+          confirmButtonText: '解冻',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          // 解冻
+        }).catch(() => {
+          console.log('取消解冻')
+        })
+      },
       search (keyword) {
-        alert(`搜索${keyword},分类，${this.filter}`)
+        if (keyword) {
+          alert(`搜索${keyword},分类，${this.filter}`)
+        }
       }
     }
   }

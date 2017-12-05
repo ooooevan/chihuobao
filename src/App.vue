@@ -11,4 +11,6 @@ export default {
 
 <style lang='sass'>
   @import './common/style/index'
+  .el-message-box
+      vertical-align: baseline
 </style>

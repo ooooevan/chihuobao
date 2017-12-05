@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "debug": "^2.6.3",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.2.0",
@@ -19,12 +20,15 @@
     "koa-json": "^2.0.2",
     "koa-jwt": "^3.2.2",
     "koa-logger": "^2.0.1",
+    "koa-multer": "^1.0.2",
     "koa-onerror": "^1.2.1",
     "koa-router": "^7.1.1",
     "koa-session-mongoose": "^1.0.0",
     "koa-session-store": "^2.0.0",
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
+    "moment": "^2.19.2",
+    "mongoose": "^4.13.5",
     "phantom": "^4.0.9",
     "pug": "^2.0.0-rc.1",
     "request": "^2.83.0"

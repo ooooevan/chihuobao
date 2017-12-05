@@ -3,9 +3,9 @@
     <div id="header">
       <div class="header container clearfix">
         <div class="simpleInfo">
-          <img src="//fuss10.elemecdn.com/e/5a/3d934467f2db898f0d7afcd42043cpng.png?imageMogr2/thumbnail/95x95/format/webp/quality/85">
+          <img :src='shopDetail.shopLogo'>
           <div class='shopName'>
-            <h1>YASO沙拉</h1>
+            <h1>{{shopDetail.shopName}}</h1>
             <br>
             <el-rate
               disabled
@@ -19,24 +19,24 @@
           <div class="sendCost">
             <h2>起送价</h2>
             <br>
-            <p>20元</p>
+            <p>{{shopDetail.shopStartDelivery}}元</p>
           </div>
           <div class="dispatchCost">
             <h2>配送费</h2>
             <br>
-            <p>￥3</p>
+            <p>{{shopDetail.shopDeliveryCost}}元</p>
           </div>
           <div class="arriveTime">
             <h2>平均送达速度</h2>
             <br>
-            <p>24分钟</p>
+            <p>{{shopDetail.deliveryTime}}分钟</p>
           </div>
         </div>
       </div>
       <div class="container clearfix shopButtom">
         <div class="shopNav fl">
           <ul>
-            <li @click='changeTag(index)' :class='{active: tag === activeTag}' v-for='(tag, index) in shopTag'>{{tag}}</li>
+            <li @click='changeTag(index)' :key='index' :class='{active: tag === activeTag}' v-for='(tag, index) in shopTag'>{{tag}}</li>
           </ul>
         </div>
         <search-box class='shopSearch fr' @search='search'></search-box>
@@ -47,13 +47,9 @@
         <seller-filter filterMsg='商品分类' class='filter padding15' :filterList='filterList' @select='filterSelect'></seller-filter>
         <h2 class='padding15'>热销</h2>
         <div class="cardWrapper">
-          <food-card status='on' @detail='detail' @addOne='addOne' :info='foodInfo1' class='card'></food-card>
-          <food-card status='off' @detail='detail' @addOne='addOne' :info='foodInfo2' class='card'></food-card>
-          <food-card status='on' @detail='detail' @addOne='addOne' :info='foodInfo1' class='card'></food-card>
-          <food-card status='on' @detail='detail' @addOne='addOne' :info='foodInfo1' class='card'></food-card>
-          <food-card status='on' @detail='detail' @addOne='addOne' :info='foodInfo1' class='card'></food-card>
+          <food-card :key='info.dishId' :status='shopDetail.status' @detail='detail' @addOne='addOne' :info='info' v-for='info in currentShopDishs' class='card'></food-card>
         </div>
-        <h2 class='padding15'>快餐</h2>
+        <h2 class='padding15'>快餐分类</h2>
         <div class="cardWrapper">
           <div class="card padding15">456</div>
         </div>
@@ -62,16 +58,26 @@
         <rate :data='rateData' class='rate padding15'></rate>
       </div>
       <div class="main fl" v-else-if="activeTag === shopTag[2]">
-        商家信息
+        <img :src='shopDetail.shopStoresImages' style='float:left' alt="门面照" width='50%'>
+        <img :src='shopDetail.shopDetailImages' style='float:left' alt="" width='50%'>
       </div>
-      <div class="notice fr padding15">公告</div>
+      <div class="notice fr padding15">
+        <p class='header'>公告</p>
+        <p class='content'>{{shopDetail.shopAnnouncement}}</p>
+        <p class='header'>营业时间</p>
+        <p class='content'>{{shopDetail.shopWorkTime}}</p>
+        <p class='header'>联系电话</p>
+        <p class='content'>{{shopDetail.shopPhone}}</p>
+      </div>
     </div>
-    <food-detail-card class='detailCard' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></food-detail-card>
+    <food-detail-card class='detailCard' :status='shopDetail.shopStatus' @addToCart='addOne' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></food-detail-card>
   </div>
 </template>
 <script>
 import searchBox from 'components/searchBox'
 import config from 'common/javascript/config'
+import { mapMutations, mapGetters } from 'vuex'
+import { _getInfoByShopId, _getCommentByDishId } from 'common/javascript/userApi'
 import sellerFilter from 'components/sellerfilter'
 import foodCard from 'components/foodCard'
 import foodDetailCard from 'components/foodDetailCard'
@@ -87,94 +93,10 @@ export default {
   },
   data () {
     return {
-      score: 3,
+      score: 0,
+      shopId: 0,
+      currentShopDishs: [],
       filterList: ['热销', '面食', '粉类', '拌面类', '双拼类', '小吃', '水饺', '云吞'],
-      foodInfo1: {
-        img: 'https://fuss10.elemecdn.com/f/c0/0ffb0941ffd0a9f6de864692c494fjpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        id: 123123123,
-        name: '土豆泥',
-        abstract: '一份不管抱，不符你咬我一份不管一份不管抱，不符你咬我一份不管一份不管抱，不符你咬我一份不管',
-        score: 4.6,
-        perMonth: 312,
-        money: 4.9,
-        status: 'on'
-      },
-      foodInfo2: {
-        img: 'https://fuss10.elemecdn.com/f/c0/0ffb0941ffd0a9f6de864692c494fjpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        id: 99999999,
-        name: '土豆泥',
-        abstract: '一份不管抱，不符你咬我一份不管一份不管抱，不符你咬我一份不管一份不管抱，不符你咬我一份不管',
-        score: 4.6,
-        perMonth: 312,
-        money: 4.9,
-        status: 'off'
-      },
-      rateData: [
-        {
-          avatar: '',
-          image_hash: '',
-          is_satisfied: 1,
-          rated_at: '2017-11-23 19:06',
-          score: 4,
-          rating_text: '还行还行还行还行还行还行还行还行还行还行还行还行还行还行还行还行还行还行',
-          user_id: 110690325,
-          user_name: '匿名用户',
-          foodList: [
-            {
-              foodId: 28319394332,
-              foodName: '瘦肉拌刀削面1'
-            },
-            {
-              foodId: 28319394322,
-              foodName: '瘦肉拌刀削面2'
-            },
-            {
-              foodId: 28319394321,
-              foodName: '瘦肉拌刀削面3'
-            }
-          ]
-        },
-        {
-          avatar: '',
-          image_hash: '',
-          is_satisfied: 1,
-          rated_at: '2017-11-23 09:24',
-          score: 1,
-          rating_text: '11',
-          user_id: 266094609,
-          user_name: '匿名用户'
-        },
-        {
-          avatar: '',
-          image_hash: '',
-          is_satisfied: 1,
-          rated_at: '2017-11-23 09:24',
-          score: 2,
-          rating_text: '22',
-          user_id: 266094609,
-          user_name: '匿名用户'
-        },
-        {
-          avatar: '',
-          image_hash: '',
-          is_satisfied: 1,
-          rated_at: '2017-11-23 09:24',
-          score: 3,
-          rating_text: '33',
-          user_id: 266094609,
-          user_name: '匿名用户'
-        },
-        {
-          avatar: '',
-          image_hash: '',
-          is_satisfied: 1,
-          rated_at: '2017-11-23 09:24',
-          score: 4,
-          rating_text: '44',
-          user_id: 266094609,
-          user_name: '匿名用户'
-        }
-      ],
       shopTag: config.shopTag,
       activeTag: config.shopTag[0],
       detailVisible: false,
@@ -182,16 +104,33 @@ export default {
     }
   },
   watch: {
-    score (score) {
-      console.log('score变了：' + score)
+    shopDetail (newInfo) {
+      this.score = newInfo.level
+    },
+    shopDishs (newInfo) {
+      this.currentShopDishs = newInfo
     }
   },
   created () {
+    const shopId = this.shopId = this.$route.params.shopId
+    _getInfoByShopId(shopId).then(res => {
+      this.setShopDishs(res.data.dishs)
+      this.setShopDetail(res.data.shopDetail)
+    })
+  },
+  computed: {
+    ...mapGetters('user', [
+      'shopDetail',
+      'shopDishs'
+    ])
   },
   methods: {
     detail (item) {
-      this.detailInfo = item
       this.detailVisible = true
+      // 点开菜品详情，加载评论
+      _getCommentByDishId(this.shopId, item.dishId).then(res => {
+        this.detailInfo = res.data
+      })
     },
     closeDetail () {
       this.detailVisible = false
@@ -199,7 +138,7 @@ export default {
     addOne (item) {
       this.$notify({
         title: '添加成功',
-        message: `商品：${item.name}`,
+        message: `商品：${item.dishName}`,
         type: 'success',
         customClass: 'notification',
         position: 'bottom-right',
@@ -214,8 +153,14 @@ export default {
       this.activeTag = config.shopTag[index]
     },
     search (str) {
-      alert(`搜索：${str}`)
-    }
+      this.currentShopDishs = this.shopDishs.filter(item => {
+        return item.dishName.indexOf(str) > -1
+      })
+    },
+    ...mapMutations({
+      setShopDetail: 'user/SET_SHOP_DETAIL',
+      setShopDishs: 'user/SET_SHOP_DISHS'
+    })
   }
 }
 </script>
@@ -283,6 +228,10 @@ export default {
     width: 23%
     box-sizing: border-box
     background: #fff
+    .header
+      margin: 15px auto
+    .content
+      font-size: 15px
 .detailCard
   min-width: 990px
 </style>

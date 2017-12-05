@@ -1,5 +1,8 @@
 <template>
   <div class='container order'>
+    <div class="header">
+      个人中心
+    </div>
     <el-table
       :data='rateData'
       @row-click='toggleClick'
@@ -90,6 +93,8 @@
           }]
       }
     },
+    created () {
+    },
     methods: {
       toggleClick (item) {
         this.$refs.elTable.toggleRowExpansion(item)
@@ -104,6 +109,8 @@
 <style scoped lang='sass'>
 .order
   min-height: 700px
+  .header
+    margin: 20px auto
   .demo-table-expand
     font-size: 0
   .demo-table-expand 

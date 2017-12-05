@@ -1,24 +1,36 @@
-// const request = require('request')
-// const router = require('koa-router')()
+const User = require('../app/controllers/user')
 
-module.exports = function (app) {
-  app.use(async (ctx) => {
-    ctx.cookies.set(
-      'cid',
-      'hello world',
-      {
-        maxAge: 10 * 60 * 1000,
-        expires: new Date('2017-11-29'),
-        httpOnly: false
-      }
-    )
-    if (ctx.session.__sss) {
-      console.log(`有值：${ctx.session.__sss}`)
-      ctx.body = `有值：${ctx.session.__sss}`
-    } else {
-      ctx.session.__sss = `123`
-      ctx.body = `hello`
-    }
+module.exports = function (router, upload) {
+  // router.use(async (ctx) => {
+  //   ctx.cookies.set(
+  //     'cid',
+  //     'hello world',
+  //     {
+  //       maxAge: 10 * 60 * 1000,
+  //       expires: new Date('2017-11-29'),
+  //       httpOnly: false
+  //     }
+  //   )
+  //   if (ctx.session.__sss) {
+  //     console.log(`有值：${ctx.session.__sss}`)
+  //     ctx.body = `有值：${ctx.session.__sss}`
+  //   } else {
+  //     ctx.session.__sss = `123`
+  //     ctx.body = `hello`
+  //   }
+  // })
+  router.post('/api/login', User.login)
+  router.post('/api/sendCode', User.sendCode)
+  router.post('/api/register', User.register)
+  router.post('/api/logOut', User.logOut)
+  router.get('/api/shop/findByRange', User.getShopList)
+  router.get('/api/shop/findById', User.getInfoByShopId)
+  router.get('/api/shop/dish', User.getCommentByDishId)
+  router.post('/api/order/find', User.findOrder)
+
+  router.post('/upload', upload.single('file'), async (ctx, next) => {
+    // const { originalname, path, mimetype, filename } = ctx.req.file
+    ctx.body = ctx.req.file
   })
 }
 

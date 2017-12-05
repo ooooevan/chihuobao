@@ -19,7 +19,7 @@
           v-model='locationCascader'
           ref='el-cascader'
         ></el-cascader>
-        <el-button slot='append' @click='search'>搜索</el-button>
+        <el-button class='search' slot='append' @click='search'>搜索</el-button>
       </el-autocomplete>
     </div>
     <div class='div'>当前城市：{{locationCascader && locationCascader.length > 0 && locationCascader || location}}</div>
@@ -109,18 +109,39 @@ export default {
 }
 </script>
 
-<style scoped lang='sass'>
+<style lang='sass'>
   $width : 550px
   .home
-    padding: 1px
+    min-height: 600px
+    position: relative
+    &:after
+      content: ""
+      background: url('../../common/images/1.jpg')
+      background-size: cover
+      position: absolute
+      // filter: blur(5px)
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
   .input-with-cascader
     width: $width
   .el-cascader
     width: 100px
   .searchBox
     width: $width
-    margin: 300px auto
+    padding-top: 230px
+    margin: 0 auto
+    position: relative
+    z-index: 10
+    .el-autocomplete.input-with-cascader
+      transform: scale(1.1, 1.1)
+      .el-input-group__append
+        background: #ff3838
+        border-color: #ff3838
+        .search
+          background: #ff3838
+          color: #fff
+          border-color: #ff3838
 
-
-  
 </style>

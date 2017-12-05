@@ -31,7 +31,7 @@
       >
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="http://localhost:3333/upload"
           name='file'
           :with-credentials="true"
           :show-file-list="false"
@@ -76,6 +76,8 @@
       handleAvatarSuccess (res, file) {
         // 这里需要修改url
         this.imageUrl = URL.createObjectURL(file.raw)
+        this.imageUrl = `uploads/${res.filename}`
+        alert(JSON.stringify(res))
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀

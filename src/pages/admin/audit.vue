@@ -56,7 +56,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <admin-audit-detail-card @reject='reject' @submit='submit' class='detailCard' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></admin-audit-detail-card>
+    <admin-audit-detail-card @reject='_reject' @submit='_submit' class='detailCard' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></admin-audit-detail-card>
   </div>
 </template>
 <script>
@@ -124,9 +124,31 @@
     },
     methods: {
       reject (item) {
-        this.closeDetail()
+        this.$confirm('是否审核不通过?', '提示', {
+          confirmButtonText: '不通过',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          this._reject()
+        }).catch(() => {
+          console.log('取消冻结')
+        })
       },
       submit (item) {
+        this.$confirm('是否审核通过?', '提示', {
+          confirmButtonText: '通过',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          this._submit()
+        }).catch(() => {
+          console.log('取消冻结')
+        })
+      },
+      _submit (item) {
+        this.closeDetail()
+      },
+      _reject (item) {
         this.closeDetail()
       },
       closeDetail () {

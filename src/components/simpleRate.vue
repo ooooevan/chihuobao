@@ -2,15 +2,15 @@
   <div>
     <ul>
       <p class='label'>评价</p>
-      <li class='rateLi' v-for='item in ativeData'>
+      <li class='rateLi' :key='item.dishId' v-for='item in ativeData'>
         <div class="clearfix">
           <el-rate
-            v-model="item.score"
+            v-model="item.level"
             disabled>
           </el-rate>
-          <span class='rateTime'>{{item.rated_at}}</span>
+          <span class='rateTime'>{{item.commentDate}}</span>
         </div>
-        {{item.rating_text.length > 30 ? `${item.rating_text.slice(0, 30)}...` : item.rating_text}}
+        {{item.commen && item.comment.length > 30 ? `${item.comment.slice(0, 30)}...` : item.comment}}
       </li>
     </ul>
     <el-pagination
@@ -28,15 +28,15 @@
     data () {
       return {
         pageSize: 7,
-        pageCount: Math.ceil(this.data.length / 3), //  默认一页3个
+        pageCount: Math.ceil(this.data && this.data.length / 3), //  默认一页3个
         currentPage: 1,
-        isShow: this.data.length > 3
+        isShow: this.data && this.data.length > 3
       }
     },
     props: {
       data: {
         type: Array,
-        default: {}
+        default: () => ([])
       }
     },
     computed: {

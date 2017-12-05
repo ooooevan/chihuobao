@@ -1,11 +1,24 @@
 <template>
   <header>
     <div class="container clearfix">
-      <router-link to="/" tag='a' class='fl nav logo'><!--<img :src='logo' />-->吃货宝</router-link>
+      <router-link to="/place" tag='a' class='fl nav logo'><!--<img :src='logo' />-->吃货宝</router-link>
       <router-link v-show="!home" to="/place" tag='a' class='fl nav'>首 页</router-link>
       <router-link v-show="!home" to="/order" tag='a' class='fl nav'>我的订单</router-link>
       <!-- <router-link v-show="!home" to="/join" tag='a' class='fl nav'>商家入驻</router-link> -->
-      <router-link to='' tag='a' class='fr nav'>
+      <router-link class='kaidian fr' to="" v-if='!userInfo.name'><span @click='kaidian'>我要开店</span></router-link>
+      <el-col :span="12" class='fr nav' v-if='userInfo.name'>
+        <el-dropdown :show-timeout='timeout'>
+          <span class="el-dropdown-link">
+            {{userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item><router-link to="/order">个人中心</router-link></el-dropdown-item>
+            <el-dropdown-item><router-link to=""><span @click='kaidian'>我要开店</span></router-link></el-dropdown-item>
+            <el-dropdown-item><router-link to=""><p @click='logOut'>退出</p></router-link></el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-col>
+      <router-link to='' tag='a' class='fr nav rightNav' v-else>
         <router-link class='login' to="/login">登录</router-link>
         <router-link class='login' to="/register">| 注册</router-link>
       </router-link>
@@ -23,15 +36,25 @@
         type: String,
         default: ''
       },
-      profile: {
+      userInfo: {
         type: Object,
         default: function () {
           return {}
         }
       }
     },
-    created () {
-      // debugger
+    data () {
+      return {
+        timeout: 150
+      }
+    },
+    methods: {
+      kaidian () {
+        this.$emit('kaidian')
+      },
+      logOut () {
+        this.$emit('logOut')
+      }
     }
   }
 </script>
@@ -65,6 +88,8 @@
       background: transparent
     &.router-link-active
       background: transparent
+  .rightNav
+    width: 100px
   .login
     color: #fff
     background: transparent
@@ -72,4 +97,22 @@
       background: transparent
     &:hover
       background: transparent
+  .el-dropdown-link
+    color: #fff
+    line-height: 60px
+    display: block
+    cursor: pointer
+  .el-dropdown-menu
+    .router-link-active
+      background: transparent
+  .kaidian
+    margin-top: 20px
+    margin-left: 10px
+    padding: 3px
+    font-size: 12px
+    color: #fff
+    background: #5db423!important
+    border-radius: 3px
+    &:hover
+      background: #5db423
 </style>

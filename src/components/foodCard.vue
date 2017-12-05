@@ -1,22 +1,22 @@
 <template>
   <div class="card" ref='card'>
-    <img :src="info.img" @click='detail'>
+    <img :src="info.dishImage" @click='detail'>
     <div class="message">
-      <p class='name'>{{info.name}}</p>
-      <p class='abstract'>{{info.abstract.length > 15 ? `${info.abstract.substr(0, 15)}...` : info.abstract}}</p>
+      <p class='name'>{{info.dishName}}</p>
+      <p class='abstract'>{{info.dishAbstract && info.dishAbstract.length > 15 ? `${info.dishAbstract.substr(0, 15)}...` : info.dishAbstract}}</p>
       <div class="clearfix padding">
         <el-rate
           disabled
           ref='el-rate'
-          v-model='info.score'
+          v-model='info.level'
           :allow-half='allowHalf'
           show-score
           text-color='#ff9900'>
         </el-rate>
-        <p class='perMonth'>月售{{info.perMonth}}份</p>
+        <p class='perMonth'>月售{{info.monthlySales}}份</p>
       </div>
-      <span class='money'>￥{{info.money}}</span>
-      <div :class="status" @click='addToCart'>加入购物车</div>
+      <span class='money'>￥{{info.dishPrice}}</span>
+      <div :class='_status' @click='addToCart'>加入购物车</div>
     </div>
   </div>
 </template>
@@ -28,8 +28,14 @@
         default: {}
       },
       status: {
-        type: String,
-        default: 'on'
+        type: Number,
+        default: 1
+      }
+    },
+    computed: {
+      _status (next) {
+        // 1表示营业中
+        return this.$props.status === 1 ? 'on' : 'off'
       }
     },
     data () {
@@ -47,7 +53,7 @@
         this.$emit('detail', this.info)
       },
       addToCart () {
-        if (this.status === 'on') {
+        if (this._status === 'on') {
           this.$emit('addOne', this.info)
         }
       }

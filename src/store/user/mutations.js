@@ -15,6 +15,30 @@ const mutations = {
   },
   [types.SET_INEXACT_CITY] (state, address) {
     state.inexactAddress = address
+  },
+  [types.SET_USER_INFO] (state, info) {
+    state.userInfo = info
+  },
+  [types.CLEAR_USER_INFO] (state) {
+    state.userInfo = {}
+  },
+  [types.NOTE_KAIDIAN] (state) {
+    state.noteKaidian = true
+  },
+  [types.CLEAR_KAIDIAN_NOTE] (state) {
+    state.noteKaidian = false
+  },
+  [types.SET_SHOP_LIST] (state, list) {
+    state.shopList = state.shopList.concat(list)
+  },
+  [types.CLEAR_SHOP_LIST] (state) {
+    state.shopList = []
+  },
+  [types.SET_SHOP_DISHS] (state, list) {
+    state.shopDishs = list
+  },
+  [types.SET_SHOP_DETAIL] (state, detail) {
+    state.shopDetail = detail
   }
 }
 

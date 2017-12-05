@@ -1,5 +1,20 @@
 const mongoose = require('mongoose')
-const ShopOrderSchema = require('../schemas/shop_order')
-const ShopOrderModel = mongoose.model('ShopOrder', ShopOrderSchema)
+const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
-module.exports = ShopOrderModel
+const ShopOrder = new mongoose.Schema({
+  user_id: {
+    type: ObjectId,
+    ref: 'User'
+  },
+  shop_id: {
+    type: ObjectId,
+    ref: 'Shop'
+  },
+  dish_id_list: String,
+  time: Date,
+  mongy: Number,
+  order_status: Number
+})
+
+module.exports = mongoose.model('ShopOrder', ShopOrder)

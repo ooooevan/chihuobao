@@ -6,18 +6,42 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-session2')
-const jwtKoa = require('koa-jwt')
-const jwt = require('jsonwebtoken')
-const phantom = require('phantom')
-// var session = require('koa-generic-session')
-// var MongooseStore = require('koa-session-mongoose')
-var mongoose = require('mongoose')
+const router = require('koa-router')()
+const multer = require('koa-multer')
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/')
+  },
+  filename: function (req, file, cb) {
+    const fileFormat = (file.originalname).split(`.`)
+    cb(null, `${Date.now()}.${fileFormat[fileFormat.length - 1]}`)
+  }
+})
+const upload = multer({storage: storage})
+const moment = require('moment')
+moment().format()
+
+const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/vue', {useMongoClient: true})
-let db = mongoose.connection
+mongoose.connection.on('error', console.log.bind(console, '连接mongoDb数据库错误'))
+mongoose.connection.on('open', console.log.bind(console, '连接数据库成功'))
+
+// 加载models
+require('./app/models/admin')
+require('./app/models/dish_comment')
+require('./app/models/food_type')
+require('./app/models/user')
+require('./app/models/shop_apply')
+require('./app/models/shop_order')
+require('./app/models/shop_type')
+require('./app/models/shop')
+require('./app/models/user_detail')
+require('./app/models/user_order')
+require('./app/models/menu')
+
 // error handler
 onerror(app)
-
 // middlewares
 app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']
@@ -25,7 +49,6 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(`${__dirname}/public`))
-app.use(jwtKoa({ secret: 'shared-secret' }).unless({ path: [/^\/public/, /^\/register/, /^\/login/] }))
 app.use(views(`${__dirname}/views`, {
   extension: 'pug'
 }))
@@ -41,29 +64,29 @@ app.use(async (ctx, next) => {
 app.use(session({
   key: 'sessionid---'
 }))
+app.use(async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
+  // ctx.set('Access-Control-Allow-Origin', 'http://localhost:8081')
+  ctx.set('Access-Control-Allow-Credentials', 'true')
+  ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  await next()
+})
+// 处理路由
+require('./routes/index')(router, upload)
 
-// app.use(async ctx => {
-//   const token = jwt.sign({ name: 'evan' }, 'shhhhh', {expiresIn: 60 * 60}) // 按秒计算
-//   var decoded = jwt.verify(token, 'wsd')
-//   jwt.verify(`${token}1`, 'wsd', function (err, decoded) {
-//     if (err) {
-//       console.log(err)
-//     } else {
-//       console.log(decoded.aa)
-//     }
-//   })
-//   ctx.body = token
+// let User = mongoose.model('User')
+// // User.create({user_name: 'eee', user_pwd: 'eee'})
+// new User({user_name: 'aaa3', user_pwd: 'aaa', phone_num: 1321, is_merchant: 123}).save(function (err) {
+//   if (err) throw new Error(err)
+//   console.log(`添加到数据库成功`)
 // })
 
-// require('./routes/index')(app)
-// require('./app/models/user')
-// require('./app/coltrollers/user')
+app
+  .use(router.routes())
+  .use(router.allowedMethods())
 
-// error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 })
 
-db.on('error', console.log.bind(console, '连接错误'))
-db.on('open', console.log.bind(console, '连接成功'))
 module.exports = app

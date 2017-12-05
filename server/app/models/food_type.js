@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-const FoodTypeSchema = require('../schemas/food_type')
-const FoodTypeModel = mongoose.model('DishComment', FoodTypeSchema)
 
-module.exports = FoodTypeModel
+const FoodType = new mongoose.Schema({
+  type: String,
+  create_time: Date
+})
+
+module.exports = mongoose.model('FoodType', FoodType)

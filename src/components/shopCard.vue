@@ -1,17 +1,17 @@
 <template>
   <div class='shopCard clearfix' @click='select'>
-    <img :src='info.img' width='70' height='70'>
+    <img :src='info.shopLogo' width='70' height='70'>
     <div class="message">
-      <p class='name'>{{info.name}}</p>
+      <p class='name'>{{info.shopName}}</p>
       <el-rate
         disabled
         ref='el-rate'
-        v-model='info.score'
+        v-model='info.level'
         show-score
         text-color='#ff9900'>
       </el-rate>
-      <p class='perMonth'>{{`月销${info.perMonth}单`}}</p>
-      <p class='dispatchCost'>{{`配送费￥${info.dispatchCost}`}}</p>
+      <p class='perMonth'>{{`月销${info.monthlySales || 0}单`}}</p>
+      <p class='dispatchCost'>{{`配送费￥${info.shopDeliveryCost}`}}</p>
     </div>
   </div>
 </template>

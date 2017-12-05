@@ -27,13 +27,13 @@
         width="180">
       </el-table-column>
     </el-table>
-    <div class="rate">
+    <!-- <div class="rate">
       <p>评价：{{info.rate || '未评价'}}</p>
       <p>回复：
         <input class='reply' type="text" v-model='reply' @keyup.enter='doReply'>
         <input class='replyBtn' type="button" value='回复' @click='doReply'>
       </p>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -50,9 +50,9 @@
       }
     },
     methods: {
-      doReply () {
-        alert(this.reply)
-      },
+      // doReply () {
+      //   alert(this.reply)
+      // },
       accept () {
         this.$emit('accept', this.info)
       },

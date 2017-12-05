@@ -11,6 +11,7 @@ const place = () => import('pages/user/place')
 const register = () => import('pages/user/register')
 const login = () => import('pages/user/login')
 const shop = () => import('pages/user/shop')
+const applyShop = () => import('pages/user/applyShop')
 const userNo = () => import('pages/user/pageNoFind')
 
 // 商家页面
@@ -34,6 +35,7 @@ const adminUser = () => import('pages/admin/user')
 const goodsClassification = () => import('pages/admin/goodsClassification')
 const classification = () => import('pages/admin/classification')
 const shopsClassification = () => import('pages/admin/shopsClassification')
+const administrator = () => import('pages/admin/administrator')
 const adminNo = () => import('pages/admin/pageNoFind')
 Vue.use(Router)
 
@@ -80,7 +82,7 @@ const router = new Router({
           }
         },
         {
-          path: 'shop',
+          path: 'shop/:shopId',
           name: 'shop',
           component: shop
         },
@@ -93,6 +95,11 @@ const router = new Router({
           path: '/login',
           name: 'login',
           component: login
+        },
+        {
+          path: '/applyShop',
+          name: 'applyShop',
+          component: applyShop
         }
       ]
     },
@@ -133,6 +140,10 @@ const router = new Router({
         {
           path: 'shopsClassification',
           component: shopsClassification
+        },
+        {
+          path: 'administrator',
+          component: administrator
         },
         {
           path: '*',

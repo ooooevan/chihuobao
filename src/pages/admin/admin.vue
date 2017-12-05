@@ -38,6 +38,10 @@
           <el-menu-item index="4-1" route='shopsClassification'>商铺分类</el-menu-item>
           <el-menu-item index="4-2" route='goodsClassification'>商品分类</el-menu-item>
         </el-submenu> -->
+        <el-menu-item index="6" route='administrator'>
+          <i class="el-icon-setting"></i>
+          <span>管理员</span>
+        </el-menu-item>
         <el-menu-item index="5" route='statistics'>
           <i class="el-icon-setting"></i>
           <span>统计管理</span>
@@ -84,6 +88,9 @@ export default {
         break
       case 'statistics':
         this.defaultActive = '5'
+        break
+      case 'administrator':
+        this.defaultActive = '6'
         break
       default:
         this.defaultActive = '2'

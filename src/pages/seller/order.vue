@@ -2,7 +2,7 @@
   <div class="order">
     <div class="header">
       <ul>
-        <li @click='changeTag(index)' :class='{active: tag === activeTag}' v-for='(tag, index) in orderTag'>{{tag}}</li>
+        <li @click='changeTag(tag.value)' :key='index' :class='{active: tag.value === activeTag}' v-for='(tag, index) in orderTag'>{{tag.label}}</li>
       </ul>
     </div>
     <div class="content">
@@ -11,7 +11,6 @@
   </div>
 </template>
 <script>
-  import config from 'common/javascript/config'
   import orderCard from 'components/sellerOrderCard'
 
   export default {
@@ -20,8 +19,25 @@
     },
     data () {
       return {
-        orderTag: config.orderTag,
-        activeTag: config.orderTag[0],
+        orderTag: [
+          {
+            value: 3,
+            label: '新订单'
+          },
+          {
+            value: 4,
+            label: '制作中'
+          },
+          {
+            value: 2,
+            label: '已完成'
+          },
+          {
+            value: 5,
+            label: '已取消'
+          }
+        ],
+        activeTag: 3,
         info: [
           {
             cost: 34,
@@ -70,6 +86,9 @@
         ]
       }
     },
+    mounted () {
+      // 请求订单数据
+    },
     methods: {
       accept (item) {
         alert(`接收订单：${item}`)
@@ -78,7 +97,7 @@
         // alert(`将要取消订单：${item}`)
       },
       changeTag (index) {
-        this.activeTag = config.orderTag[index]
+        this.activeTag = index
       }
     }
   }

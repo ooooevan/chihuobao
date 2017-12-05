@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-var ObjectId = Schema.Types.ObjectId
+const ObjectId = Schema.Types.ObjectId
 
 const Apply = new mongoose.Schema({
   user_id: {
@@ -16,4 +16,4 @@ const Apply = new mongoose.Schema({
   shop_auto_images: String
 })
 
-module.exports = Apply
+module.exports = mongoose.model('UserApply', Apply)

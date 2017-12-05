@@ -1,5 +1,16 @@
 const mongoose = require('mongoose')
-const UserSchema = require('../schemas/user_datail')
-const UserDetail = mongoose.model('UserDetail', UserSchema)
+const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
-module.exports = UserDetail
+const UserSchema = new mongoose.Schema({
+  user_id: {
+    type: ObjectId,
+    ref: 'User'
+  },
+  accept_address: String,
+  avator: String,
+  gender: Number,
+  introduction: String
+})
+
+module.exports = mongoose.model('UserDetail', UserSchema)

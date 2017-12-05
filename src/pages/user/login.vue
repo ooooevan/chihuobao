@@ -9,6 +9,12 @@
         <el-form-item prop="pass">
           <el-input placeholder="密码" type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item prop='type' class='type'>
+          <el-radio-group v-model="ruleForm.type">
+            <el-radio label="1">用户</el-radio>
+            <el-radio label="2">商户</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item>
           <el-button class='submit' type="primary" @click="submitForm('ruleForm')">登录</el-button>
         </el-form-item>
@@ -21,12 +27,21 @@
 
 <script>
 import resetPassword from 'components/resetPassword'
-// import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { _login } from 'common/javascript/userApi'
+import { _hashExactAddress } from 'common/javascript/cache'
 
 export default {
   components: {
     resetPassword
+  },
+  computed: {
+    ...mapGetters(
+      'user',
+      [
+        'noteKaidian'
+      ]
+      )
   },
   data () {
     const checkPhone = (rule, value, callback) => {
@@ -54,6 +69,7 @@ export default {
     }
     return {
       ruleForm: {
+        type: '1',
         pass: '',
         phone: ''
       },
@@ -69,6 +85,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions('user',
+      [
+        'saveUserInfo'
+      ]
+    ),
     close () {
       this.resetVisible = false
     },
@@ -79,11 +100,43 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const { pass, phone } = this.ruleForm
-          _login(phone, pass)
+          _login(phone, pass).then(obj => {
+            const { id, name, code } = obj
+            this.saveUserInfo({name, id})
+            if (!code) {
+              if (this.noteKaidian) {
+                this.$confirm('是否马上申请开店?', '提示', {
+                  confirmButtonText: '申请',
+                  cancelButtonText: '取消',
+                  type: 'info'
+                }).then(() => {
+                  this.$router.push('/applyShop')
+                }).catch(() => {
+                  this.normalLogin()
+                })
+              } else {
+                this.normalLogin()
+              }
+            } else {
+              this.$message({
+                showClose: true,
+                message: '登录失败',
+                type: 'error'
+              })
+              return false
+            }
+          })
         } else {
           return false
         }
       })
+    },
+    normalLogin () {
+      if (_hashExactAddress()) {
+        this.$router.push('/place')
+      } else {
+        this.$router.push('/home')
+      }
     }
   }
 }
@@ -92,10 +145,10 @@ export default {
 <style scoped lang='sass'>
 .register
   display: flex
-  min-height: 300px
+  min-height: 620px
   .form
     width: 25%
-    margin: 220px auto 100px
+    margin: auto
     padding: 20px
     border-radius: 5px
     background: #fff
@@ -107,6 +160,8 @@ export default {
       font-size: 20px
     .ruleForm
       text-align: center
+      .type
+        text-align: left
       .submit
         width: 100%
   .forget
