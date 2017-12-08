@@ -1,8 +1,8 @@
 module.exports = {
   codeToMessage: {
-    0: 'no error',
-    1: 'the number has been registered',
-    2: 'error',
+    0: 'error',
+    1: 'no error',
+    603: 'the number has registered',
     3: 'identifying code error'
   }
 }

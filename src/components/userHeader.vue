@@ -5,14 +5,14 @@
       <router-link v-show="!home" to="/place" tag='a' class='fl nav'>首 页</router-link>
       <router-link v-show="!home" to="/order" tag='a' class='fl nav'>我的订单</router-link>
       <!-- <router-link v-show="!home" to="/join" tag='a' class='fl nav'>商家入驻</router-link> -->
-      <router-link class='kaidian fr' to="" v-if='!userInfo.name'><span @click='kaidian'>我要开店</span></router-link>
-      <el-col :span="12" class='fr nav' v-if='userInfo.name'>
+      <router-link class='kaidian fr' to="" v-if='!userInfo.userName'><span @click='kaidian'>我要开店</span></router-link>
+      <el-col :span="12" class='fr nav' v-if='userInfo.userName'>
         <el-dropdown :show-timeout='timeout'>
           <span class="el-dropdown-link">
-            {{userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+            {{userInfo.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><router-link to="/order">个人中心</router-link></el-dropdown-item>
+            <el-dropdown-item><router-link to="/profile">个人中心</router-link></el-dropdown-item>
             <el-dropdown-item><router-link to=""><span @click='kaidian'>我要开店</span></router-link></el-dropdown-item>
             <el-dropdown-item><router-link to=""><p @click='logOut'>退出</p></router-link></el-dropdown-item>
           </el-dropdown-menu>
@@ -101,7 +101,7 @@
     color: #fff
     line-height: 60px
     display: block
-    cursor: pointer
+    cursor: default
   .el-dropdown-menu
     .router-link-active
       background: transparent

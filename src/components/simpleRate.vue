@@ -14,7 +14,6 @@
       </li>
     </ul>
     <el-pagination
-      v-if='isShow'
       @current-change='changePage'
       layout="prev, pager, next"
       :page-size='pageSize'
@@ -29,8 +28,7 @@
       return {
         pageSize: 7,
         pageCount: Math.ceil(this.data && this.data.length / 3), //  默认一页3个
-        currentPage: 1,
-        isShow: this.data && this.data.length > 3
+        currentPage: 1
       }
     },
     props: {

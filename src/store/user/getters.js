@@ -15,3 +15,5 @@ export const shopList = state => state.shopList
 export const shopDishs = state => state.shopDishs
 
 export const shopDetail = state => state.shopDetail
+
+export const cartList = state => state.cartList

@@ -6,10 +6,10 @@
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
-          <!-- <p>共支付：<span class='cost'>{{props.row.orderAmount}}</span></p>
-          <p class='userInfo'>{{props.row.userName}}&nbsp;&nbsp;&nbsp;{{props.row.userPhone}}</p>
+          <!-- <p>共支付：<span class='cost'>{{props.row.amount}}</span></p>
+          <p class='userInfo'>{{props.row.userName}}&nbsp;&nbsp;&nbsp;{{props.row.shopNamme}}</p>
           <p>地址：{{props.row.acceptAddress}}</p>
-          <p>备注：{{props.row.orderRemarks}}</p> -->
+          <p>备注：{{props.row.remarks}}</p> -->
           <el-table
             :data="props.row.dishs"
             show-summary
@@ -31,25 +31,12 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="操作"
-      width="150">
-      <template slot-scope="scope">
-        <el-button @click="accept(scope.row)" v-if='scope.row.orderStatus === 3' class='accept' type="text" size="small">接单</el-button>
-        <el-button @click="notAccept(scope.row)" v-if='scope.row.orderStatus === 3' type="text" size="small">不接单</el-button>
-        <!-- <el-button @click="dispatch(scope.row)" v-if='scope.row.orderStatus === 4' class='accept' type="text" size="small">配送</el-button> -->
-        <!-- <el-button @click="finish(scope.row)" v-if='scope.row.orderStatus === 4' class='accept' type="text" size="small">完成</el-button> -->
-        <el-button @click="cancel(scope.row)" v-if='scope.row.orderStatus !== 5 && scope.row.orderStatus !== 2 && scope.row.orderStatus !== 3' class='notAccept' type="text" size="small">取消订单</el-button>
-        <el-button v-if='scope.row.orderStatus === 2' class='disabled' type="text" size="small">已完成</el-button>
-        <el-button v-if='scope.row.orderStatus === 5' class='disabled' type="text" size="small">已取消</el-button>
-      </template>
-    </el-table-column>
-    <el-table-column
       label="订单金额"
-      prop="orderAmount">
+      prop="amount">
     </el-table-column>
     <el-table-column
-      label="联系电话"
-      prop="userPhone">
+      label="店铺"
+      prop="shopNamme">
     </el-table-column>
     <el-table-column
       label="收货地址"
@@ -57,13 +44,42 @@
     </el-table-column>
     <el-table-column
       label="备注"
-      prop="orderRemarks">
+      prop="remarks">
+    </el-table-column>
+    <el-table-column
+      label="日期"
+      prop="createTime">
+    </el-table-column>
+    <el-table-column
+      label="操作"
+      width="150">
+      <template slot-scope="scope">
+        <el-button @click="goaccept(scope.row)" v-if='scope.row.status === 1' class='accept' type="text" size="small">去支付</el-button>
+        <el-button @click="accept(scope.row)" v-if='scope.row.status === 4' class='accept' type="text" size="small">已收货</el-button>
+        <!-- <el-button @click="dispatch(scope.row)" v-if='scope.row.status === 4' class='accept' type="text" size="small">配送</el-button> -->
+        <!-- <el-button @click="finish(scope.row)" v-if='scope.row.status === 4' class='accept' type="text" size="small">完成</el-button> -->
+        <el-button @click="cancel(scope.row)" v-if='scope.row.status === 1 || scope.row.status === 3 || scope.row.status === 4' class='notAccept' type="text" size="small">取消订单</el-button>
+        <el-button @click="showRate(scope.row)" v-if='scope.row.status === 2' class='accept' type="text" size="small">评价</el-button>
+        <el-button v-if='scope.row.status === 5' class='disabled' type="text" size="small">已取消</el-button>
+        <el-button @click="del(scope.row)" v-if='scope.row.status === 2 || scope.row.status === 5' class='notAccept' type="text" size="small">删除订单</el-button>
+      </template>
     </el-table-column>
   </el-table>
+  <rate-card class='rateCard' @rate='handleRate' :visible='rateVisible' @close='closeRate' :info='rateItems'></rate-card>
   </div>
 </template>
 <script>
+  import rateCard from 'components/rateCard'
   export default {
+    components: {
+      rateCard
+    },
+    data () {
+      return {
+        rateVisible: false,
+        rateItems: []
+      }
+    },
     props: {
       info: {
         type: Array,
@@ -74,30 +90,40 @@
       accept (item) {
         this.$emit('accept', item)
       },
-      notAccept (item) {
-        this.$confirm('确认不接收订单吗？', '提示', {
+      showRate (item) {
+        this.rateItems = item.dishs
+        this.rateVisible = true
+      },
+      handleRate (item) {
+        this.$confirm('确认rate订单吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$emit('notAccept', item)
+          this.$emit('rate', item)
         }).catch(() => {
-          console.log(`取消不接订单`)
+          console.log(`取消rate订单`)
         })
       },
       dispatch (item) {
         this.$emit('dispatch', item)
       },
       cancel (item) {
-        this.$confirm('确认取消订单吗？', '提示', {
+        this.$emit('cancel', item)
+      },
+      del (item) {
+        this.$confirm('确认删除订单吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$emit('cancel', item)
+          this.$emit('del', item)
         }).catch(() => {
-          console.log(`没有取消订单`)
+          console.log(`没有删除订单`)
         })
+      },
+      closeRate () {
+        this.rateVisible = false
       }
     }
   }

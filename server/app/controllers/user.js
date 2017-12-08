@@ -7,7 +7,7 @@ const { registerName } = require('../common/utils')
 const MapMsg = require('./dataMapping').codeToMessage
 
 exports.login = async ctx => {
-  const { phone, password } = ctx.request.body
+  const { phone, password, loginType } = ctx.request.body
   let user
   let match
   try {
@@ -20,36 +20,48 @@ exports.login = async ctx => {
   }
   if (match) {
     ctx.session.db = new Session(user)
-    ctx.body = {
-      code: 0,
-      id: user._id,
-      name: user.user_name
+    let response = {
+      code: 1,
+      // data: user
+      data: {
+        userId: 3213232132141421,
+        userName: '名字名字',
+        avator: 'https://fuss10.elemecdn.com/5/d3/f15d1526ac771189439ea0971c55apng.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
+        gender: 1,
+        phone: 1357912579,
+        acceptAddress: '地址地址',
+        introduction: '我是简介我是简介'
+      }
     }
+    if (loginType === 1) {
+      response.data.shopId = 12321321
+    }
+    ctx.body = response
   } else {
     ctx.body = {
-      code: 2,
-      message: MapMsg[2]
+      code: 0,
+      data: MapMsg[0]
     }
   }
 }
 
 exports.sendCode = async ctx => {
   const { phone } = ctx.request.body
-  const hasRegister = await new Promise((resolve, reject) => {
-    User.findOne({phone_num: phone}, (err, user) => {
-      if (err) {
-        console.log(err)
-      }
-      resolve(user)
-    })
-  })
-  if (hasRegister) {
-    ctx.body = {
-      message: MapMsg[1],
-      code: 1
-    }
-    return
-  }
+  // const hasRegister = await new Promise((resolve, reject) => {
+  //   User.findOne({phone_num: phone}, (err, user) => {
+  //     if (err) {
+  //       console.log(err)
+  //     }
+  //     resolve(user)
+  //   })
+  // })
+  // if (hasRegister) {
+  //   ctx.body = {
+  //     data: MapMsg[0],
+  //     code: 0
+  //   }
+  //   return
+  // }
   const ranCode = Math.random().toString().substr(2, 6)
   ctx.session = new Session(null, ranCode)
   const result = await new Promise((resolve, reject) => {
@@ -70,13 +82,13 @@ exports.sendCode = async ctx => {
       resolve(body)
     })
   })
-  let code = 0
-  if (result.error_code) {  // 短信发送失败，可能是发送次数过多
-    code = 2
+  let code = 1
+  if (result.error_code) {
+    code = 0
   }
   ctx.body = {
     code,
-    message: MapMsg[code]
+    data: MapMsg[code]
   }
 }
 
@@ -95,8 +107,8 @@ exports.register = async ctx => {
     })
     if (hasRegister) {
       ctx.body = {
-        code: 1,
-        message: MapMsg[1]
+        code: 603,
+        data: MapMsg[603]
       }
       return
     }
@@ -113,24 +125,127 @@ exports.register = async ctx => {
     if (create) {
       // 创建成功
       ctx.body = {
-        code: 0,
-        message: MapMsg[0]
+        code: 1,
+        message: MapMsg[1]
       }
     }
   } else {
     // 验证码不正确
     ctx.body = {
-      code: 3,
-      message: MapMsg[3]
+      code: 0,
+      message: MapMsg[0]
     }
+  }
+}
+
+exports.reset = async ctx => {
+  const { phone, password, checkCode } = this.request.body
+  const { code } = ctx.session
+  let user, match
+  try {
+    user = await User.findOne({phone_num: phone}).exec()
+    if (user) {
+      match = await user.comparePassword(password, user.user_pwd)
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  // if (match && code === checkCode) {
+  //   user.user_pwd = password
+  //   user.save((err, _user) => {
+  //     if (err) {
+  //       console.log(err)
+  //     } else {
+  //       console.log(_user)
+  //       ctx.body = {
+  //         code: 1,
+  //         data: {}
+  //       }
+  //     }
+  //   })
+  // } else {
+  //   ctx.body = {
+  //     code: 0,
+  //     data: MapMsg[0]
+  //   }
+  // }
+  ctx.body = {
+    code: 1,
+    data: {}
   }
 }
 
 exports.logOut = async ctx => {
   ctx.session = {}
   ctx.body = {
-    code: 0,
-    message: MapMsg[0]
+    code: 1,
+    data: MapMsg[1]
+  }
+}
+
+exports.getUserInfo = async ctx => {
+  // const user = ctx.session.db
+  // if (user) {
+  //   ctx.body = {
+  //     code: 1,
+  //     data: {
+  //       userId: user._id,
+  //       userName: user.user_name,
+  //       avator: '',
+  //       gender: 1,
+  //       phone: user.phone_num,
+  //       acceptAddress: '',
+  //       introduction: ''
+  //     }
+  //   }
+  // } else {
+  //   ctx.body = {
+  //     code: 0,
+  //     data: ''
+  //   }
+  // }
+  ctx.body = {
+    code: 1,
+    data: {
+      userId: 3213232132141421,
+      userName: '名字名字',
+      avator: 'https://fuss10.elemecdn.com/5/d3/f15d1526ac771189439ea0971c55apng.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
+      gender: 1,
+      phone: 1357912579,
+      acceptAddress: '地址地址',
+      introduction: '我是简介我是简介'
+    }
+  }
+}
+
+exports.modifyInfo = async ctx => {
+  // let { user } = ctx.session
+  // const { userName, avator, gender, acceptAddress, introduction, phone } = ctx.request.body
+  // Object.assign(user, {
+  //   user_name: userName,
+  //   phone_num: phone,
+  //   avator,  // 这个属性没有
+  //   gender,
+  //   acceptAddress,
+  //   introduction
+  // })
+  // user.save((err, _user) => {
+  //   if (err) console.log(err)
+  //   ctx.body = {
+  //     code: 1,
+  //     data: {}
+  //   }
+  // })
+  ctx.body = {
+    code: 1,
+    data: {}
+  }
+}
+
+exports.applyShop = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {}
   }
 }
 
@@ -148,7 +263,7 @@ exports.getShopList = async ctx => {
           shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
           shopAbstract: '这是商铺简介',
           shopDeliveryCost: '3',
-          level: '3',
+          level: 3,
           monthlySales: 312
         },
         {
@@ -157,7 +272,7 @@ exports.getShopList = async ctx => {
           shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
           shopAbstract: '这是商铺简介1',
           shopDeliveryCost: '3',
-          level: '4',
+          level: 4,
           monthlySales: 312
         },
         {
@@ -166,7 +281,7 @@ exports.getShopList = async ctx => {
           shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
           shopAbstract: '这是商铺简介2',
           shopDeliveryCost: '3',
-          level: '3.5',
+          level: 3.5,
           monthlySales: 433
         },
         {
@@ -175,7 +290,7 @@ exports.getShopList = async ctx => {
           shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
           shopAbstract: '这是商铺简介3',
           shopDeliveryCost: '3',
-          level: '3',
+          level: 3,
           monthlySales: 122
         }
       ]
@@ -359,14 +474,248 @@ exports.getCommentByDishId = async ctx => {
   }
 }
 
-exports.findOrder = async ctx => {
-  
-}
-
 exports.needSignIn = async (ctx, next) => {
   if (!ctx.session.db) {
     ctx.throw(401)
   } else {
     await next()
+  }
+}
+exports.getUserOrder = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      total: 11,
+      page: 1,
+      orders: [
+        {
+          userOrderId: +Math.random().toString().substr(2, 10),
+          userId: +Math.random().toString().substr(2, 10),
+          shopId: +Math.random().toString().substr(2, 10),
+          shopNamme: '商铺名称',
+          orderCode: +Math.random().toString().substr(2, 10),
+          amount: +Math.random().toString().substr(2, 4),
+          status: 3,
+          createTime: '2017-12-02',
+          remarks: '备注备注备注',
+          deliveryWay: '美团专送',
+          payWay: '支付宝',
+          acceptAddress: '海浪',
+          dishs: [
+            {
+              dishId: 23243214,
+              dishName: '鸡翅',
+              dishPrice: 12.2,
+              dishNum: 2
+            },
+            {
+              dishId: 23321,
+              dishName: '鸡翅2',
+              dishPrice: 12.2,
+              dishNum: 3
+            },
+            {
+              dishId: 23321123,
+              dishName: '鸡翅3',
+              dishPrice: 12.2,
+              dishNum: 4
+            }
+          ]
+        },
+        {
+          userOrderId: +Math.random().toString().substr(2, 10),
+          userId: +Math.random().toString().substr(2, 10),
+          shopId: +Math.random().toString().substr(2, 10),
+          shopNamme: '商铺名称',
+          orderCode: +Math.random().toString().substr(2, 10),
+          amount: +Math.random().toString().substr(2, 4),
+          status: 5,
+          createTime: '2017-12-02',
+          remarks: '备注备注备注',
+          deliveryWay: '美团专送',
+          payWay: '支付宝',
+          acceptAddress: '海浪',
+          dishs: [
+            {
+              dishId: 23243214,
+              dishName: '鸡翅',
+              dishPrice: 12.2,
+              dishNum: 2
+            },
+            {
+              dishId: 23321,
+              dishName: '鸡翅2',
+              dishPrice: 12.2,
+              dishNum: 3
+            },
+            {
+              dishId: 23321123,
+              dishName: '鸡翅3',
+              dishPrice: 12.2,
+              dishNum: 4
+            }
+          ]
+        },
+        {
+          userOrderId: +Math.random().toString().substr(2, 10),
+          userId: +Math.random().toString().substr(2, 10),
+          shopId: +Math.random().toString().substr(2, 10),
+          shopNamme: '商铺名称',
+          orderCode: +Math.random().toString().substr(2, 10),
+          amount: +Math.random().toString().substr(2, 4),
+          status: 4,
+          createTime: '2017-12-02',
+          remarks: '备注备注备注',
+          deliveryWay: '美团专送',
+          payWay: '支付宝',
+          acceptAddress: '海浪',
+          dishs: [
+            {
+              dishId: 23243214,
+              dishName: '鸡翅',
+              dishPrice: 12.2,
+              dishNum: 2
+            },
+            {
+              dishId: 23321,
+              dishName: '鸡翅2',
+              dishPrice: 12.2,
+              dishNum: 3
+            },
+            {
+              dishId: 23321123,
+              dishName: '鸡翅3',
+              dishPrice: 12.2,
+              dishNum: 4
+            }
+          ]
+        },
+        {
+          userOrderId: +Math.random().toString().substr(2, 10),
+          userId: +Math.random().toString().substr(2, 10),
+          shopId: +Math.random().toString().substr(2, 10),
+          shopNamme: '商铺名称',
+          orderCode: +Math.random().toString().substr(2, 10),
+          amount: +Math.random().toString().substr(2, 4),
+          status: 3,
+          createTime: '2017-12-02',
+          remarks: '备注备注备注',
+          deliveryWay: '美团专送',
+          payWay: '支付宝',
+          acceptAddress: '海浪',
+          dishs: [
+            {
+              dishId: 23243214,
+              dishName: '鸡翅',
+              dishPrice: 12.2,
+              dishNum: 2
+            },
+            {
+              dishId: 23321,
+              dishName: '鸡翅2',
+              dishPrice: 12.2,
+              dishNum: 3
+            },
+            {
+              dishId: 23321123,
+              dishName: '鸡翅3',
+              dishPrice: 12.2,
+              dishNum: 4
+            }
+          ]
+        },
+        {
+          userOrderId: +Math.random().toString().substr(2, 10),
+          userId: +Math.random().toString().substr(2, 10),
+          shopId: +Math.random().toString().substr(2, 10),
+          shopNamme: '商铺名称',
+          orderCode: +Math.random().toString().substr(2, 10),
+          amount: +Math.random().toString().substr(2, 4),
+          status: 2,
+          createTime: '2017-12-02',
+          remarks: '备注备注备注',
+          deliveryWay: '美团专送',
+          payWay: '支付宝',
+          acceptAddress: '海浪',
+          dishs: [
+            {
+              dishId: 23243214,
+              dishName: '鸡翅',
+              dishPrice: 12.2,
+              dishNum: 2
+            },
+            {
+              dishId: 23321,
+              dishName: '鸡翅2',
+              dishPrice: 12.2,
+              dishNum: 3
+            },
+            {
+              dishId: 23321123,
+              dishName: '鸡翅3',
+              dishPrice: 12.2,
+              dishNum: 4
+            }
+          ]
+        },
+        {
+          userOrderId: +Math.random().toString().substr(2, 10),
+          userId: +Math.random().toString().substr(2, 10),
+          shopId: +Math.random().toString().substr(2, 10),
+          shopNamme: '商铺名称',
+          orderCode: +Math.random().toString().substr(2, 10),
+          amount: +Math.random().toString().substr(2, 4),
+          status: 1,
+          createTime: '2017-12-02',
+          remarks: '备注备注备注',
+          deliveryWay: '美团专送',
+          payWay: '支付宝',
+          acceptAddress: '海浪',
+          dishs: [
+            {
+              dishId: 23243214,
+              dishName: '鸡翅',
+              dishPrice: 12.2,
+              dishNum: 2
+            },
+            {
+              dishId: 23321,
+              dishName: '鸡翅2',
+              dishPrice: 12.2,
+              dishNum: 3
+            },
+            {
+              dishId: 23321123,
+              dishName: '鸡翅3',
+              dishPrice: 12.2,
+              dishNum: 4
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+exports.deleteOrder = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {}
+  }
+}
+
+exports.getShopPhone = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      shop_phone: 11111113638
+    }
+  }
+}
+
+exports.finishOrder = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {}
   }
 }

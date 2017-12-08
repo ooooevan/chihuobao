@@ -17,6 +17,16 @@ export function jsonp (url) {
   })
 }
 
+export function baseGET (api, params) {
+  return axios({
+    method: 'get',
+    url: api,
+    params: {
+      ...params
+    }
+  }).then(res => res.data)
+}
+
 // export function initCity () {
 //   const url = `http://api.map.baidu.com/location/ip?ak=${config.ak}`
 //   return jsonp(url).then(res => {

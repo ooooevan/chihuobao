@@ -48,6 +48,7 @@
         </el-menu-item>
       </el-menu>
     </el-aside>
+    <admin-login @close='close' :visible='loginVisible'></admin-login>
     <el-main>
       <router-view></router-view>
     </el-main>
@@ -55,13 +56,20 @@
 </template>
 
 <script>
+import adminLogin from 'components/adminLogin'
+
 export default {
+  components: {
+    adminLogin
+  },
   data () {
     return {
+      loginVisible: true,
       defaultActive: '2'
     }
   },
   created () {
+    // 判断是否登录，弹出窗口
     const fullPath = this.$router.currentRoute.path
     const path = fullPath.split('/')[2]
     switch (path) {
@@ -95,6 +103,11 @@ export default {
       default:
         this.defaultActive = '2'
         break
+    }
+  },
+  methods: {
+    close () {
+      this.loginVisible = false
     }
   }
 }

@@ -22,7 +22,7 @@
   </el-dialog>
 </template>
 <script>
-
+import { _sendCode, _reset } from 'common/javascript/userApi'
 export default {
   data () {
     var checkPhone = (rule, value, callback) => {
@@ -30,14 +30,10 @@ export default {
         return callback(new Error('手机号不能为空'))
       }
       setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'))
+        if (!Number.isInteger(value) || `${value}`.length !== 11) {
+          callback(new Error('请输入正确的手机号'))
         } else {
-          if (`${value}`.length !== 11) {
-            callback(new Error('请输入正确的手机号'))
-          } else {
-            callback()
-          }
+          callback()
         }
       }, 100)
     }
@@ -91,25 +87,70 @@ export default {
   },
   methods: {
     sendCode () {
-      this.codeText = `60秒`
-      this.disabled = true
-      // this._sendCode()
-      this.timer = setInterval(() => {
-        this.codeText = parseInt(this.codeText) - 1
-        if (this.codeText === 0) {
-          this.codeText = '获取验证码'
-          this.disabled = false
-          clearInterval(this.timer)
-        } else {
-          this.codeText = `${this.codeText}秒`
-        }
-      }, 1000)
+      const phone = this.ruleForm.phone
+      if (Number.isInteger(phone) && `${phone}`.length === 11) {
+        // 发送验证码
+        this.disabled = true
+        _sendCode(phone).then(obj => {
+          if (obj.code === 1) {
+            this.$message({
+              showClose: true,
+              message: '已发送',
+              type: 'success'
+            })
+            this.codeText = `60秒`
+            this.disabled = true
+            this.timer = setInterval(() => {
+              this.codeText = parseInt(this.codeText) - 1
+              if (this.codeText === 0) {
+                this.codeText = '获取验证码'
+                this.disabled = false
+                clearInterval(this.timer)
+              } else {
+                this.codeText = `${this.codeText}秒`
+              }
+            }, 1000)
+          } else {
+            this.$message({
+              showClose: true,
+              message: '发送失败',
+              type: 'error'
+            })
+            this.disabled = false
+          }
+        })
+      }
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 这里发送重置密码。若验证码错误，请求回来再提示验证码错误
-          alert('submit!')
+          if (this.ruleForm.checkCode) {
+            // 发送请求
+            const { checkcode, pass, phone } = this.ruleForm
+            _reset(phone, pass, checkcode).then(obj => {
+              if (obj.code === 1) {
+                this.$message({
+                  showClose: true,
+                  message: '重置成功',
+                  type: 'success'
+                })
+                this.$emit('close')
+              } else if (obj.code === 605) {
+                this.$message({
+                  showClose: true,
+                  message: '该手机号未注册',
+                  type: 'error'
+                })
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: '重置失败，请稍后再试',
+                  type: 'error'
+                })
+              }
+            })
+          }
         } else {
           console.log('error submit!!')
           return false

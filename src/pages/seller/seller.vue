@@ -12,8 +12,11 @@
         >
           <el-menu-item :key='index' :index='(index+1)+""' :route='item.route' v-for='(item, index) in routes'>
             <i class="el-icon-location"></i>
-            <span>{{item.label}}</span>
+            <span>{{item.label}}</span><span v-if='item.route === "order" && newOrderNum > 0' class='badge'>{{newOrderNum}}</span>
           </el-menu-item>
+          <audio controls="controls" v-show='false' ref='audio'>
+            <source src="../../common/audio/song.mp3" type="audio/ogg">
+          </audio>
         </el-menu>
       </el-aside>
       <el-main>
@@ -24,11 +27,14 @@
 </template>
 
 <script>
+import { _isNewOrder } from 'common/javascript/sellerApi'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
       defaultActive: '',
+      timer: null,
       routes: [
         {
           route: 'home',
@@ -47,6 +53,10 @@ export default {
           label: '上传新品'
         },
         {
+          route: 'rate',
+          label: '菜品评论'
+        },
+        {
           route: 'revenue',
           label: '营业信息'
         },
@@ -61,10 +71,40 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters('seller',
+      [
+        'newOrderNum',
+        'sellerInfo'
+      ]
+    )
+  },
   created () {
     const fullPath = this.$router.currentRoute.path
     const path = fullPath.split('/')[2]
     this.defaultActive = this.routes.findIndex(route => route.route === path) + 1 + ''  // defaultActive需要一个String类型
+    // 轮询请求是否有新订单
+    this.isNewOrder()
+    this.timer = setInterval(() => {
+      this.isNewOrder()
+    }, 10000)
+  },
+  beforeDestroy () {
+    clearInterval(this.timer)
+  },
+  methods: {
+    isNewOrder () {
+      const shopId = this.sellerInfo.shopId
+      _isNewOrder(shopId).then(res => {
+        if (res.code === 1 && res.data > 0) {
+          this.setNewOrderNum(res.data)
+          this.$refs.audio.play()
+        }
+      })
+    },
+    ...mapMutations({
+      setNewOrderNum: 'seller/SET_NEW_ORDER_NUM'
+    })
   }
 }
 </script>
@@ -88,4 +128,15 @@ export default {
     // border: 1px solid #eee
     background: #eee
     padding: 0
+  .badge
+    display: inline-block
+    color: #fff
+    height: 20px
+    width: 20px
+    border-radius: 10px
+    background: red
+    margin-left: 10px
+    border: 1px solid #FFF
+    line-height: 20px
+    text-align: center
 </style>

@@ -28,7 +28,7 @@ export default {
       clearKaidianNote: 'user/CLEAR_KAIDIAN_NOTE'
     }),
     kaidian () {
-      if (!this.userInfo.name) {
+      if (!this.userInfo.userId) {
         this.$message({
           showClose: true,
           message: '开店请先登录'
@@ -49,7 +49,8 @@ export default {
       }
     },
     _logOut () {
-      this.logOut()
+      const userId = this.userInfo.userId
+      this.logOut(userId)
       this.$message({
         showClose: true,
         message: '已退出'

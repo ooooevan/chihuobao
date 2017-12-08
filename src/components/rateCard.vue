@@ -5,10 +5,6 @@
         <p>菜名：<input class='number' type="text" disabled v-model='name'></p>
         <p>描述：<textarea v-model='abstract' cols="30" rows="10"></textarea></p>
         <p>价格：<input class='number' type="number" v-model='price'></p>
-        <p>类型：
-          <select name="select" v-model='type'>
-            <option :key='item.value' :value='item.value' v-for='item in types'>{{item.label}}</option>
-          </select></p>
         <input type="button" value='删除此菜品' @click='del'>
         <input class='btn' type="button" value='修改' @click='check'>
       </div>
@@ -25,25 +21,7 @@ export default {
       price: '',
       status: '',
       type: '',
-      dishId: 0,
-      types: [
-        {
-          label: '全部',
-          value: 1
-        },
-        {
-          label: '早餐',
-          value: 2
-        },
-        {
-          label: '午餐',
-          value: 3
-        },
-        {
-          label: '晚餐',
-          value: 4
-        }
-      ]
+      dishId: 0
     }
   },
   watch: {
@@ -58,8 +36,8 @@ export default {
   },
   props: {
     info: {
-      type: Object,
-      default: {}
+      type: Array,
+      default: []
     },
     visible: {
       type: Boolean,

@@ -1,4 +1,5 @@
 const User = require('../app/controllers/user')
+const Seller = require('../app/controllers/seller')
 
 module.exports = function (router, upload) {
   // router.use(async (ctx) => {
@@ -20,15 +21,33 @@ module.exports = function (router, upload) {
   //   }
   // })
   router.post('/api/login', User.login)
-  router.post('/api/sendCode', User.sendCode)
-  router.post('/api/register', User.register)
-  router.post('/api/logOut', User.logOut)
+  router.post('/api/code', User.sendCode)
+  router.post('/api/regist', User.register)
+  router.post('/api/reset', User.reset)
+  router.post('/api/info/check', User.getUserInfo)
+  router.post('/api/info/modify', User.modifyInfo)
+  router.post('/api/info/apply', User.applyShop)
+  router.post('/api/logout', User.logOut)
+  router.post('/api/order/find', User.getUserOrder)
+  router.post('/api/order/delete', User.deleteOrder)
+  router.post('/api/order/getPhone', User.getShopPhone)
+  router.post('/api/order/finish', User.finishOrder)
   router.get('/api/shop/findByRange', User.getShopList)
   router.get('/api/shop/findById', User.getInfoByShopId)
   router.get('/api/shop/dish', User.getCommentByDishId)
-  router.post('/api/order/find', User.findOrder)
 
-  router.post('/upload', upload.single('file'), async (ctx, next) => {
+  router.get('/api/shop/shopMsg', Seller.getShopInfo)
+  router.get('/api/shopOrder', Seller.getShopOrder)
+  router.get('/api/shop/getAllDish', Seller.getAllDish)
+  router.get('/api/comment/dish', Seller.getRateList)
+  router.get('/api/shopOrder/getNewOrder', Seller.isNewOrder)
+  router.post('/api/shopOrder/handle', Seller.handleOrder)
+  router.post('/api/shop/modifDish', Seller.modifyDish)
+  router.post('/api/shop/delDish', Seller.delDish)
+  router.post('/api/shop/addDish', Seller.addDish)
+  router.post('/api/shop/updateShop', Seller.modifyShopInfo)
+
+  router.post('/api/upload', upload.single('file'), async (ctx, next) => {
     // const { originalname, path, mimetype, filename } = ctx.req.file
     ctx.body = ctx.req.file
   })

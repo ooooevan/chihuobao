@@ -1,7 +1,8 @@
 import * as types from './mutations-type'
 import { getSuggestionApi, _logOutApi } from 'common/javascript/userApi'
-import { _saveExactAddress, _clearExactAddress, _saveUserInfo } from 'common/javascript/cache'
+import { _saveExactAddress, _clearExactAddress, _saveUserInfo, _clearCartList, _addCartNum, _subCartNum } from 'common/javascript/cache'
 import { _clearUserInfo } from '../../common/javascript/cache'
+
 export function getSuggestion ({commit, state}, str) {
   const address = state.inexactAddress[1]  // 选择城市
   getSuggestionApi({address, str}).then(result => {
@@ -21,7 +22,19 @@ export function saveUserInfo ({commit, state}, info) {
   commit(types.SET_USER_INFO, _saveUserInfo(info))
 }
 
-export function logOut ({commit, state}) {
-  _logOutApi()
-  commit(types.CLEAR_USER_INFO, _clearUserInfo())
+export function logOut ({commit, state}, userId) {
+  _logOutApi(userId)
+  commit(types.SET_USER_INFO, _clearUserInfo())
+}
+
+export function clearCartList ({commit, state}) {
+  commit(types.CLEAR_CART_LIST, _clearCartList())
+}
+
+export function addCartNum ({commit, state}, item) {
+  commit(types.SET_CART_LIST, _addCartNum(item))
+}
+
+export function subCartNum ({commit, state}, item) {
+  commit(types.SET_CART_LIST, _subCartNum(item))
 }

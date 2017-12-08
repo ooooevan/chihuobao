@@ -30,13 +30,14 @@ export function getSuggestionApi ({address, str}) {
   return jsonp(url).then(res => res.result)
 }
 
-export function _login (phone, password) {
+export function _login (phone, password, loginType) {
   return axios({
     method: 'post',
     url: API.login,
     data: {
       phone,
-      password
+      password,
+      loginType
     }
   }).then(res => res.data)
 }
@@ -51,22 +52,57 @@ export function _sendCode (phone) {
   }).then(res => res.data)
 }
 
-export function _register (phone, password, code) {
+export function _register (phone, password, checkCode) {
   return axios({
     method: 'post',
     url: API.register,
     data: {
       phone,
       password,
-      code
+      checkCode
     }
   }).then(res => res.data)
 }
 
-export function _logOutApi () {
+export function _reset (phone, password, checkCode) {
   return axios({
     method: 'post',
-    url: API.logOut
+    url: API.reset,
+    data: {
+      phone,
+      password,
+      checkCode
+    }
+  }).then(res => res.data)
+}
+
+export function _logOutApi (userId) {
+  return axios({
+    method: 'post',
+    url: API.logOut,
+    data: {
+      userId
+    }
+  }).then(res => res.data)
+}
+
+export function _initInfo (userId) {
+  return axios({
+    method: 'post',
+    url: API.initInfo,
+    data: {
+      userId
+    }
+  }).then(res => res.data)
+}
+
+export function _modifyInfo (info) {
+  return axios({
+    method: 'post',
+    url: API.modifyInfo,
+    data: {
+      ...info
+    }
   }).then(res => res.data)
 }
 
@@ -102,6 +138,76 @@ export function _getCommentByDishId (shopId, dishId) {
     params: {
       shopId,
       dishId
+    }
+  }).then(res => res.data)
+}
+
+export function _apply (userId, shopName, shopAbstract, identificationNum, shopType, shopLocation, shopLogo, identificationPic, shopAuthImages) {
+  return axios({
+    method: 'post',
+    url: API.applyShop,
+    data: {
+      userId,
+      shopName,
+      shopAbstract,
+      identificationNum,
+      shopType,
+      shopLocation,
+      shopLogo,
+      identificationPic,
+      shopAuthImages
+    }
+  }).then(res => res.data)
+}
+
+export function _getUserOrder (userId, page, orderType) {
+  return axios({
+    method: 'post',
+    url: API.getUserOrder,
+    data: {
+      userId,
+      page,
+      orderType
+    }
+  }).then(res => res.data)
+}
+
+// export function _cancelOrder (userOrderId) {
+//   return axios({
+//     method: 'post',
+//     url: API.cancelOrder,
+//     data: {
+//       userOrderId
+//     }
+//   }).then(res => res.data)
+// }
+
+export function _getSopPhone (shopId) {
+  return axios({
+    method: 'post',
+    url: API.getShopPhone,
+    data: {
+      shopId
+    }
+  }).then(res => res.data)
+}
+
+export function _deleteOrder (userOrderId) {
+  return axios({
+    method: 'post',
+    url: API.deleteOrder,
+    data: {
+      userOrderId
+    }
+  }).then(res => res.data)
+}
+
+export function _finishOrder (userOrderId) {
+  return axios({
+    method: 'post',
+    url: API.finishOrder,
+    data: {
+      userOrderId
     }
   }).then(res => res.data)
 }

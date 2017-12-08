@@ -17,10 +17,7 @@ const mutations = {
     state.inexactAddress = address
   },
   [types.SET_USER_INFO] (state, info) {
-    state.userInfo = info
-  },
-  [types.CLEAR_USER_INFO] (state) {
-    state.userInfo = {}
+    state.userInfo = info || {}
   },
   [types.NOTE_KAIDIAN] (state) {
     state.noteKaidian = true
@@ -39,6 +36,12 @@ const mutations = {
   },
   [types.SET_SHOP_DETAIL] (state, detail) {
     state.shopDetail = detail
+  },
+  [types.SET_CART_LIST] (state, list) {
+    state.cartList = list
+  },
+  [types.CLEAR_CART_LIST] (state) {
+    state.cartList = []
   }
 }
 

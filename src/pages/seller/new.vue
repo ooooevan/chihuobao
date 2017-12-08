@@ -20,8 +20,22 @@
         <el-input type="price" v-model.number="validateForm.price" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
+        label="类型"
+        prop="type"
+        :rules="[
+          { required: true, message: '类型不能为空'}
+        ]"
+      >
+        <el-select v-model="validateForm.type" placeholder="请选择菜品类型">
+          <el-option :key='item.value' :label='item.label' :value='item.value' v-for='item in types'></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item
         label="描述"
         prop="abstract"
+        :rules="[
+          { required: true, message: '描述不能为空'}
+        ]"
       >
         <el-input type="abstract" v-model.number="validateForm.abstract" auto-complete="off"></el-input>
       </el-form-item>
@@ -49,6 +63,8 @@
   </div>
 </template>
 <script>
+  import { _addDish } from 'common/javascript/sellerApi'
+  import { mapGetters } from 'vuex'
   export default {
     data () {
       return {
@@ -56,9 +72,35 @@
         validateForm: {
           price: '',
           abstract: '',
-          name: ''
-        }
+          name: '',
+          type: 1
+        },
+        types: [
+          {
+            label: '全部',
+            value: 1
+          },
+          {
+            label: '早餐',
+            value: 2
+          },
+          {
+            label: '午餐',
+            value: 3
+          },
+          {
+            label: '晚餐',
+            value: 4
+          }
+        ]
       }
+    },
+    computed: {
+      ...mapGetters('seller',
+        [
+          'sellerInfo'
+        ]
+      )
     },
     methods: {
       add () {
@@ -66,7 +108,32 @@
       submitForm (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!')
+            if (!this.imageUrl) {
+              this.$message({
+                type: 'error',
+                message: '请上传图片'
+              })
+              return false
+            } else {
+              // 上传新品接口
+              const imageUrl = this.imageUrl
+              const shopId = this.sellerInfo.shopId
+              const { name, price, abstract, type } = this.validateForm
+              _addDish(shopId, name, price, type, abstract, imageUrl).then(res => {
+                if (res.code === 1) {
+                  this.$message({
+                    type: 'success',
+                    message: '添加成功!'
+                  })
+                  this.$router.push('/seller/menu')
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: '添加失败!'
+                  })
+                }
+              })
+            }
           } else {
             console.log('error submit!!')
             return false
@@ -76,8 +143,7 @@
       handleAvatarSuccess (res, file) {
         // 这里需要修改url
         this.imageUrl = URL.createObjectURL(file.raw)
-        this.imageUrl = `uploads/${res.filename}`
-        alert(JSON.stringify(res))
+        this.imageUrl = `/uploads/${res.filename}`
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀

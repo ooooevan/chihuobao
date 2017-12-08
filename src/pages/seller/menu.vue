@@ -1,8 +1,7 @@
 <template>
   <div class="menu">
     <div class="header">
-      <search-box class='search-box' @search='search'></search-box>
-      分类：<el-select v-model="value" placeholder="请选择" ref='elSelect'>
+      分类：<el-select v-model="type" placeholder="请选择" ref='elSelect'>
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -12,106 +11,107 @@
       </el-select>
     </div>
     <div class="content clearfix">
-      <seller-food-card :key='index' v-for='(item, index) in info'  :info='item' class='card' @click='showDetail(item)'></seller-food-card>
+      <seller-food-card :key='index' v-for='(item, index) in _info'  :info='item' class='card' @click='showDetail(item)'></seller-food-card>
     </div>
-    <seller-food-detail-card class='detailCard' @check='check' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></seller-food-detail-card>
+    <seller-food-detail-card class='detailCard' @delete='del' @check='check' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></seller-food-detail-card>
   </div>
 </template>
 <script>
-  import SearchBox from 'components/searchBox'
   import sellerFoodCard from 'components/sellerFoodCard'
   import sellerFoodDetailCard from 'components/sellerFoodDetailCard'
-
-export default{
+  import { _getAllDish, _modifyDish, _deleteDish } from 'common/javascript/sellerApi'
+  import { mapGetters } from 'vuex'
+  export default{
     data () {
       return {
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: '',
-        info: [{
-          name: '咖喱饭',
-          id: 123123123,
-          img: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-          score: 3.6,
-          perMonth: 123,
-          duration: 123,
-          dispatchCost: 3,
-          abstract: '这是描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
-          price: 19,
-          status: 'on'
-        },
-        {
-          name: '咖喱饭',
-          id: 123123123,
-          img: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-          score: 3.6,
-          perMonth: 123,
-          duration: 123,
-          dispatchCost: 3,
-          status: 'on'
-        },
-        {
-          name: '咖喱饭',
-          id: 123123123,
-          img: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-          score: 3.6,
-          perMonth: 123,
-          duration: 123,
-          dispatchCost: 3,
-          status: 'on'
-        },
-        {
-          name: '咖喱饭',
-          id: 123123123,
-          img: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-          score: 3.6,
-          perMonth: 123,
-          duration: 123,
-          dispatchCost: 3,
-          status: 'on'
-        },
-        {
-          name: '咖喱饭',
-          id: 123123123,
-          img: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-          score: 3.6,
-          perMonth: 123,
-          duration: 123,
-          dispatchCost: 3,
-          status: 'on'
-        }],
+        options: [
+          {
+            label: '全部',
+            value: 1
+          },
+          {
+            label: '早餐',
+            value: 2
+          },
+          {
+            label: '午餐',
+            value: 3
+          },
+          {
+            label: '晚餐',
+            value: 4
+          }
+        ],
+        type: 1,
+        info: [],
         detailInfo: {},
         detailVisible: false
       }
     },
     components: {
-      SearchBox,
       sellerFoodCard,
       sellerFoodDetailCard
+    },
+    computed: {
+      _info () {
+        // 返回对应的类型或者'全部'
+        return this.info.filter(item => (item.dishType === this.type || this.type === 1))
+      },
+      ...mapGetters('seller',
+        [
+          'sellerInfo'
+        ]
+      )
+    },
+    created () {
+      this.getAllDish()
     },
     mounted () {
       this.$refs.elSelect.$el.getElementsByTagName('input')[0].style.height = '37px'
     },
     methods: {
       check (obj) {
-        alert(`要修改为：${JSON.stringify(obj)}`)
+        if (obj.dishPrice !== this.detailInfo.dishPrice || obj.dishAbstract !== this.detailInfo.dishAbstract || obj.dishType !== this.detailInfo.dishType) {
+          const shopId = this.sellerInfo.shopId
+          _modifyDish(shopId, obj.dishId, obj.dishPrice, obj.dishAbstract, obj.dishType).then(res => {
+            if (res.code === 1) {
+              this.$message({
+                type: 'success',
+                message: '修改成功!'
+              })
+              this.closeDetail()
+              this.getAllDish()
+            } else {
+              this.$message({
+                type: 'error',
+                message: '修改失败!'
+              })
+            }
+          })
+        } else {
+          this.closeDetail()
+        }
       },
-      search () {
-        alert()
+      del (obj) {
+        const shopId = this.sellerInfo.shopId
+        const dishId = obj.dishId
+        _deleteDish(shopId, dishId).then(res => {
+          if (res.code === 1) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.closeDetail()
+            this.getAllDish()
+          }
+        })
+      },
+      getAllDish () {
+        const shopId = this.sellerInfo.shopId
+        const dishType = this.type  // 可选，菜品类型
+        _getAllDish(shopId, dishType).then(res => {
+          this.info = res.data
+        })
       },
       showDetail (item) {
         this.detailInfo = item
@@ -129,9 +129,6 @@ export default{
   background: #fff
   .header
     padding: 10px
-    .search-box
-      display: inline-block
-      margin: auto 20px
   .content
     margin: 20px
     .card

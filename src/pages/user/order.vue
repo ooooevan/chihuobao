@@ -1,125 +1,186 @@
 <template>
-  <div class='container order'>
+  <div class="order">
     <div class="header">
-      个人中心
+      <ul>
+        <li @click='changeTag(tag.value)' :key='index' :class='{active: tag.value === activeTag}' v-for='(tag, index) in orderTag'>{{tag.label}}</li>
+      </ul>
     </div>
-    <el-table
-      :data='rateData'
-      @row-click='toggleClick'
-      ref='elTable'
-      style='width: 100%'>
-      <el-table-column type='expand'>
-        <template slot-scope='props'>
-          <ul>
-            <li v-for='item in props.row.foodList'>{{item.rate_name}}</li>
-          </ul>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label='下单时间'
-        prop='rated_at'>
-      </el-table-column>
-      <el-table-column
-        label='商品名称'
-        prop='name'>
-      </el-table-column>
-      <el-table-column
-        label='支付金额'
-        prop='payment'>
-      </el-table-column>
-      <el-table-column
-        label='状态'
-        prop='status'>
-      </el-table-column>
-      <el-table-column
-        label='操作'
-        prop='do'>
-        <template slot-scope='scope'>
-          <el-button
-            size='mini'>订单详情</el-button>
-          <el-button
-            size='mini'
-            type='danger'
-            @click.stop='handleRate(scope.$index, scope.row)'>评价订单</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div class="content">
+      <!-- <order-card :key='index' @accept='accept' @cancel='cancelOrder' class='orderCard' v-for='(item, index) in info' :info='item'></order-card> -->
+      <order-card @accept='accept' @del='del' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.status === activeTag)'></order-card>
+    </div>
+    <el-pagination
+      class='el-pagination'
+      layout="prev, pager, next"
+      :page-size='pageSize'
+      @current-change='changePage'
+      :page-count="totalPage">
+    </el-pagination>
   </div>
 </template>
-
 <script>
+  import orderCard from 'components/userOrderCard'
+  import { _getUserOrder, _deleteOrder, _getSopPhone, _finishOrder } from 'common/javascript/userApi'
+  import { mapGetters } from 'vuex'
+
   export default {
+    components: {
+      orderCard
+    },
     data () {
       return {
-        rateData: [
+        orderTag: [
           {
-            name: '匿**户',
-            rating_star: 5,
-            foodList: [
-              {
-                food_id: 1630788111,
-                image_hash: '',
-                rate_name: '牛肉拌云吞面1',
-                rating_star: 5,
-                rating_text: ''
-              },
-              {
-                food_id: 163078811,
-                image_hash: '',
-                rate_name: '牛肉拌云吞面2',
-                rating_star: 5,
-                rating_text: ''
-              }
-            ],
-            rated_at: '2017-11-23',
-            payment: 123,
-            status: '待评价'
+            value: 1,
+            label: '未支付'
           },
           {
-            name: '匿**户',
-            rating_star: 5,
-            foodList: [],
-            rated_at: '2017-11-23',
-            payment: 123,
-            status: '待评价'
+            value: 3,
+            label: '商家未接单'
           },
           {
-            name: '匿**户',
-            rating_star: 5,
-            foodList: [],
-            rated_at: '2017-11-23',
-            payment: 123,
-            status: '待评价'
-          }]
+            value: 4,
+            label: '商家已接单'
+          },
+          {
+            value: 2,
+            label: '已完成'
+          },
+          {
+            value: 5,
+            label: '已取消'
+          }
+        ],
+        activeTag: 1,
+        pageNum: 1,
+        totalPage: 1,
+        pageSize: 7,
+        currentInfo: []
       }
     },
-    created () {
+    mounted () {
+      // 请求订单数据
+      this.getUserOrder()
+    },
+    computed: {
+      ...mapGetters('user',
+        [
+          'userInfo'
+        ]
+      )
     },
     methods: {
-      toggleClick (item) {
-        this.$refs.elTable.toggleRowExpansion(item)
+      changePage (page) {
+        this.pageNum = page
+        this.getUserOrder()
       },
-      handleRate (index, row) {
-        this.$refs.elTable.toggleRowExpansion(row, true)
+      accept (item) {
+        const userOrderId = item.userOrderId
+        _finishOrder(userOrderId).then(res => {
+          if (res.code === 0) {
+            this.$message({
+              type: 'error',
+              message: '操作失败'
+            })
+            return false
+          } else if (res.code === 607) {
+            this.$message({
+              type: 'error',
+              message: '订单不存在'
+            })
+          } else {
+            this.$message({
+              type: 'success',
+              message: '订单已完成'
+            })
+          }
+          this.getUserOrder()
+        })
+      },
+      notAccept (item) {
+        // 1为接单，2不接单，3取消订单
+        this.getUserOrder()
+      },
+      del (item) {
+        const userOrderId = item.userOrderId
+        _deleteOrder(userOrderId).then(res => {
+          if (res.code === 0) {
+            this.$message({
+              type: 'error',
+              message: '操作失败'
+            })
+            return false
+          } else if (res.code === 607) {
+            this.$message({
+              type: 'error',
+              message: '订单不存在'
+            })
+          } else {
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+          }
+          this.getUserOrder()
+        })
+      },
+      cancelOrder (item) {
+        const shopId = item.shopId
+        _getSopPhone(shopId).then(res => {
+          const phone = res.data.shop_phone
+          this.$alert(`取消订单需要商家同意，可拨打商家电话：${phone}`, '取消订单', {
+            confirmButtonText: '确定'
+          })
+        })
+      },
+      getUserOrder () {
+        const { pageNum, activeTag } = this
+        const userId = this.userInfo.userId
+        _getUserOrder(userId, pageNum, activeTag).then(res => {
+          this.pageNum = res.data.page
+          this.totalPage = res.data.total
+          this.currentInfo = res.data.orders
+        })
+      },
+      changeTag (index) {
+        if (this.activeTag === index) {
+          return false
+        }
+        this.activeTag = index
+        this.pageNum = 1
+        this.getUserOrder()
       }
     }
   }
 </script>
-
 <style scoped lang='sass'>
-.order
-  min-height: 700px
-  .header
-    margin: 20px auto
-  .demo-table-expand
-    font-size: 0
-  .demo-table-expand 
-    label
-      width: 90px
-      color: #99a9bf
-  .demo-table-expand 
-    .el-form-item
-      margin-right: 0
-      margin-bottom: 0
-      width: 50%
+  .order
+    position: relative
+    width: 80%
+    margin: 0 auto
+    .header
+      background: #fff
+      ul
+        display: flex
+        width: 50%
+        li
+          flex: 1
+          line-height: 50px
+          text-align: center
+          transition: all .1s
+          cursor: pointer
+          &.active
+            box-shadow: 0px -2px #1e89e0 inset
+            color: #1e89e0
+  .content
+    height: 550px
+    margin: 10px 0
+    padding: 15px
+    background: #fff
+    .orderCard
+      margin-bottom: 20px
+  .el-pagination
+    position: absolute
+    bottom: 25px
+    right: 100px
 </style>

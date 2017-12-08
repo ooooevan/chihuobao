@@ -1,0 +1,5 @@
+export const SET_NEW_ORDER_NUM = 'SET_NEW_ORDER_NUM'
+
+export const CLEAR_NEW_ORDER_NUM = 'CLEAR_NEW_ORDER_NUM'
+
+export const SET_SELLER_INFO = 'SET_SELLER_INFO'

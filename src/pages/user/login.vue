@@ -11,8 +11,7 @@
         </el-form-item>
         <el-form-item prop='type' class='type'>
           <el-radio-group v-model="ruleForm.type">
-            <el-radio label="1">用户</el-radio>
-            <el-radio label="2">商户</el-radio>
+            <el-radio :key='item.value' :label="item.value" v-for='item in types'>{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item>
@@ -69,10 +68,20 @@ export default {
     }
     return {
       ruleForm: {
-        type: '1',
+        type: 0,
         pass: '',
         phone: ''
       },
+      types: [
+        {
+          label: '用户',
+          value: 0
+        },
+        {
+          label: '商户',
+          value: 1
+        }
+      ],
       rules: {
         pass: [
           { validator: validatePass, trigger: 'blur' }
@@ -90,6 +99,11 @@ export default {
         'saveUserInfo'
       ]
     ),
+    ...mapActions('seller',
+      [
+        'saveSellerInfo'
+      ]
+    ),
     close () {
       this.resetVisible = false
     },
@@ -99,11 +113,11 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const { pass, phone } = this.ruleForm
-          _login(phone, pass).then(obj => {
-            const { id, name, code } = obj
-            this.saveUserInfo({name, id})
-            if (!code) {
+          const { pass, phone, type } = this.ruleForm
+          _login(phone, pass, type).then(obj => {
+            if (obj.code === 1 && type === 0) {
+              // 用户登录
+              this.saveUserInfo(obj.data)
               if (this.noteKaidian) {
                 this.$confirm('是否马上申请开店?', '提示', {
                   confirmButtonText: '申请',
@@ -117,6 +131,10 @@ export default {
               } else {
                 this.normalLogin()
               }
+            } else if (obj.code === 1 && type === 1) {
+              // 商户登录
+              this.saveSellerInfo(obj.data)
+              this.$router.push('/seller')
             } else {
               this.$message({
                 showClose: true,

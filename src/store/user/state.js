@@ -1,5 +1,5 @@
 import config from 'common/javascript/config'
-import { _getExactAddress, _getUserInfo } from 'common/javascript/cache'
+import { _getExactAddress, _getUserInfo, _getCartList } from 'common/javascript/cache'
 
 const state = {
   cityOptions: config.cityOptions,   // 省市数据
@@ -9,7 +9,8 @@ const state = {
   userInfo: _getUserInfo() || {},   // 用户信息
   shopList: [],    // 用户查看到的商家列表
   shopDetail: {},   // 商铺信息
-  shopDishs: []   // 商铺的菜单
+  shopDishs: [],   // 商铺的菜单
+  cartList: _getCartList() || []     // 用户购物车列表
 }
 
 export default state

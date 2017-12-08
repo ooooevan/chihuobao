@@ -1,57 +1,60 @@
 <template>
-  <div>
+  <div class='applyShop'>
     <p class='title'>店铺申请</p>
     <el-form :model="validateForm" ref="validateForm" label-width="100px" class="demo-ruleForm _el-form">
       <el-form-item
         label="店铺名称"
         prop="name"
+        :rules="[
+          { required: true, message: '名称不能为空'}
+        ]"
       >
-        <el-input type="name" v-model.number="validateForm.name" auto-complete="off"></el-input>
+        <el-input type="name" v-model="validateForm.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
-        label="外卖电话"
-        prop="phone"
+        label="简介"
+        prop="abstract"
+        :rules="[
+          { required: true, message: '联系人不能为空'}
+        ]"
       >
-        <el-input type="phone" v-model.number="validateForm.phone" auto-complete="off"></el-input>
+        <el-input type="abstract" v-model="validateForm.abstract" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
-        label="联系人"
-        prop="userName"
+        label="身份证"
+        prop="cardId"
+        :rules="[
+          { required: true, message: '身份证不能为空'}
+        ]"
       >
-        <el-input type="userName" v-model.number="validateForm.userName" auto-complete="off"></el-input>
+        <el-input type="userId" v-model="validateForm.cardId" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="商铺分类" prop="type">
-        <el-checkbox-group v-model="validateForm.type">
-          <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-          <el-checkbox label="地推活动" name="type"></el-checkbox>
-          <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-          <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-        </el-checkbox-group>
+      <el-form-item
+        label="类型"
+        prop="type"
+        :rules="[
+          { required: true, message: '类型不能为空'}
+        ]"
+      >
+        <el-select v-model="validateForm.type" placeholder="请选择菜品类型">
+          <el-option :key='item.value' :label='item.label' :value='item.value' v-for='item in types'></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label='地址'>
-        <el-input
-          placeholder='详细地址'
-          ref='input'
-          auto-complete="false"
-          v-model='validateForm.address1'
-          class='input-with-cascader'
-          valueKey='name'
-          popper-class='popper-class'
-          :trigger-on-focus='true'
-        ><el-cascader slot='prepend'
-            :options='cityOptions'
-            v-model='validateForm.address0'
-            ref='el-cascader'
-          ></el-cascader>
-        </el-input>
+      <el-form-item 
+        label='地址'
+        prop='address'
+        :rules="[
+          { required: true, message: '地址不能为空'}
+        ]">
+        <el-input type="address" v-model="validateForm.address" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
         label="logo"
         prop="logoUrl">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          name='logo'
+          :action='uploadUrl'
+          name='file'
           :with-credentials="TRUE"
           :show-file-list="false"
           :drag="true"
@@ -62,34 +65,34 @@
         </el-upload>
       </el-form-item>
       <el-form-item
-        label="商铺照片1"
-        prop="imgUrl1">
+        label="身份证照片"
+        prop="cardPic">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          name='img1'
+          :action='uploadUrl'
+          name='file'
+          :with-credentials="TRUE"
+          :show-file-list="false"
+          :drag="true"
+          :on-success="cardPicSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="cardPic" :src="cardPic" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
+      <el-form-item
+        label="商铺照片"
+        prop="imgUrl">
+        <el-upload
+          class="avatar-uploader"
+          :action='uploadUrl'
+          name='file'
           :with-credentials="TRUE"
           :show-file-list="false"
           :drag="true"
           :on-success="img1Success"
           :before-upload="beforeAvatarUpload">
-          <img v-if="imgUrl1" :src="imgUrl1" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-      </el-form-item>
-      <el-form-item
-        label="商铺照片2"
-        prop="img2">
-        <el-upload
-          class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          name='file'
-          :with-credentials="TRUE"
-          :show-file-list="false"
-          :drag="true"
-          :on-success="img2Success"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="imgUrl2" :src="imgUrl2" class="avatar">
+          <img v-if="imgUrl" :src="imgUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -102,22 +105,43 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { _apply } from 'common/javascript/userApi'
+import ALLAPI from 'common/javascript/apiList'
+const API = ALLAPI.user.upload
 
 export default {
   data () {
     return {
       logoUrl: '',
-      imgUrl1: '',
-      imgUrl2: '',
+      imgUrl: '',
+      cardPic: '',
       TRUE: '',
+      uploadUrl: API,
       validateForm: {
-        phone: '',
-        userName: '',
+        abstract: '',
         name: '',
         type: [],
-        address1: '',
-        address0: []
-      }
+        address: '',
+        cardId: ''
+      },
+      types: [
+        {
+          label: '全部',
+          value: 1
+        },
+        {
+          label: '早餐',
+          value: 2
+        },
+        {
+          label: '午餐',
+          value: 3
+        },
+        {
+          label: '晚餐',
+          value: 4
+        }
+      ]
     }
   },
   computed: {
@@ -125,34 +149,64 @@ export default {
       'user',
       [
         'cityOptions',
-        'suggestionsList'
+        'suggestionsList',
+        'userInfo'
       ])
   },
   methods: {
-    submitForm (form) {
-      debugger
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (!this.imgUrl || !this.logoUrl) {
+            this.$message({
+              type: 'error',
+              message: '请上传图片'
+            })
+            return false
+          }
+          const { logoUrl, imgUrl, cardPic } = this
+          const userId = this.userInfo
+          const { name, abstract, cardId, type, address } = this.validateForm
+          _apply(userId, name, abstract, cardId, type, address, logoUrl, cardPic, imgUrl).then(res => {
+            if (res.code === 1) {
+              this.$message({
+                type: 'success',
+                message: '已提交申请!'
+              })
+              // this.$router.push('/place')
+            } else {
+              this.$message({
+                type: 'error',
+                message: '操作失败'
+              })
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     logoSuccess (res, file) {
-      // 这里需要修改url
-      this.logoUrl = URL.createObjectURL(file.raw)
+      // this.logoUrl = URL.createObjectURL(file.raw)
+      this.logoUrl = res.path
     },
     img1Success (res, file) {
-      // 这里需要修改url
-      this.imgUrl1 = URL.createObjectURL(file.raw)
+      // this.imgUrl = URL.createObjectURL(file.raw)
+      this.imgUrl = res.path
     },
-    img2Success (res, file) {
-      // 这里需要修改url
-      this.imgUrl2 = URL.createObjectURL(file.raw)
+    cardPicSuccess (res, file) {
+      // this.cardPic = URL.createObjectURL(file.raw)
+      this.cardPic = res.path
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀
       const isLt2M = file.size / 1024 / 1024 < 2
-
       if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
+        this.$message.error('上传图片只能是 JPG 格式!')
       }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
+        this.$message.error('上传图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
     }
@@ -161,11 +215,14 @@ export default {
 </script>
 
 <style lang='sass'>
+.applyShop
+  background: #fff
+  padding-bottom: 20px
   .title
     font-size: 20px
     text-align: center
     font-weight: 600
-    margin: 30px
+    padding: 30px
   .el-form._el-form
     margin: 30px auto 0
     width: 60%

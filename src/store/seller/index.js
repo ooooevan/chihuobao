@@ -1,0 +1,14 @@
+import * as actions from './actions'
+import * as getters from './getters'
+import mutations from './mutations'
+import state from './state'
+
+const module = {
+  namespaced: true,
+  actions,
+  getters,
+  state,
+  mutations
+}
+
+export default module

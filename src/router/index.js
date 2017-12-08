@@ -7,6 +7,7 @@ const index = () => import('pages/user/index')
 const join = () => import('pages/user/join')
 const home = () => import('pages/user/home')
 const order = () => import('pages/user/order')
+const userProfile = () => import('pages/user/profile')
 const place = () => import('pages/user/place')
 const register = () => import('pages/user/register')
 const login = () => import('pages/user/login')
@@ -20,6 +21,7 @@ const sellerHome = () => import('pages/seller/home')
 const sellerInfo = () => import('pages/seller/info')
 const sellerMenu = () => import('pages/seller/menu')
 const sellerNew = () => import('pages/seller/new')
+const sellerRate = () => import('pages/seller/rate')
 const sellerOrder = () => import('pages/seller/order')
 const revenue = () => import('pages/seller/revenue')
 const sellerStatistics = () => import('pages/seller/statistics')
@@ -97,6 +99,11 @@ const router = new Router({
           component: login
         },
         {
+          path: '/profile',
+          name: 'userProfile',
+          component: userProfile
+        },
+        {
           path: '/applyShop',
           name: 'applyShop',
           component: applyShop
@@ -172,6 +179,10 @@ const router = new Router({
         {
           path: 'new',
           component: sellerNew
+        },
+        {
+          path: 'rate',
+          component: sellerRate
         },
         {
           path: 'order',

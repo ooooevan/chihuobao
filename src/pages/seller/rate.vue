@@ -1,0 +1,107 @@
+<template>
+  <div class="rate" ref='rate'>
+    <ul>
+      <li :key='item.commentId' v-for='item in rateList'>
+        <div class='name' :title='item.username'>{{item.username.length > 5 ? item.username.slice(0, 5) + '...' : item.username}}</div>
+        <div class='comment'>
+          <div class="clearfix">
+            <p class='fl dishName'>{{item.dishName}}</p>
+            <p class='fr'>{{item.commentDate}}</p>
+            <el-rate
+              disabled
+              ref='el-rate'
+              class='el-rate'
+              v-model='item.level'
+              show-text
+              text-color='#ff9900'>
+            </el-rate>
+          </div>
+          <p class='content'>{{item.comment}}</p>
+        </div>
+      </li>
+    </ul>
+    <el-pagination
+      class='el-pagination'
+      layout="prev, pager, next"
+      :page-size='pageSize'
+      @current-change='changePage'
+      :page-count="totalPage">
+    </el-pagination>
+  </div>
+</template>
+<script>
+  import { _getRateList } from 'common/javascript/sellerApi'
+  import { mapGetters } from 'vuex'
+  export default {
+    data () {
+      return {
+        pageNum: 1,
+        totalPage: 1,
+        pageSize: 9,
+        loading: false,
+        rateList: []
+      }
+    },
+    computed: {
+      ...mapGetters('seller',
+        [
+          'sellerInfo'
+        ]
+      )
+    },
+    created () {
+      this.getList()
+    },
+    methods: {
+      getList () {
+        this.loading = true
+        const { pageNum } = this
+        const shopId = this.sellerInfo.shopId
+        _getRateList(shopId, pageNum).then(res => {
+          this.pageNum = res.data.pageNum
+          this.totalPage = res.data.totalPage
+          setTimeout(() => {
+            this.loading = false   // 防止滚动到底部同时出现多个请求
+          }, 1000)
+          this.rateList = res.data.dishComment // 这里在strict模式会提示不是通过mutations设置state的，不知为何
+        })
+      },
+      changePage (page) {
+        this.pageNum = page
+        this.getList()
+      }
+    }
+  }
+</script>
+<style lang='sass'>
+  .rate
+    background: #fff
+    padding: 15px
+    position: relative
+    ul
+      li
+        margin-top: 35px
+        .name,.comment
+          display: inline-block
+        .name
+          vertical-align: top
+          width: 10%
+        .comment
+          width: 50%
+          padding-left: 20px
+          .dishName
+            margin-right: 10px
+          .content
+            margin-top: 5px
+            color: #969696
+      .el-rate
+        transform: translateY(-3px)
+    .el-pagination
+      position: absolute
+      bottom: 17px
+      right: 10px
+      ul
+        li
+          margin-top: 0
+
+</style>

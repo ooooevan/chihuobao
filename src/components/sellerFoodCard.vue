@@ -1,17 +1,16 @@
 <template>
   <div class='card' @click='click'>
-    <img :src='info.img'>
+    <img :src='info.dishImage'>
     <div class='message'>
-      <p>{{info.name}}</p>
+      <p>{{info.dishName}}</p>
       <el-rate
         disabled
         ref='el-rate'
-        v-model='info.score'
+        v-model='_level'
         show-score
         text-color='#ff9900'>
       </el-rate>
-      <p>{{info.perMonth}}</p>
-      <p>{{`配送费￥${info.dispatchCost}`}}</p>
+      <p>月销售量：{{info.monthlySales}}</p>
     </div>
   </div>
 </template>
@@ -21,6 +20,11 @@
       info: {
         type: Object,
         default: {}
+      }
+    },
+    computed: {
+      _level () {
+        return this.$props.info.level
       }
     },
     methods: {

@@ -84,19 +84,20 @@ export default {
         if (valid) {
           const { pass, code, phone } = this.ruleForm
           _register(phone, pass, code).then(obj => {
-            if (!obj.code) {
+            if (obj.code === 1) {
               this.$message({
                 showClose: true,
                 message: '注册成功，请登录',
                 type: 'success'
               })
               this.$router.push('/login')
-            } else if (obj.code === 3) {
+            } else if (obj.code === 603) {
               this.$message({
                 showClose: true,
-                message: '验证码错误',
+                message: '该手机号已注册，请登录',
                 type: 'error'
               })
+              this.$router.push('/login')
             } else {
               this.$message({
                 showClose: true,
@@ -117,7 +118,7 @@ export default {
         // 发送验证码
         this.disabled = true
         _sendCode(phone).then(obj => {
-          if (obj.code === '1') {
+          if (obj.code === 1) {
             this.$message({
               showClose: true,
               message: '已发送',
@@ -135,12 +136,6 @@ export default {
                 this.codeText = `${this.codeText}秒`
               }
             }, 1000)
-          } else if (obj.code === '603') {
-            this.$message({
-              showClose: true,
-              message: '此手机号已注册，请登录'
-            })
-            this.$router.push('/login')
           } else {
             this.$message({
               showClose: true,

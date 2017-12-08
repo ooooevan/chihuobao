@@ -71,17 +71,19 @@
       </div>
     </div>
     <food-detail-card class='detailCard' :status='shopDetail.shopStatus' @addToCart='addOne' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></food-detail-card>
+    <shop-cart></shop-cart>
   </div>
 </template>
 <script>
 import searchBox from 'components/searchBox'
 import config from 'common/javascript/config'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import { _getInfoByShopId, _getCommentByDishId } from 'common/javascript/userApi'
 import sellerFilter from 'components/sellerfilter'
 import foodCard from 'components/foodCard'
 import foodDetailCard from 'components/foodDetailCard'
-import rate from 'components/rate'
+import rate from 'components/shopRate'
+import shopCart from 'components/shopCart'
 
 export default {
   components: {
@@ -89,7 +91,8 @@ export default {
     sellerFilter,
     foodCard,
     foodDetailCard,
-    rate
+    rate,
+    shopCart
   },
   data () {
     return {
@@ -100,7 +103,8 @@ export default {
       shopTag: config.shopTag,
       activeTag: config.shopTag[0],
       detailVisible: false,
-      detailInfo: {}
+      detailInfo: {},
+      rateData: []
     }
   },
   watch: {
@@ -136,6 +140,7 @@ export default {
       this.detailVisible = false
     },
     addOne (item) {
+      this.addCartNum(item)
       this.$notify({
         title: '添加成功',
         message: `商品：${item.dishName}`,
@@ -160,7 +165,12 @@ export default {
     ...mapMutations({
       setShopDetail: 'user/SET_SHOP_DETAIL',
       setShopDishs: 'user/SET_SHOP_DISHS'
-    })
+    }),
+    ...mapActions('user',
+      [
+        'addCartNum'
+      ]
+    )
   }
 }
 </script>
