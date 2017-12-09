@@ -1,7 +1,7 @@
 <template>
   <div class="menu">
     <div class="header">
-      分类：<el-select v-model="type" placeholder="请选择" ref='elSelect'>
+      分类：<el-select v-model="type" placeholder="全部" ref='elSelect'>
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -24,25 +24,7 @@
   export default{
     data () {
       return {
-        options: [
-          {
-            label: '全部',
-            value: 1
-          },
-          {
-            label: '早餐',
-            value: 2
-          },
-          {
-            label: '午餐',
-            value: 3
-          },
-          {
-            label: '晚餐',
-            value: 4
-          }
-        ],
-        type: 1,
+        type: undefined,
         info: [],
         detailInfo: {},
         detailVisible: false
@@ -55,13 +37,22 @@
     computed: {
       _info () {
         // 返回对应的类型或者'全部'
-        return this.info.filter(item => (item.dishType === this.type || this.type === 1))
+        return this.info.filter(item => (item.dishType === this.type || this.type === undefined))
       },
       ...mapGetters('seller',
         [
-          'sellerInfo'
+          'sellerInfo',
+          'shopTypeList'
         ]
-      )
+      ),
+      options () {
+        return this.shopTypeList.map(item => {
+          return {
+            label: item.shopType,
+            value: item.shopTypeCode
+          }
+        })
+      }
     },
     created () {
       this.getAllDish()

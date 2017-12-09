@@ -12,7 +12,7 @@
         <el-input v-model="info.shopLocation"></el-input>
       </el-form-item>
       <el-form-item label="商标">
-        <img :src="info.shopLogo">
+        <img :src="info.logo">
       </el-form-item>
       <el-form-item label="公告">
         <el-input v-model="info.shopAnnouncement"></el-input>
@@ -43,10 +43,32 @@
         </el-rate>
       </el-form-item>
       <el-form-item label="门面照">
-        <img :src="info.shopStoresImages" width="50%">
+        <el-upload
+          class="avatar-uploader"
+          :action='info.uploadUrl'
+          name='image'
+          :with-credentials="true"
+          :show-file-list="false"
+          :drag="true"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="info.storesImages" :src="info.storesImages" class="avatar" height='100%'>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
       <el-form-item label="商铺照">
-        <img :src="info.shopDetailImages" width="50%">
+        <el-upload
+          class="avatar-uploader"
+          :action='info.uploadUrl'
+          name='image'
+          :with-credentials="true"
+          :show-file-list="false"
+          :drag="true"
+          :on-success="handleAvatarSuccess1"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="info.detailImages" :src="info.detailImages" class="avatar" height='100%'>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="check">修改</el-button>
@@ -57,6 +79,9 @@
 <script>
   import { _initInfo, _modifyShopInfo } from 'common/javascript/sellerApi'
   import { mapGetters } from 'vuex'
+  import ALLAPI from 'common/javascript/apiList'
+  const API = ALLAPI.seller.upload
+
   export default {
     data () {
       return {
@@ -65,12 +90,13 @@
           shopId: 1,
           shopAbstract: '',
           shopLocation: '',
-          shopLogo: '',
+          logo: '',
           shopAnnouncement: '',
+          uploadUrl: API,
           shopDeliveryCost: 1,
           shopStartDelivery: 1,
-          shopStoresImages: '',
-          shopDetailImages: '',
+          storesImages: '',
+          detailImages: '',
           shopWorkTime: '',
           deliveryTime: '',
           level: 0
@@ -93,7 +119,7 @@
         const shopId = this.sellerInfo.shopId
         _initInfo(shopId).then(res => {
           this.info.shopName = res.data.shopName
-          this.info.shopLogo = res.data.shopLogo
+          this.info.logo = res.data.logo
           this.info.shopId = res.data.shopId
           this.info.shopAbstract = res.data.shopAbstract
           this.info.shopLocation = res.data.shopLocation
@@ -102,8 +128,8 @@
           this.info.shopWorkTime = res.data.shopWorkTime
           this.info.shopDeliveryCost = res.data.shopDeliveryCost
           this.info.shopStartDelivery = res.data.shopStartDelivery
-          this.info.shopStoresImages = res.data.shopStoresImages
-          this.info.shopDetailImages = res.data.shopDetailImages
+          this.info.storesImages = res.data.storesImages
+          this.info.detailImages = res.data.detailImages
           this.info.deliveryTime = res.data.deliveryTime
           this.info.level = res.data.level
         })
@@ -133,6 +159,24 @@
         }).catch(() => {
           console.log('取消修改信息')
         })
+      },
+      handleAvatarSuccess (res, file) {
+        this.info.shopStoresImages = res.data.imageUrl
+      },
+      handleAvatarSuccess1 (res, file) {
+        this.info.shopDetailImages = res.data.imageUrl
+      },
+      beforeAvatarUpload (file) {
+        const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀
+        const isLt5M = file.size / 1024 / 1024 < 5
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!')
+        }
+        if (!isLt5M) {
+          this.$message.error('上传头像图片大小不能超过 5MB!')
+        }
+        return isJPG && isLt5M
       }
     }
   }

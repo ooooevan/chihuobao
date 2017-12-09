@@ -11,15 +11,20 @@ const DishComment = new mongoose.Schema({
     type: ObjectId,
     ref: 'Shop'
   },
+  order_id: {
+    type: ObjectId,
+    ref: 'UserOrder'
+  },
   user_id: {
     type: ObjectId,
     ref: 'User'
   },
+  level: Number,
   isComment: Number,
-  message: String,
-  reply_comment_id: {
-    type: ObjectId,
-    ref: 'DishComment'
+  comment: String,
+  comment_date: {
+    type: Date,
+    default: Date.now()
   }
 })
 

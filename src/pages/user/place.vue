@@ -4,11 +4,11 @@
       <div class="address">
         <span>当前位置：</span>
         <span>{{exactAddress && exactAddress.name}}</span>
-        <span @click='changeAddress'>[切换地址]</span>
+        <span @click='changeAddress' class='changeAddress'>[切换地址]</span>
       </div>
       <search-box class='search' @search='search'></search-box>
     </div>
-    <seller-filter class='filter' :filterList='filterList' @select='filterSelect'></seller-filter>
+    <seller-filter class='filter' :filterList='shopTypeList' @select='filterSelect'></seller-filter>
     <div class="content clearfix">
       <shop-card :key='item.shopId' class='shopCard' :info='item' @select='selectShop' v-for='item in shopList'></shop-card>
       <div class='loading' v-if='loading'><i class='el-icon-loading'></i>正在加载</div>
@@ -30,8 +30,7 @@ export default {
       totalPage: 1,
       loading: false,
       name: '',  // 搜索的关键字
-      shopType: 1,   // 商铺类型
-      filterList: ['全部商家', '美食', '快餐便当', '特色菜系', '异国料理', '小吃宵夜', '甜品饮品', '果蔬生鲜', '商店超市', '早餐', '午餐', '下午茶', '晚餐']
+      shopType: 1   // 商铺类型
     }
   },
   components: {
@@ -53,17 +52,24 @@ export default {
   },
   beforeDestroy () {
     window.onscroll = null
+    this.clearShopList()   // 情况shopList防止再次返回时数据重复，如果不存store就不用这样
     console.log('执行了beforeDestory')
   },
   computed: {
     ...mapGetters('user', [
       'exactAddress',
-      'shopList'
+      'shopList',
+      'shopTypeList'
     ])
   },
+  // beforeRouteUpdate (to, from, next) {
+  //   this.getList()
+  // },
   watch: {
     $route () {
-      this.getList()
+      if (this.$router.currentRoute.name === 'place') {
+        this.getList()
+      }
     }
   },
   methods: {
@@ -79,19 +85,20 @@ export default {
         this.totalPage = res.data.totalPage
         setTimeout(() => {
           this.loading = false   // 防止滚动到底部同时出现多个请求
-        }, 1000)
-        this.setShopList(res.data.shopBrieflys) // 这里在strict模式会提示不是通过mutations设置state的，不知为何
+        }, 50)
+        const list = this.shopList.concat(res.data.shopBrieflys)
+        this.setShopList(list) // 这里在strict模式会提示不是通过mutations设置state的，不知为何
       })
     },
     selectShop (item) {
       this.$router.push(`/shop/${item.shopId}`)
     },
-    filterSelect (item) {
+    filterSelect (code) {
       this.pageNum = 1
-      this.shopType = item
+      this.shopType = code
       this.name = ''
       this.clearShopList()
-      this.$router.push({path: '/place', query: {shopType: item, name: undefined, pageNum: undefined}})
+      this.$router.push({path: '/place', query: {shopType: code, name: undefined, pageNum: undefined}})
     },
     search (str) {
       this.name = str
@@ -144,6 +151,10 @@ export default {
     margin: 10px 0
     .address
       float: left
+      .changeAddress
+        cursor: pointer
+        &:hover
+          color: #1e89e0
     .search
       float: right
   .filter
@@ -160,5 +171,4 @@ export default {
     .loading
       margin: 20px auto
       text-align: center
-
 </style>

@@ -9,6 +9,9 @@ const mutations = {
   },
   [types.SET_SELLER_INFO] (state, info) {
     state.sellerInfo = info || {}
+  },
+  [types.SET_SHOPTYPE] (state, list) {
+    state.shopTypeList = list
   }
 }
 

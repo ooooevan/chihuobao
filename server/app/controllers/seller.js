@@ -399,7 +399,7 @@ exports.getShopInfo = async ctx => {
     data: {
       shopId: 12321321,
       shopName: '名字',
-      shopLogo: 'https://fuss10.elemecdn.com/a/c3/9f33ec59741cb71d2e786cd6f2786png.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
+      logo: 'https://fuss10.elemecdn.com/a/c3/9f33ec59741cb71d2e786cd6f2786png.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
       shopAbstract: '商铺简介····、···。。·。',
       shopLocation: '地址地址',
       shopAnnouncement: '我是公告',
@@ -407,8 +407,8 @@ exports.getShopInfo = async ctx => {
       shopWorkTime: '08-20',
       shopDeliveryCost: 3.4,
       shopStartDelivery: 12,
-      shopStoresImages: 'https://fuss10.elemecdn.com/0/9f/23cfcc8ad15a56734ab10d95c14aajpeg.jpeg?imageMogr/format/webp/',
-      shopDetailImages: 'https://fuss10.elemecdn.com/a/43/4cacac3068b534c56a3cb1288ca67jpeg.jpeg?imageMogr/format/webp/',
+      storesImages: 'https://fuss10.elemecdn.com/0/9f/23cfcc8ad15a56734ab10d95c14aajpeg.jpeg?imageMogr/format/webp/',
+      detailImages: 'https://fuss10.elemecdn.com/a/43/4cacac3068b534c56a3cb1288ca67jpeg.jpeg?imageMogr/format/webp/',
       deliveryTime: '40',
       level: 4.3
     }

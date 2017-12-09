@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-  import orderCard from 'components/userOrderCard'
+  import orderCard from './userOrderCard'
   import { _getUserOrder, _deleteOrder, _getSopPhone, _finishOrder } from 'common/javascript/userApi'
   import { mapGetters } from 'vuex'
 

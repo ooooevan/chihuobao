@@ -13,7 +13,14 @@ const Apply = new mongoose.Schema({
   shop_logo: String,
   shop_abstract: String,
   shop_location: String,
-  shop_auto_images: String
+  shop_auth_images: String, // 门面照
+  shop_type: Number,
+  longitude: Number,
+  latitude: Number,
+  status: {
+    type: Number,
+    default: 0
+  }
 })
 
-module.exports = mongoose.model('UserApply', Apply)
+module.exports = mongoose.model('ShopApply', Apply)

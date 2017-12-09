@@ -3,6 +3,10 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
 const ShopOrder = new mongoose.Schema({
+  _id: {
+    type: ObjectId,
+    ref: 'UserOrder'
+  },
   user_id: {
     type: ObjectId,
     ref: 'User'
@@ -11,10 +15,15 @@ const ShopOrder = new mongoose.Schema({
     type: ObjectId,
     ref: 'Shop'
   },
-  dish_id_list: String,
-  time: Date,
-  mongy: Number,
-  order_status: Number
+  food_list: String,
+  user_order_code: String,
+  order_amount: Number,
+  order_status: String,
+  order_create_time: Date,
+  order_remarks: String,
+  delivery_way: String,
+  pay_way: String,
+  accept_address: String
 })
 
 module.exports = mongoose.model('ShopOrder', ShopOrder)

@@ -18,8 +18,10 @@ export default {
     cancelOrder: `${baseUrl}/order/cancel`,
     getShopPhone: `${baseUrl}/order/getPhone`,
     getUserOrder: `${baseUrl}/order/find`,
-    finishOrder: `${baseUrl}/order/finish`,  // dd
-    upload: `${baseUrl}/upload`
+    finishOrder: `${baseUrl}/order/finish`,
+    rateOrder: `${baseUrl}/comment/user`,
+    upload: `${baseUrl}/info/upload`,
+    getShopType: `${baseUrl}/types`
   },
   seller: {
     initInfo: `${baseUrl}/shop/shopMsg`,
@@ -32,7 +34,7 @@ export default {
     modifyShopInfo: `${baseUrl}/shop/updateShop`,
     getRateList: `${baseUrl}/comment/dish`,
     isNewOrder: `${baseUrl}/shopOrder/getNewOrder`,
-    upload: `${baseUrl}/upload`
+    upload: `${baseUrl}/image/shop`
   },
   admin: {}
 }

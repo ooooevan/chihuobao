@@ -30,13 +30,12 @@ mongoose.connection.on('open', console.log.bind(console, '连接数据库成功'
 // 加载models
 require('./app/models/admin')
 require('./app/models/dish_comment')
-require('./app/models/food_type')
+require('./app/models/dish_type')
 require('./app/models/user')
 require('./app/models/shop_apply')
 require('./app/models/shop_order')
 require('./app/models/shop_type')
 require('./app/models/shop')
-require('./app/models/user_detail')
 require('./app/models/user_order')
 require('./app/models/menu')
 
@@ -85,6 +84,10 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
 
+app.use(async (ctx) => {
+  ctx.status = 404
+  ctx.body = `404404404404`
+})
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 })

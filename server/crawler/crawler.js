@@ -106,8 +106,9 @@ function toTXT (origin, target) {
   })
 }
 
-getData(foodRate, 'foodRate')
+// getData(foodRate, 'foodRate')
 
 // getData(shopInfo, 'shopInfo')  // 这个好像是上面列表的一个
 
 // getData(shopMenu, 'shopMenu')
+getData(shopsList, 'shopsList')   // 商家列表

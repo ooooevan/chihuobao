@@ -16,12 +16,15 @@ const Shop = new mongoose.Schema({
   shop_phone: Number,
   shop_work_time: String,
   shop_delivery_cost: Number,
+  shop_delivery_time: Number,
   shop_start_delivery: String,
   shop_stores_images: String,
   shop_detail_images: String,
   shop_longitude: Number,
   shop_latitude: Number,
-  city_code: Number
+  delivery_time: Number,
+  level: Number,
+  monthly_sales: Number
 })
 
 module.exports = mongoose.model('Shop', Shop)

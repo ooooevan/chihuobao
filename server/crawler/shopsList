@@ -6,71 +6,7 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604620913,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      }
-    ],
-    "address": "广东海洋大学正对面综合楼（飞宏名城）一楼15号店",
-    "authentic_id": 7371986358132846,
-    "description": "",
-    "distance": 1056,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 1423546,
-    "image_path": "7fbef04af49d56f2507523164760acc7png",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.143804,
-    "longitude": 110.302505,
-    "max_applied_quantity_per_order": -1,
-    "name": "royaltea 皇茶",
-    "next_business_time": "",
-    "only_use_poi": false,
-    "opening_hours": [
-      "10:50/23:55"
-    ],
-    "order_lead_time": 38,
-    "phone": "13435216104 13376716479",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 10
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "本店暂时没有女配送员，女生宿舍不能送上楼请谅解！男生宿舍都送上楼的，除非门卫不给上楼",
-    "rating": 4.5,
-    "rating_count": 0,
-    "recent_order_num": 1452,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=1423546",
-    "status": 1,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604730241,
+        "id": 681575313,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
@@ -78,7 +14,7 @@
       }
     ],
     "address": "广东海洋大学主校区正门口对面月岭村委会综合楼一楼13号",
-    "authentic_id": 7331966354044724,
+    "authentic_id": 1342024992478324,
     "description": "",
     "distance": 912,
     "favored": false,
@@ -99,7 +35,7 @@
     "opening_hours": [
       "11:00/22:00"
     ],
-    "order_lead_time": 37,
+    "order_lead_time": 38,
     "phone": "13763083188",
     "piecewise_agent_fee": {
       "description": "免配送费",
@@ -113,10 +49,10 @@
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "6楼以上两杯起送\n由于外卖小哥不能上女生宿舍，只能放楼下，还望体谅。\n配送电话661600",
+    "promotion_info": "由于外卖小哥不能上女生宿舍，只能放楼下，还望体谅。\n配送电话661600",
     "rating": 4.5,
     "rating_count": 0,
-    "recent_order_num": 728,
+    "recent_order_num": 886,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -134,73 +70,7 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604814553,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      }
-    ],
-    "address": "湛江市麻章区海大路4号（优佳广场28号门店）",
-    "authentic_id": 5351936353547783,
-    "closing_count_down": 0,
-    "description": "内设空调，免费WIFI，环境舒适.",
-    "distance": 60,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 925583,
-    "image_path": "39be6f8ea7beb03af0ce855a79361f70jpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.150362,
-    "longitude": 110.301132,
-    "max_applied_quantity_per_order": -1,
-    "name": "膳玉贡茶",
-    "next_business_time": "15:40",
-    "only_use_poi": false,
-    "opening_hours": [
-      "10:50/13:30",
-      "15:40/22:20"
-    ],
-    "order_lead_time": 48,
-    "phone": "13610376630 676630 18344095911",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 10
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "备注：因校方管理严，外卖只送楼下，外卖热线13610376630（676630）\n              18344095911\n温度    冰度、甜度调整服务:1、热、温、常温    2、多冰、正常冰  去冰    3、多甜  少甜　正常甜",
-    "rating": 4.7,
-    "rating_count": 0,
-    "recent_order_num": 1536,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=925583",
-    "status": 5,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604724913,
+        "id": 684322921,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
@@ -208,7 +78,7 @@
       }
     ],
     "address": "湛江市麻章区湖光镇广东海洋大学门口湖光路第五间",
-    "authentic_id": 4371976360180520,
+    "authentic_id": 2312034989216320,
     "description": "",
     "distance": 935,
     "favored": false,
@@ -229,7 +99,7 @@
     "opening_hours": [
       "11:00/23:05"
     ],
-    "order_lead_time": 37,
+    "order_lead_time": 38,
     "phone": "13078274210",
     "piecewise_agent_fee": {
       "description": "免配送费",
@@ -244,9 +114,9 @@
       "tips": "免配送费"
     },
     "promotion_info": "",
-    "rating": 4.6,
+    "rating": 4.5,
     "rating_count": 0,
-    "recent_order_num": 404,
+    "recent_order_num": 403,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -264,56 +134,37 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604785281,
+        "id": 676024649,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
         "type": 103
-      },
-      {
-        "description": "店铺周年庆典8.2折再送老火汤和点心",
-        "icon_color": "f07373",
-        "icon_name": "特",
-        "id": 207774282,
-        "name": "店铺周年庆典8.2折再送老火汤和点心",
-        "tips": "店铺周年庆典8.2折再送老火汤和点心"
-      },
-      {
-        "description": "店铺周年庆典8.2折送老火汤再送点心",
-        "icon_color": "f07373",
-        "icon_name": "特",
-        "id": 207772914,
-        "name": "店铺周年庆典8.2折送老火汤再送点心",
-        "tips": "店铺周年庆典8.2折送老火汤再送点心"
       }
     ],
-    "address": "广东海洋大学主校区正门口对面后坛村委会综合楼飞宏名城一楼16号档内",
-    "authentic_id": 3381996353201852,
-    "bidding": "{\"core\":{\"index\":4,\"target\":{\"restaurantId\":1356852,\"weight\":60,\"probability\":0.1177000030875206},\"come_from\":1,\"next\":{\"restaurantId\":77796,\"weight\":30,\"probability\":0.08429999649524689}}}",
-    "closing_count_down": 0,
-    "description": "",
-    "distance": 226,
+    "address": "湛江市麻章区海大路4号（优佳广场28号门店）",
+    "authentic_id": 7332024990899283,
+    "description": "内设空调，免费WIFI，环境舒适.",
+    "distance": 60,
     "favored": false,
     "float_delivery_fee": 0,
-    "float_minimum_order_amount": 0,
-    "id": 1356852,
-    "image_path": "7612d81e896ef67bfa31cb0776eefa68jpeg",
+    "float_minimum_order_amount": 10,
+    "id": 925583,
+    "image_path": "39be6f8ea7beb03af0ce855a79361f70jpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.149075,
-    "longitude": 110.301456,
+    "latitude": 21.150362,
+    "longitude": 110.301132,
     "max_applied_quantity_per_order": -1,
-    "name": "无国界快餐",
-    "next_business_time": "15:30",
+    "name": "膳玉贡茶",
+    "next_business_time": "",
     "only_use_poi": false,
     "opening_hours": [
-      "08:30/13:15",
-      "15:30/19:15"
+      "10:30/22:30"
     ],
-    "order_lead_time": 59,
-    "phone": "18934012324 18344177758",
+    "order_lead_time": 48,
+    "phone": "13610376630 676630 18344095911",
     "piecewise_agent_fee": {
       "description": "免配送费",
       "extra_fee": 0,
@@ -321,24 +172,22 @@
       "rules": [
         {
           "fee": 0,
-          "price": 0
+          "price": 10
         }
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "请同学们提前下单！避开用餐高峰期！",
-    "rating": 4.4,
+    "promotion_info": "备注：下单时请备注温度。外卖热线13610376630（676630）\n              18344095911\n温度    冰度、甜度调整服务:1、热、温、常温    2、多冰、正常冰  去冰    3、多甜  少甜　正常甜",
+    "rating": 4.5,
     "rating_count": 0,
-    "recent_order_num": 4552,
+    "recent_order_num": 1382,
     "recommend": {
-      "image_hash": "731111f3f9379e772eedf4855beae8a1jpeg",
-      "is_ad": true,
-      "reason": "广告",
-      "track": "{\"rankType\":\"8\"}"
+      "is_ad": false,
+      "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=1356852",
-    "status": 5,
+    "scheme": "eleme://catering?restaurant_id=925583",
+    "status": 1,
     "supports": [],
     "type": 0
   },
@@ -349,88 +198,283 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604708217,
+        "id": 675069673,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      }
+    ],
+    "address": "广东海洋大学正对面综合楼（飞宏名城）一楼15号店",
+    "authentic_id": 6352034991321446,
+    "description": "",
+    "distance": 1056,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 10,
+    "id": 1423546,
+    "image_path": "7fbef04af49d56f2507523164760acc7png",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.143804,
+    "longitude": 110.302505,
+    "max_applied_quantity_per_order": -1,
+    "name": "royaltea 皇茶",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "10:45/23:30"
+    ],
+    "order_lead_time": 38,
+    "phone": "13435216104 13376716479",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "本店暂时没有女配送员，女生宿舍不能送上楼请谅解！男生宿舍都送上楼的，除非门卫不给上楼",
+    "rating": 4.5,
+    "rating_count": 0,
+    "recent_order_num": 1572,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=1423546",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 684178809,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
         "type": 103
       },
       {
-        "attribute": "{\"48\": {\"1\": 4.0, \"0\": 0.0}, \"58\": {\"1\": 8.0, \"0\": 0.0}, \"35\": {\"1\": 1.0, \"0\": 0.0}}",
-        "description": "满35减1，满48减4，满58减8",
+        "description": "正新香辣鸡排推广活动(限10:00-23:59)",
         "icon_color": "f07373",
-        "icon_name": "减",
-        "id": 202377770,
-        "is_exclusive_with_food_activity": false,
-        "name": "满35减1，满48减4，满58减8",
-        "tips": "满35减1，满48减4，满58减8",
-        "type": 102
+        "icon_name": "特",
+        "id": 236734306,
+        "name": "正新香辣鸡排推广活动",
+        "tips": "正新香辣鸡排推广活动"
       },
       {
-        "description": "小吃特价优惠",
-        "icon_color": "f1884f",
+        "description": "脆皮炸鸡(限10:00-23:59)",
+        "icon_color": "f07373",
         "icon_name": "特",
-        "id": 212927898,
-        "name": "小吃特价优惠",
-        "tips": "小吃特价优惠"
-      },
-      {
-        "description": "优惠吃面",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 212920242,
-        "name": "优惠吃面",
-        "tips": "优惠吃面"
-      },
-      {
-        "description": "9.9特价优惠",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 212919514,
-        "name": "9.9特价优惠",
-        "tips": "9.9特价优惠"
-      },
-      {
-        "description": "特价抢先购",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 212917738,
-        "name": "特价抢先购",
-        "tips": "特价抢先购"
-      },
-      {
-        "description": "新品特价优惠",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 212914570,
-        "name": "新品特价优惠",
-        "tips": "新品特价优惠"
+        "id": 220530578,
+        "name": "脆皮炸鸡",
+        "tips": "脆皮炸鸡"
       }
     ],
-    "address": "湛江市麻章区湖光镇后坛村村小组村口牌坊西侧第一幢1号",
-    "authentic_id": 5371916367604598,
-    "description": "新店已搬到海大爱琴海KTV旁边，想吃脆脆的鸡蛋仔欢迎来店里购买。",
-    "distance": 1166,
+    "address": "湛江市麻章区湖光镇湖光市场一楼饮食行3号内",
+    "authentic_id": 4342054997737912,
+    "bidding": "{\"core\":{\"index\":4,\"target\":{\"restaurantId\":151705112,\"weight\":10,\"probability\":0.11500000208616257},\"come_from\":1,\"next\":{\"restaurantId\":151705112,\"weight\":10,\"probability\":0.11500000208616257}}}",
+    "description": "",
+    "distance": 440,
     "favored": false,
     "float_delivery_fee": 0,
-    "float_minimum_order_amount": 12,
-    "id": 2089698,
-    "image_path": "713036a8e91e52bdee236c761e697962jpeg",
+    "float_minimum_order_amount": 10,
+    "id": 151705112,
+    "image_path": "b2f878bbca88b70467a842f6c0bd961fjpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.143124,
-    "longitude": 110.300309,
+    "latitude": 21.147727,
+    "longitude": 110.301912,
     "max_applied_quantity_per_order": -1,
-    "name": "食客尚饮",
+    "name": "酸奶家族",
     "next_business_time": "",
     "only_use_poi": false,
     "opening_hours": [
-      "10:00/22:55"
+      "07:30/23:00"
     ],
-    "order_lead_time": 57,
-    "phone": "15917562244",
+    "order_lead_time": 48,
+    "phone": "18312166020 13692307560",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "",
+    "rating": 4.3,
+    "rating_count": 0,
+    "recent_order_num": 1245,
+    "recommend": {
+      "image_hash": "731111f3f9379e772eedf4855beae8a1jpeg",
+      "is_ad": true,
+      "reason": "广告",
+      "track": "{\"rankType\":\"8\"}"
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=151705112",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 676939001,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      }
+    ],
+    "address": "湛江市麻章区湖光镇后坛村71号房屋",
+    "authentic_id": 3342024991633046,
+    "description": "|台湾贡茶|会员全场饮品尊享九折！宝宝们，快来加入会员吧~",
+    "distance": 949,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 10,
+    "id": 1564246,
+    "image_path": "b6bf92672d6cdbb3c483fc5b28b11e6dpng",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.144538,
+    "longitude": 110.302736,
+    "max_applied_quantity_per_order": -1,
+    "name": "台湾贡茶",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "10:15/22:00"
+    ],
+    "order_lead_time": 38,
+    "phone": "18312097319 15293081317 15916810307",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "本店早上10:30女生和男生都可以送上宿舍楼，到晚上十点。\n现在天气恍惚，不备注都是常温哦",
+    "rating": 4.1,
+    "rating_count": 0,
+    "recent_order_num": 709,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=1564246",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 682554585,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      },
+      {
+        "attribute": "{\"28.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u8150\\u76ae\\u867e\\u8089\\u5377\"}}",
+        "description": "满28元赠送腐皮虾肉卷1份",
+        "icon_color": "3cc791",
+        "icon_name": "赠",
+        "id": 238740762,
+        "is_exclusive_with_food_activity": true,
+        "name": "新品，满就送",
+        "tips": "满28元赠送腐皮虾肉卷1份",
+        "type": 106
+      },
+      {
+        "description": "新品特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 221738330,
+        "name": "新品特价",
+        "tips": "新品特价"
+      },
+      {
+        "description": "下午茶-奶茶甜品5折",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 205886346,
+        "name": "下午茶-奶茶甜品5折",
+        "tips": "下午茶-奶茶甜品5折"
+      },
+      {
+        "description": "周末午餐-品质5折",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 205331586,
+        "name": "周末午餐-品质5折",
+        "tips": "周末午餐-品质5折"
+      }
+    ],
+    "address": "广东省湛江市麻章区麻章镇学智路2号",
+    "authentic_id": 5342024992892349,
+    "description": "特色面食，小吃，特色甜品",
+    "distance": 846,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 12,
+    "id": 157921149,
+    "image_path": "91ea9e52950f2c488802a104ddf09e2cjpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.145094,
+    "longitude": 110.301561,
+    "max_applied_quantity_per_order": -1,
+    "name": "甜谷甜品",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "10:25/23:25"
+    ],
+    "order_lead_time": 49,
+    "phone": "13178596789 13422257987",
     "piecewise_agent_fee": {
       "description": "免配送费",
       "extra_fee": 0,
@@ -443,16 +487,16 @@
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "每天上午10:30---12:30,下午16:30---18:25都由优佳团队送上楼给你们，其他时间都由商家自己配送。团队送餐速度有快有慢的，所以请同学们提早下单 耐心等待。",
-    "rating": 4.1,
+    "promotion_info": "除了中午1:40，下午4:30-6:40派送团队派送。其余时间商家自行派送，尽量送上楼，不便之处敬请谅解。",
+    "rating": 4.4,
     "rating_count": 0,
-    "recent_order_num": 718,
+    "recent_order_num": 609,
     "recommend": {
       "is_ad": false,
       "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=2089698",
+    "scheme": "eleme://catering?restaurant_id=157921149",
     "status": 1,
     "supports": [],
     "type": 0
@@ -464,7 +508,7 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604641657,
+        "id": 684456745,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
@@ -472,7 +516,7 @@
       }
     ],
     "address": "湛江市麻章区广东海洋大学主校区小吃街",
-    "authentic_id": 5331976353111768,
+    "authentic_id": 5352014990760368,
     "description": "洋洋芋圆取名于爱女：小洋洋，每一份我们均用爱制作，为的是为我们海大每一位学子捧上一份：健康的、性格比高的、美味的产品！我们的芋圆系海大首家心血自创水果芋圆，一直被，跟风与模仿但一直未被超越！果饮类外卖均用  （大杯量规格）！",
     "distance": 0,
     "favored": false,
@@ -508,9 +552,9 @@
       "tips": "免配送费"
     },
     "promotion_info": "各位同学：洋洋推出美味饭餐且专提供一款家庭标准便当！欢迎下单，均送饮品",
-    "rating": 4.5,
+    "rating": 4.4,
     "rating_count": 0,
-    "recent_order_num": 1873,
+    "recent_order_num": 2133,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -528,195 +572,69 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604622761,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      }
-    ],
-    "address": "湛江市麻章区湖光镇后坛村71号房屋",
-    "authentic_id": 6351996371216046,
-    "description": "|台湾贡茶|会员全场饮品尊享九折！宝宝们，快来加入会员吧~",
-    "distance": 949,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 1564246,
-    "image_path": "b6bf92672d6cdbb3c483fc5b28b11e6dpng",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.144538,
-    "longitude": 110.302736,
-    "max_applied_quantity_per_order": -1,
-    "name": "台湾贡茶",
-    "next_business_time": "",
-    "only_use_poi": false,
-    "opening_hours": [
-      "10:00/22:00"
-    ],
-    "order_lead_time": 38,
-    "phone": "18312097319 15293081317 15916810307",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 10
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "本店早上10:30女生和男生都可以送上宿舍楼，到晚上十点。\n本店短号:689319",
-    "rating": 4.1,
-    "rating_count": 0,
-    "recent_order_num": 573,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=1564246",
-    "status": 1,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604623585,
+        "id": 683293073,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
         "type": 103
       },
       {
-        "attribute": "5.0",
-        "description": "本店新用户立减5元",
-        "icon_color": "00b762",
-        "icon_name": "新",
-        "id": 211322322,
-        "is_exclusive_with_food_activity": true,
-        "name": "门店新客立减",
-        "tips": "本店新用户立减5元",
-        "type": 108
-      }
-    ],
-    "address": "广东省湛江市麻章区麻章镇学智路2号",
-    "authentic_id": 4331906374067949,
-    "description": "",
-    "distance": 846,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 16,
-    "id": 157921149,
-    "image_path": "91ea9e52950f2c488802a104ddf09e2cjpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.145094,
-    "longitude": 110.301561,
-    "max_applied_quantity_per_order": -1,
-    "name": "甜谷甜品",
-    "next_business_time": "",
-    "only_use_poi": false,
-    "opening_hours": [
-      "10:15/23:15"
-    ],
-    "order_lead_time": 48,
-    "phone": "13178596789 13422257987",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 16
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "",
-    "rating": 4.6,
-    "rating_count": 0,
-    "recent_order_num": 504,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=157921149",
-    "status": 1,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604487329,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      },
-      {
-        "description": "十一月大优惠(限09:00-19:30)",
+        "description": "优惠吃面",
         "icon_color": "f1884f",
         "icon_name": "特",
-        "id": 171217322,
-        "name": "十一月大优惠",
-        "tips": "十一月大优惠"
+        "id": 237169962,
+        "name": "优惠吃面",
+        "tips": "优惠吃面"
       },
       {
-        "description": "周五半价日·5折美食",
-        "icon_color": "f07373",
-        "icon_name": "折",
-        "id": 145333370,
-        "name": "周五半价日·5折美食",
-        "tips": "周五半价日·5折美食"
+        "description": "惠顾新老顾客",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 237168770,
+        "name": "惠顾新老顾客",
+        "tips": "惠顾新老顾客"
+      },
+      {
+        "description": "新品特价优惠",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 237166186,
+        "name": "新品特价优惠",
+        "tips": "新品特价优惠"
+      },
+      {
+        "description": "特价优惠",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 237164274,
+        "name": "特价优惠",
+        "tips": "特价优惠"
       }
     ],
-    "address": "湛江市工商局",
-    "authentic_id": 6311966365706196,
-    "bidding": "{\"core\":{\"index\":9,\"target\":{\"restaurantId\":77796,\"weight\":30,\"probability\":0.08429999649524689},\"come_from\":1,\"next\":{\"restaurantId\":157525232,\"weight\":10,\"probability\":0.13529999554157257}}}",
-    "closing_count_down": 0,
-    "description": "叫外卖，上饿了么！",
-    "distance": 63,
+    "address": "湛江市麻章区湖光镇后坛村村小组村口牌坊西侧第一幢1号",
+    "authentic_id": 2342015003059598,
+    "description": "新店已搬到海大爱琴海KTV旁边，想吃脆脆的鸡蛋仔欢迎来店里购买。",
+    "distance": 1166,
     "favored": false,
     "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 77796,
-    "image_path": "41bda1b5c353b9440d5ed57f11a59b95jpeg",
+    "float_minimum_order_amount": 9.899999618530273,
+    "id": 2089698,
+    "image_path": "713036a8e91e52bdee236c761e697962jpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.150123,
-    "longitude": 110.301513,
+    "latitude": 21.143124,
+    "longitude": 110.300309,
     "max_applied_quantity_per_order": -1,
-    "name": "海云中西美食坊",
-    "next_business_time": "15:00",
+    "name": "食客尚饮",
+    "next_business_time": "",
     "only_use_poi": false,
     "opening_hours": [
-      "10:30/13:30",
-      "15:00/19:40"
+      "10:00/22:55"
     ],
-    "order_lead_time": 37,
-    "phone": "13553566040",
+    "order_lead_time": 57,
+    "phone": "15917562244",
     "piecewise_agent_fee": {
       "description": "免配送费",
       "extra_fee": 0,
@@ -724,24 +642,22 @@
       "rules": [
         {
           "fee": 0,
-          "price": 10
+          "price": 9.899999618530273
         }
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "本店上选香米，调和油，环保饭盒，请放心食用。送餐上楼，欢迎预订！订餐电，13553566040",
-    "rating": 4.3,
+    "promotion_info": "食客尚饮店搬到小吃街对面咕咕鸡旁边了，欢迎新老顾客前来捧场。",
+    "rating": 4.1,
     "rating_count": 0,
-    "recent_order_num": 175,
+    "recent_order_num": 643,
     "recommend": {
-      "image_hash": "731111f3f9379e772eedf4855beae8a1jpeg",
-      "is_ad": true,
-      "reason": "广告",
-      "track": "{\"rankType\":\"8\"}"
+      "is_ad": false,
+      "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=77796",
-    "status": 5,
+    "scheme": "eleme://catering?restaurant_id=2089698",
+    "status": 1,
     "supports": [],
     "type": 0
   },
@@ -752,7 +668,7 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604709321,
+        "id": 675790833,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
@@ -760,7 +676,7 @@
       }
     ],
     "address": "湛江市麻章区湖光镇海大路广东海洋大学湖光校区东区网球场器材管理室第1~2号房屋",
-    "authentic_id": 6331966356437274,
+    "authentic_id": 1342004993743774,
     "description": "1935，一家属于海大人的咖啡厅，位于广东海洋大学校内游泳池旁，有着海大校内外最优雅的环境。主营饮品有咖啡，奶茶，果汁，特饮，冰乐。主食有披萨，意面，焗饭，炒饭等。店里分雨棚雅座，室内空调包间，室外遮阳区，后花园雅座，还有花房，园艺区，水果房。欢迎志同道合的朋友过来玩耍。",
     "distance": 635,
     "favored": false,
@@ -781,7 +697,7 @@
     "opening_hours": [
       "09:10/22:00"
     ],
-    "order_lead_time": 61,
+    "order_lead_time": 63,
     "phone": "0759-2801935",
     "piecewise_agent_fee": {
       "description": "免配送费",
@@ -798,7 +714,7 @@
     "promotion_info": "到店消费，更快更实惠",
     "rating": 3.9,
     "rating_count": 0,
-    "recent_order_num": 379,
+    "recent_order_num": 306,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -816,7 +732,71 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604443385,
+        "id": 676449369,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      }
+    ],
+    "address": "湛江市麻章区湖光镇西岭路邮电局对面",
+    "authentic_id": 2392004994932968,
+    "description": "",
+    "distance": 860,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 10,
+    "id": 1530468,
+    "image_path": "f324a6551b611cbeb20e5ddb2a037064jpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.145012,
+    "longitude": 110.301152,
+    "max_applied_quantity_per_order": -1,
+    "name": "绿之源果饮",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "09:30/23:00"
+    ],
+    "order_lead_time": 33,
+    "phone": "13414861358",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "",
+    "rating": 3.8,
+    "rating_count": 0,
+    "recent_order_num": 69,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=1530468",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 676127345,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
@@ -824,7 +804,7 @@
       }
     ],
     "address": "湛江市麻章区湖光岩东广东海洋大学主校区商业服务中心第6号二楼（3）房内",
-    "authentic_id": 1321986369169145,
+    "authentic_id": 2352024995010245,
     "description": "哥哥雙皮奶校内商業中心5月18號恢復正常營業了！同賀4周年！只要消費麵食，再購買任意飲品可直享半價！\n校外堅品雙皮奶店，價格優惠！是哥哥雙皮奶的旗下品牌：（原川町太郎位置）13437878891，13590051269",
     "distance": 915,
     "favored": false,
@@ -845,7 +825,7 @@
     "opening_hours": [
       "10:00/22:00"
     ],
-    "order_lead_time": 39,
+    "order_lead_time": 35,
     "phone": "13437878891 13590051269",
     "piecewise_agent_fee": {
       "description": "免配送费",
@@ -860,9 +840,9 @@
       "tips": "免配送费"
     },
     "promotion_info": "樓下自取，謝謝配合！",
-    "rating": 3.7,
+    "rating": 4.7,
     "rating_count": 0,
-    "recent_order_num": 200,
+    "recent_order_num": 72,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -876,25 +856,25 @@
   {
     "activities": [
       {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
+        "attribute": "15.0",
+        "description": "新用户下单立减15元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604795025,
+        "id": 675166345,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
+        "tips": "新用户下单立减15元",
         "type": 103
       }
     ],
     "address": "湛江市麻章区湖光镇月岭村委会后坛村村口对面桥头东侧第四号",
-    "authentic_id": 2311906363047573,
+    "authentic_id": 7392044985480373,
     "closing_count_down": 0,
     "description": "",
     "distance": 770,
     "favored": false,
     "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
+    "float_minimum_order_amount": 5,
     "id": 1057473,
     "image_path": "35276982c90e22df25c8d6806c3dae19jpeg",
     "is_new": false,
@@ -920,15 +900,15 @@
       "rules": [
         {
           "fee": 0,
-          "price": 10
+          "price": 5
         }
       ],
       "tips": "免配送费"
     },
     "promotion_info": "",
-    "rating": 4.3,
+    "rating": 4.4,
     "rating_count": 0,
-    "recent_order_num": 7811,
+    "recent_order_num": 7711,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -946,39 +926,56 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604727689,
+        "id": 682628841,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
         "type": 103
+      },
+      {
+        "attribute": "{\"25\": {\"1\": 1.0, \"0\": 0.0}, \"35\": {\"1\": 2.0, \"0\": 0.0}, \"45\": {\"1\": 3.0, \"0\": 0.0}}",
+        "description": "满25减1，满35减2，满45减3",
+        "icon_color": "f07373",
+        "icon_name": "减",
+        "id": 236965482,
+        "is_exclusive_with_food_activity": false,
+        "name": "回馈新老顾客",
+        "tips": "满25减1，满35减2，满45减3",
+        "type": 102
+      },
+      {
+        "description": "周末午餐-品质5折",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 205340650,
+        "name": "周末午餐-品质5折",
+        "tips": "周末午餐-品质5折"
       }
     ],
-    "address": "广东海洋大学主校区商业广场第12号内",
-    "authentic_id": 6351946364635800,
-    "closing_count_down": 0,
-    "description": "",
-    "distance": 928,
+    "address": "广东省湛江市麻章区麻章镇学智路2号",
+    "authentic_id": 1392094998727471,
+    "description": "本店位于小吃街宜好商店旁边路口第一家，欢迎大家到实体店品尝。",
+    "distance": 171,
     "favored": false,
     "float_delivery_fee": 0,
     "float_minimum_order_amount": 10,
-    "id": 1546000,
-    "image_path": "a56956aff0f2a339890ab23bd2dffc95jpeg",
+    "id": 160207171,
+    "image_path": "3199a3847b2f7019563b956f558d1f71jpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.144613,
-    "longitude": 110.302315,
+    "latitude": 21.151325,
+    "longitude": 110.300695,
     "max_applied_quantity_per_order": -1,
-    "name": "海大蔬果行",
-    "next_business_time": "15:30",
+    "name": "牛排杯",
+    "next_business_time": "",
     "only_use_poi": false,
     "opening_hours": [
-      "08:00/13:00",
-      "15:30/20:00"
+      "09:30/23:00"
     ],
-    "order_lead_time": 67,
-    "phone": "13724724036",
+    "order_lead_time": 49,
+    "phone": "13763037123 13692379288",
     "piecewise_agent_fee": {
       "description": "免配送费",
       "extra_fee": 0,
@@ -991,70 +988,196 @@
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "亲们由于天气原因，可能会误点送，请亲们体谅下，保持电话畅通，别下无效电话，一接到电话请下楼拿菜，半小时之后不拿如有不见概不负责，本店不提供送上宿舍，只送到大院门口，如果一时不方便拿的话请备注时间送，本店短号614253，684036，13724724036，请备注一下短号，谢谢！",
-    "rating": 4.4,
+    "promotion_info": "本店主打牛排，有特色小吃，贡茶，咖喱饭，黑椒饭等系列，所有产品采用新鲜原料，现点现做。",
+    "rating": 4.3,
     "rating_count": 0,
-    "recent_order_num": 4067,
+    "recent_order_num": 1596,
     "recommend": {
       "is_ad": false,
       "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://retail_store?re_store_id=1546000",
-    "status": 5,
+    "scheme": "eleme://catering?restaurant_id=160207171",
+    "status": 1,
     "supports": [],
-    "type": 1
+    "type": 0
   },
   {
     "activities": [
       {
-        "attribute": "7.0",
-        "description": "新用户下单立减7元",
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604420217,
+        "id": 675409113,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减7元",
+        "tips": "新用户下单立减6元",
         "type": 103
       },
       {
-        "attribute": "{\"26\": {\"1\": 3.0, \"0\": 0.0}, \"13\": {\"1\": 1.0, \"0\": 0.0}}",
-        "description": "满13减1，满26减3",
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 239307250,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 239306722,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "新店庆",
         "icon_color": "f07373",
-        "icon_name": "减",
-        "id": 208652874,
+        "icon_name": "特",
+        "id": 239306322,
+        "name": "新店庆",
+        "tips": "新店庆"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 239306074,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 239305834,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "attribute": "3.0",
+        "description": "本店新用户立减3元",
+        "icon_color": "00b762",
+        "icon_name": "新",
+        "id": 219219810,
         "is_exclusive_with_food_activity": true,
-        "name": "满减",
-        "tips": "满13减1，满26减3",
-        "type": 102
+        "name": "门店新客立减",
+        "tips": "本店新用户立减3元",
+        "type": 108
       }
     ],
-    "address": "广东海洋大学门口对面（农科所商业街）第2间商铺",
-    "authentic_id": 7361956367651832,
-    "bidding": "{\"core\":{\"index\":14,\"target\":{\"restaurantId\":157525232,\"weight\":10,\"probability\":0.13529999554157257},\"come_from\":1,\"next\":{\"restaurantId\":156020527,\"weight\":50,\"probability\":0.1817999929189682}}}",
-    "description": "舌尖是你老铁、好吃问你师姐.........",
-    "distance": 1166,
+    "address": "湛江市麻章区湖光镇湖光市场一楼烧腊行5号",
+    "authentic_id": 4382064992302347,
+    "description": "",
+    "distance": 171,
     "favored": false,
     "float_delivery_fee": 0,
     "float_minimum_order_amount": 10,
-    "id": 157525232,
-    "image_path": "b67b4ee44a67338199590d4f3af29fe9jpeg",
+    "id": 161230147,
+    "image_path": "02cb4211d5dca701cf349ea842a49165jpeg",
+    "is_new": true,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.151325,
+    "longitude": 110.300695,
+    "max_applied_quantity_per_order": -1,
+    "name": "食粥坊",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "08:00/22:45"
+    ],
+    "order_lead_time": 46,
+    "phone": "13106618071",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "",
+    "rating": 4.4,
+    "rating_count": 0,
+    "recent_order_num": 783,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=161230147",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 682608945,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      },
+      {
+        "attribute": "{\"25\": {\"1\": 2.0, \"0\": 0.0}, \"20\": {\"1\": 1.0, \"0\": 0.0}}",
+        "description": "满20减1，满25减2",
+        "icon_color": "f07373",
+        "icon_name": "减",
+        "id": 208292618,
+        "is_exclusive_with_food_activity": false,
+        "name": "满20减1 满25减2",
+        "tips": "满20减1，满25减2",
+        "type": 102
+      },
+      {
+        "attribute": "{\"40.0\": {\"quantity\": 4, \"must_pay_online\": 1, \"name\": \"\\u996e\\u6599\"}, \"60.0\": {\"quantity\": 6, \"must_pay_online\": 1, \"name\": \"\\u4ee5\\u6b64\\u7c7b\\u63a8\"}, \"20.0\": {\"quantity\": 2, \"must_pay_online\": 1, \"name\": \"\\u996e\\u6599\"}}",
+        "description": "满20元赠送饮料2份，满40元赠送饮料4份，满60元赠送以此类推6份",
+        "icon_color": "3cc791",
+        "icon_name": "赠",
+        "id": 221700186,
+        "is_exclusive_with_food_activity": true,
+        "name": "送饮料",
+        "tips": "满20元赠送饮料2份，满40元赠送饮料4份，满60元赠送以此类推6份",
+        "type": 106
+      }
+    ],
+    "address": "广东省湛江市麻章区麻章镇学智路2号",
+    "authentic_id": 8392054993897066,
+    "closing_count_down": 0,
+    "description": "配送与吃餐只有做最好的",
+    "distance": 171,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 10,
+    "id": 159335166,
+    "image_path": "61d93323dae097e9cf2c435b512bbba4jpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.143124,
-    "longitude": 110.300309,
+    "latitude": 21.151325,
+    "longitude": 110.300695,
     "max_applied_quantity_per_order": -1,
-    "name": "妈妈的味道",
-    "next_business_time": "",
+    "name": "膬鴄鷄飰",
+    "next_business_time": "14:30",
     "only_use_poi": false,
     "opening_hours": [
       "08:00/12:35",
       "14:30/18:35"
     ],
-    "order_lead_time": 58,
+    "order_lead_time": 49,
     "phone": "17817898090",
     "piecewise_agent_fee": {
       "description": "免配送费",
@@ -1068,18 +1191,80 @@
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "改变只为你的口味。【学校里配送时间上午10:10开始下午16:10开始，可提前预定】",
-    "rating": 3.9,
+    "promotion_info": "【学校里配送时间：上午10:10 开始下午16:10 开始，可提前预定这样更方便】干净卫生、好吃、才是给到你的健康食品",
+    "rating": 4.5,
     "rating_count": 0,
-    "recent_order_num": 475,
+    "recent_order_num": 603,
     "recommend": {
-      "image_hash": "731111f3f9379e772eedf4855beae8a1jpeg",
-      "is_ad": true,
-      "reason": "广告",
-      "track": "{\"rankType\":\"8\"}"
+      "is_ad": false,
+      "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=157525232",
+    "scheme": "eleme://catering?restaurant_id=159335166",
+    "status": 5,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 682550457,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      }
+    ],
+    "address": "广东海洋大学主校区正门口对面月岭村委会综合楼飞宏名城一楼7号",
+    "authentic_id": 4342084988326951,
+    "description": "友情提醒：因汤底本身带有微微辣、微微麻的，所以完全不能吃辣的人请注意",
+    "distance": 1040,
+    "favored": false,
+    "float_delivery_fee": 1.7000000476837158,
+    "float_minimum_order_amount": 10,
+    "id": 157500051,
+    "image_path": "839e435ed5246c1c8f385bcb758f4602jpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.143881,
+    "longitude": 110.302214,
+    "max_applied_quantity_per_order": -1,
+    "name": "杨国福麻辣烫",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "09:30/22:00"
+    ],
+    "order_lead_time": 59,
+    "phone": "13356509563 18688590071",
+    "piecewise_agent_fee": {
+      "description": "配送费¥1.7",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 1.7000000476837158,
+          "price": 10
+        }
+      ],
+      "tips": "配送费¥1.7"
+    },
+    "promotion_info": "",
+    "rating": 4.3,
+    "rating_count": 0,
+    "recent_order_num": 2609,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=157500051",
     "status": 1,
     "supports": [],
     "type": 0
@@ -1087,528 +1272,30 @@
   {
     "activities": [
       {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
+        "attribute": "15.0",
+        "description": "新用户下单立减15元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604467921,
+        "id": 683658593,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
+        "tips": "新用户下单立减15元",
         "type": 103
       },
       {
-        "description": "精选食材",
-        "icon_color": "f07373",
-        "icon_name": "折",
-        "id": 206981322,
-        "name": "精选食材",
-        "tips": "精选食材"
-      }
-    ],
-    "address": "广东海洋大学主校区商业广场第12号内",
-    "authentic_id": 1381996372520271,
-    "closing_count_down": 0,
-    "description": "",
-    "distance": 838,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 1519371,
-    "image_path": "24db0837c72b8743ee7f14b3bad4c8bcjpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.14515,
-    "longitude": 110.30176,
-    "max_applied_quantity_per_order": -1,
-    "name": "长生水果蔬阁",
-    "next_business_time": "15:30",
-    "only_use_poi": false,
-    "opening_hours": [
-      "08:30/13:00",
-      "15:30/22:30"
-    ],
-    "order_lead_time": 48,
-    "phone": "13413615759 13828278848",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 10
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "亲们当收到信息后方可在大院门口取菜啦！为保证大家收货时间，本店不提供送上宿舍，如有不便，敬请来电18934221371",
-    "rating": 4.6,
-    "rating_count": 0,
-    "recent_order_num": 1559,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://retail_store?re_store_id=1519371",
-    "status": 5,
-    "supports": [],
-    "type": 1
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604792041,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      },
-      {
-        "description": "美味来袭",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 211571634,
-        "name": "美味来袭",
-        "tips": "美味来袭"
-      },
-      {
-        "description": "新品优惠",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 211570122,
-        "name": "新品优惠",
-        "tips": "新品优惠"
-      }
-    ],
-    "address": "广东海洋大学主校区学生公寓（海欢）大院内",
-    "authentic_id": 8381996369801619,
-    "closing_count_down": 0,
-    "description": "大众寿司及将推出药膳营养汤，滋补养颜清热去火。尽请期待",
-    "distance": 409,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 1969119,
-    "image_path": "b164c1c18f0db29be7d6b6165d215c08jpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.148858,
-    "longitude": 110.303691,
-    "max_applied_quantity_per_order": -1,
-    "name": "大众寿司",
-    "next_business_time": "15:40",
-    "only_use_poi": false,
-    "opening_hours": [
-      "09:40/13:00",
-      "15:40/21:40"
-    ],
-    "order_lead_time": 40,
-    "phone": "13729166824 666824",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 10
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "要芥末酱油的请备注，谢谢，",
-    "rating": 4.3,
-    "rating_count": 0,
-    "recent_order_num": 2380,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=1969119",
-    "status": 5,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604569857,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      },
-      {
-        "description": "一元特价秒杀",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 176011450,
-        "name": "一元特价秒杀",
-        "tips": "一元特价秒杀"
-      },
-      {
-        "description": "超值双人套餐",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 175993666,
-        "name": "超值双人套餐",
-        "tips": "超值双人套餐"
-      },
-      {
-        "description": "限量特价",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 175978906,
-        "name": "限量特价",
-        "tips": "限量特价"
-      },
-      {
-        "description": "限量特价、特价",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 175950778,
-        "name": "限量特价、特价",
-        "tips": "限量特价、特价"
-      },
-      {
-        "description": "8折超值优惠套餐",
-        "icon_color": "f07373",
-        "icon_name": "特",
-        "id": 175917338,
-        "name": "8折超值优惠套餐",
-        "tips": "8折超值优惠套餐"
-      },
-      {
-        "description": "劲爆热销套餐",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 175899202,
-        "name": "劲爆热销套餐",
-        "tips": "劲爆热销套餐"
-      },
-      {
-        "description": "超值特价套餐",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 175888754,
-        "name": "超值特价套餐",
-        "tips": "超值特价套餐"
-      },
-      {
-        "description": "超值全家桶",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 175880442,
-        "name": "超值全家桶",
-        "tips": "超值全家桶"
-      }
-    ],
-    "address": "广东海洋大学主校区正门口对面月岭村委会综合楼飞宏名城一楼7号",
-    "authentic_id": 3321916366353953,
-    "closing_count_down": 0,
-    "description": "",
-    "distance": 912,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 14,
-    "id": 157464253,
-    "image_path": "2ec03c0b80fd35a5d898e18336459857jpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.144709,
-    "longitude": 110.302246,
-    "max_applied_quantity_per_order": -1,
-    "name": "碉堡",
-    "next_business_time": "15:30",
-    "only_use_poi": false,
-    "opening_hours": [
-      "10:00/13:30",
-      "15:30/22:30"
-    ],
-    "order_lead_time": 58,
-    "phone": "13414918807",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 14
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "下单高峰期，欢迎同学们提前下单预订，我们会以最快速度送达，为大家提供一份卫生、高品质的健康外卖，同学们多多支持，有问题可致电客服 13414918807为你解决。谢谢你。",
-    "rating": 4.2,
-    "rating_count": 0,
-    "recent_order_num": 1464,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=157464253",
-    "status": 5,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604806009,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      }
-    ],
-    "address": "湛江市麻章区湖光市场良丰4号内",
-    "authentic_id": 3391996349388771,
-    "closing_count_down": 0,
-    "description": "海大一品鲜是海大学子自立的品牌，为各位海大的师弟师妹带来美味的食物！",
-    "distance": 961,
-    "favored": false,
-    "float_delivery_fee": 0.6000000238418579,
-    "float_minimum_order_amount": 8,
-    "id": 1493271,
-    "image_path": "0082a9c123295ffc8c4ee6a4345dbbdajpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.144351,
-    "longitude": 110.30153,
-    "max_applied_quantity_per_order": -1,
-    "name": "海大一品鲜",
-    "next_business_time": "15:00",
-    "only_use_poi": false,
-    "opening_hours": [
-      "09:00/14:45",
-      "15:00/21:00"
-    ],
-    "order_lead_time": 49,
-    "phone": "18244904387",
-    "piecewise_agent_fee": {
-      "description": "配送费¥0.6",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0.6000000238418579,
-          "price": 8
-        }
-      ],
-      "tips": "配送费¥0.6"
-    },
-    "promotion_info": "叫外卖上饿了么！为不耽误您的用餐时间，请提前一个小时点餐！注意：寸金学院新校区中午12点40后不接单，下午6点40后不接单！",
-    "rating": 4.2,
-    "rating_count": 0,
-    "recent_order_num": 2829,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=1493271",
-    "status": 5,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604638017,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      },
-      {
-        "attribute": "{\"13.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u5c0f\\u6c14\\u8001\\u677f\\u7684\\u9e2d\\u8116\"}}",
-        "description": "满13.0元赠送小气老板的鸭脖1份",
+        "attribute": "{\"35.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u82f9\\u679c\\u4e24\\u4e2a\"}, \"20.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u82f9\\u679c\\u4e00\\u4e2a\"}}",
+        "description": "满20元赠送苹果一个1份，满35元赠送苹果两个1份",
         "icon_color": "3cc791",
         "icon_name": "赠",
-        "id": 211566434,
+        "id": 222894754,
         "is_exclusive_with_food_activity": true,
-        "name": "秋日幸福吃鸭脖大活动",
-        "tips": "满13.0元赠送小气老板的鸭脖1份",
-        "type": 106
-      }
-    ],
-    "address": "湛江市麻章区湖光镇后坛村10队16号",
-    "authentic_id": 3321996368004427,
-    "bidding": "{\"core\":{\"index\":19,\"target\":{\"restaurantId\":156020527,\"weight\":50,\"probability\":0.1817999929189682},\"come_from\":1,\"next\":{\"restaurantId\":156020527,\"weight\":50,\"probability\":0.1817999929189682}}}",
-    "closing_count_down": 0,
-    "description": "请各位宝宝下单时间集中在10:30前&11:30前&12:30前&16:30前&17:30前&18:30前下单，拜托你们了！我们其实很无辜的，商家都不能自己送单进学校。。现在配送团队每次配送都是有时段安排的，如果在这个时间前下单我们可以做到尽可能快送到你的手上❤️❤️❤️",
-    "distance": 781,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 9.65999984741211,
-    "id": 156020527,
-    "image_path": "cf8285ab0f6e9f390a2694e69011c949jpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.145516,
-    "longitude": 110.30128,
-    "max_applied_quantity_per_order": -1,
-    "name": "嘻哈面馆",
-    "next_business_time": "15:30",
-    "only_use_poi": false,
-    "opening_hours": [
-      "09:30/12:40",
-      "15:30/18:35"
-    ],
-    "order_lead_time": 59,
-    "phone": "15766614110 15766614111",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 9.65999984741211
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "春风十里，不如我下面给你",
-    "rating": 4.1,
-    "rating_count": 0,
-    "recent_order_num": 1642,
-    "recommend": {
-      "image_hash": "731111f3f9379e772eedf4855beae8a1jpeg",
-      "is_ad": true,
-      "reason": "广告",
-      "track": "{\"rankType\":\"8\"}"
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=156020527",
-    "status": 5,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604704657,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      }
-    ],
-    "address": "湛江市麻章区湖光镇湖光市场一楼烧腊行12号",
-    "authentic_id": 8381996373841234,
-    "closing_count_down": 0,
-    "description": "叫外卖，上饿了么！餐厅联系电话：18802508719；短号：668719",
-    "distance": 63,
-    "favored": false,
-    "float_delivery_fee": 0,
-    "float_minimum_order_amount": 10,
-    "id": 712434,
-    "image_path": "af9ff1091746e8cbd4cd216c30419798jpeg",
-    "is_new": false,
-    "is_premium": false,
-    "is_stock_empty": 0,
-    "is_valid": 1,
-    "latitude": 21.150123,
-    "longitude": 110.301513,
-    "max_applied_quantity_per_order": -1,
-    "name": "山东面馆",
-    "next_business_time": "15:30",
-    "only_use_poi": false,
-    "opening_hours": [
-      "09:00/13:20",
-      "15:30/22:30"
-    ],
-    "order_lead_time": 49,
-    "phone": "18802508719",
-    "piecewise_agent_fee": {
-      "description": "免配送费",
-      "extra_fee": 0,
-      "is_extra": false,
-      "rules": [
-        {
-          "fee": 0,
-          "price": 10
-        }
-      ],
-      "tips": "免配送费"
-    },
-    "promotion_info": "叫外卖，上饿了么！餐厅联系电话：18802508719；短号：668719\n不好意思同学们，使用红包者无效一律不接单，使用红包不能超过5元，超过5元一律无效",
-    "rating": 4.4,
-    "rating_count": 0,
-    "recent_order_num": 8774,
-    "recommend": {
-      "is_ad": false,
-      "reason": ""
-    },
-    "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=712434",
-    "status": 5,
-    "supports": [],
-    "type": 0
-  },
-  {
-    "activities": [
-      {
-        "attribute": "6.0",
-        "description": "新用户下单立减6元",
-        "icon_color": "70bc46",
-        "icon_name": "首",
-        "id": 604778385,
-        "is_exclusive_with_food_activity": true,
-        "name": "新用户立减(不与其他活动共享)",
-        "tips": "新用户下单立减6元",
-        "type": 103
-      },
-      {
-        "attribute": "{\"35.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u9999\\u8549\\u4e24\\u65a4\"}, \"20.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u9999\\u8549\\u4e00\\u65a4\"}}",
-        "description": "满20.0元赠送香蕉一斤1份，满35.0元赠送香蕉两斤1份",
-        "icon_color": "3cc791",
-        "icon_name": "赠",
-        "id": 204584594,
-        "is_exclusive_with_food_activity": true,
-        "name": "年周庆",
-        "tips": "满20.0元赠送香蕉一斤1份，满35.0元赠送香蕉两斤1份",
+        "name": "12月活动",
+        "tips": "满20元赠送苹果一个1份，满35元赠送苹果两个1份",
         "type": 106
       }
     ],
     "address": "湛江市麻章区湖光镇后坛村67号房内",
-    "authentic_id": 4371956369495133,
+    "authentic_id": 8382044989901533,
     "description": "",
     "distance": 471,
     "favored": false,
@@ -1629,8 +1316,8 @@
     "opening_hours": [
       "08:30/22:30"
     ],
-    "order_lead_time": 47,
-    "phone": "13724714362 15920009096",
+    "order_lead_time": 46,
+    "phone": "13724714362 13729167673",
     "piecewise_agent_fee": {
       "description": "免配送费",
       "extra_fee": 0,
@@ -1646,7 +1333,7 @@
     "promotion_info": "",
     "rating": 3.8,
     "rating_count": 0,
-    "recent_order_num": 261,
+    "recent_order_num": 201,
     "recommend": {
       "is_ad": false,
       "reason": ""
@@ -1664,105 +1351,157 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604506545,
+        "id": 684124489,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
         "type": 103
       },
       {
-        "attribute": "{\"32\": {\"1\": 4.0, \"0\": 0.0}, \"21\": {\"1\": 3.0, \"0\": 0.0}}",
-        "description": "满21减3，满32减4",
+        "description": "周末午餐-品质5折",
         "icon_color": "f07373",
-        "icon_name": "减",
-        "id": 149364378,
-        "is_exclusive_with_food_activity": true,
-        "name": "减",
-        "tips": "满21减3，满32减4",
-        "type": 102
+        "icon_name": "折",
+        "id": 205328834,
+        "name": "周末午餐-品质5折",
+        "tips": "周末午餐-品质5折"
       },
       {
-        "attribute": "{\"18.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u4e0b\\u706b\\u8336\\u6216\\u91d1\\u94f6\\u82b1\"}}",
-        "description": "满18.0元赠送下火茶或金银花1份",
-        "icon_color": "3cc791",
-        "icon_name": "赠",
-        "id": 212473082,
-        "is_exclusive_with_food_activity": true,
-        "name": "赠",
-        "tips": "满18.0元赠送下火茶或金银花1份",
-        "type": 106
-      },
-      {
-        "description": "特(限10:00-21:00)",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 211154130,
-        "name": "特",
-        "tips": "特"
-      },
-      {
-        "description": "特(限10:00-23:59)",
+        "description": "周末5折早餐",
         "icon_color": "f07373",
-        "icon_name": "特",
-        "id": 210297530,
-        "name": "特",
-        "tips": "特"
-      },
-      {
-        "description": "新店大庆(限10:00-22:00)",
-        "icon_color": "f07373",
-        "icon_name": "特",
-        "id": 149365194,
-        "name": "新店大庆",
-        "tips": "新店大庆"
+        "icon_name": "折",
+        "id": 204856186,
+        "name": "周末5折早餐",
+        "tips": "周末5折早餐"
       }
     ],
-    "address": "广东海洋大学主校区门口正对面（麻章区农业科学研究所1号地第二门）",
-    "authentic_id": 3361976373302658,
-    "description": "麻的地道，辣的适口，烫的营养！外卖电话13726902744、17308213002",
-    "distance": 171,
+    "address": "湛江市麻章区湖光镇湖光市场一楼饮食行2号内",
+    "authentic_id": 7312064997054097,
+    "closing_count_down": 0,
+    "description": "叫外卖，上饿了么！",
+    "distance": 60,
     "favored": false,
-    "float_delivery_fee": 1,
+    "float_delivery_fee": 0,
     "float_minimum_order_amount": 10,
-    "id": 159260258,
-    "image_path": "67e08bfdd5eddfcf64d2144e69a1ef91jpeg",
+    "id": 109097,
+    "image_path": "facc85ab567c1331f8e8cd4ebb08572ajpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.151325,
-    "longitude": 110.300695,
+    "latitude": 21.150362,
+    "longitude": 110.301132,
     "max_applied_quantity_per_order": -1,
-    "name": "辣千骨",
-    "next_business_time": "",
+    "name": "安徽常再来饺面馆",
+    "next_business_time": "15:00",
     "only_use_poi": false,
     "opening_hours": [
-      "10:00/22:00"
+      "09:00/13:30",
+      "15:00/22:40"
     ],
-    "order_lead_time": 48,
-    "phone": "13726902744",
+    "order_lead_time": 49,
+    "phone": "15766398846 678846",
     "piecewise_agent_fee": {
-      "description": "配送费¥1",
+      "description": "免配送费",
       "extra_fee": 0,
       "is_extra": false,
       "rules": [
         {
-          "fee": 1,
+          "fee": 0,
           "price": 10
         }
       ],
-      "tips": "配送费¥1"
+      "tips": "免配送费"
     },
-    "promotion_info": "号外号外（本店自18号起凡进店交易完成者，皆有惊喜，数量有限，先到先得！）欢迎光临，店址:海大主校区正门口正对面（公交车站旁）咱家10点-12点30分、16点-18点30分两个时间段为飞扬团队配送，其余时间下单由咱家自行配送，如遇保安阻拦时需到宿舍楼下自取，谢谢配合！",
-    "rating": 3.9,
+    "promotion_info": "男生女生都可以送上楼，女生7.00之后不送上楼抱歉！！！678846,15766398846",
+    "rating": 4.3,
     "rating_count": 0,
-    "recent_order_num": 681,
+    "recent_order_num": 6598,
     "recommend": {
       "is_ad": false,
       "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=159260258",
+    "scheme": "eleme://catering?restaurant_id=109097",
+    "status": 5,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 681868241,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      },
+      {
+        "description": "天天特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 216331066,
+        "name": "天天特价",
+        "tips": "天天特价"
+      },
+      {
+        "description": "★夜店-夜宵5折",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 207979306,
+        "name": "★夜店-夜宵5折",
+        "tips": "★夜店-夜宵5折"
+      }
+    ],
+    "address": "湛江市麻章区湖光镇月岭管理区后坛村18号",
+    "authentic_id": 6322014983726514,
+    "description": "",
+    "distance": 66,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 10,
+    "id": 894714,
+    "image_path": "30733b558505fc8b968e6fc1b8389c48jpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.1507700276109,
+    "longitude": 110.301129005694,
+    "max_applied_quantity_per_order": -1,
+    "name": "燕云开心花甲粉",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "00:00/24:00"
+    ],
+    "order_lead_time": 49,
+    "phone": "18312097308 15816803302",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "欢迎光临!燕云开心花甲发粉线上可以叫外卖啦！现由团队配送，上午配送时间10：45到12：10，下午16：45到18：00，新店开张请同学们支持一下，谢谢!",
+    "rating": 4.2,
+    "rating_count": 0,
+    "recent_order_num": 1346,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=894714",
     "status": 1,
     "supports": [],
     "type": 0
@@ -1774,74 +1513,414 @@
         "description": "新用户下单立减6元",
         "icon_color": "70bc46",
         "icon_name": "首",
-        "id": 604676481,
+        "id": 682926873,
         "is_exclusive_with_food_activity": true,
         "name": "新用户立减(不与其他活动共享)",
         "tips": "新用户下单立减6元",
         "type": 103
       },
       {
-        "attribute": "{\"24\": {\"1\": 3.0, \"0\": 0.0}, \"12\": {\"1\": 1.0, \"0\": 0.0}}",
-        "description": "满12减1，满24减3",
+        "description": "半价",
+        "icon_color": "f07373",
+        "icon_name": "特",
+        "id": 223274450,
+        "name": "半价",
+        "tips": "半价"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 223273738,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 223272418,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 221317074,
+        "name": "特价",
+        "tips": "特价"
+      }
+    ],
+    "address": "湛江市麻章区湖光镇湖光市场一楼烧腊行8号",
+    "authentic_id": 6392054988671540,
+    "description": "",
+    "distance": 4511,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 8,
+    "id": 1787540,
+    "image_path": "e5679bc77f17b68aee817591374b6e63jpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.120198,
+    "longitude": 110.309392,
+    "max_applied_quantity_per_order": -1,
+    "name": "高钙咸骨粥爽滑饺子王",
+    "next_business_time": "",
+    "only_use_poi": false,
+    "opening_hours": [
+      "08:00/22:50"
+    ],
+    "order_lead_time": 49,
+    "phone": "13413682011",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 8
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "",
+    "rating": 4.3,
+    "rating_count": 0,
+    "recent_order_num": 1754,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=1787540",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 684250681,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      },
+      {
+        "description": "年底酬宾(限09:00-19:59)",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 222294690,
+        "name": "年底酬宾",
+        "tips": "年底酬宾"
+      },
+      {
+        "description": "周末午餐-品质5折",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 205331586,
+        "name": "周末午餐-品质5折",
+        "tips": "周末午餐-品质5折"
+      },
+      {
+        "description": "周末5折早餐",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 204863162,
+        "name": "周末5折早餐",
+        "tips": "周末5折早餐"
+      }
+    ],
+    "address": "湛江市麻章经济开发试验区沙墩村金华路南侧、规划路东侧（湛江海洋大学寸金学院大门口）紫荆广场B111、B112号",
+    "authentic_id": 7332074993009468,
+    "closing_count_down": 0,
+    "description": "",
+    "distance": 58,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 10,
+    "id": 948768,
+    "image_path": "3c3841bfe95686af4901a38c1289573ajpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.150398,
+    "longitude": 110.301132,
+    "max_applied_quantity_per_order": -1,
+    "name": "海洋暖心便当",
+    "next_business_time": "15:00",
+    "only_use_poi": false,
+    "opening_hours": [
+      "09:00/14:00",
+      "15:00/20:00"
+    ],
+    "order_lead_time": 48,
+    "phone": "13553566040",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 10
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "",
+    "rating": 4.3,
+    "rating_count": 0,
+    "recent_order_num": 1288,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=948768",
+    "status": 5,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 682538449,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      },
+      {
+        "attribute": "{\"40\": {\"1\": 2.0, \"0\": 0.0}, \"50\": {\"1\": 3.0, \"0\": 0.0}, \"30\": {\"1\": 1.0, \"0\": 0.0}}",
+        "description": "满30减1，满40减2，满50减3",
         "icon_color": "f07373",
         "icon_name": "减",
-        "id": 202130178,
-        "is_exclusive_with_food_activity": true,
-        "name": "满减",
-        "tips": "满12减1，满24减3",
+        "id": 97210426,
+        "is_exclusive_with_food_activity": false,
+        "name": "三周年",
+        "tips": "满30减1，满40减2，满50减3",
         "type": 102
       },
       {
-        "description": "9.9",
+        "description": "优惠9.9",
         "icon_color": "f1884f",
         "icon_name": "特",
-        "id": 209972066,
-        "name": "9.9",
-        "tips": "9.9"
+        "id": 210582442,
+        "name": "优惠9.9",
+        "tips": "优惠9.9"
       },
       {
-        "description": "大大优惠9.9",
-        "icon_color": "f1884f",
-        "icon_name": "特",
-        "id": 209855482,
-        "name": "大大优惠9.9",
-        "tips": "大大优惠9.9"
+        "description": "★夜店-夜宵5折",
+        "icon_color": "f07373",
+        "icon_name": "折",
+        "id": 207979306,
+        "name": "★夜店-夜宵5折",
+        "tips": "★夜店-夜宵5折"
       },
       {
         "description": "特价9.9",
         "icon_color": "f1884f",
         "icon_name": "特",
-        "id": 208619666,
+        "id": 205637578,
         "name": "特价9.9",
         "tips": "特价9.9"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 205631698,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "折扣",
+        "icon_color": "f07373",
+        "icon_name": "特",
+        "id": 205627210,
+        "name": "折扣",
+        "tips": "折扣"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 183850410,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "attribute": "{\"10.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u4e94\\u9999\\u8336\\u53f6\\u86cb\"}, \"20.0\": {\"quantity\": 2, \"must_pay_online\": 1, \"name\": \"\\u4e94\\u9999\\u8336\\u53f6\\u86cb\"}, \"30.0\": {\"quantity\": 3, \"must_pay_online\": 1, \"name\": \"\\u4e94\\u9999\\u8336\\u53f6\\u86cb\"}}",
+        "description": "满10元赠送五香茶叶蛋1份，满20元赠送五香茶叶蛋2份，满30元赠送五香茶叶蛋3份",
+        "icon_color": "3cc791",
+        "icon_name": "赠",
+        "id": 183833634,
+        "is_exclusive_with_food_activity": true,
+        "name": "回顾新老顾客",
+        "tips": "满10元赠送五香茶叶蛋1份，满20元赠送五香茶叶蛋2份，满30元赠送五香茶叶蛋3份",
+        "type": 106
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 139359650,
+        "name": "特价",
+        "tips": "特价"
+      },
+      {
+        "description": "特价",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 46738073,
+        "name": "特价",
+        "tips": "特价"
       }
     ],
-    "address": "广东省湛江市麻章区麻章镇学智路2号",
-    "authentic_id": 7311976351177942,
-    "closing_count_down": 0,
-    "description": "叫外卖，上饿了么！男生女生送上楼哦",
-    "distance": 171,
+    "address": "湛江市麻章区湖光市场良丰4号内",
+    "authentic_id": 3312074994913635,
+    "description": "正宗广州艇仔粥",
+    "distance": 4016,
     "favored": false,
     "float_delivery_fee": 0,
-    "float_minimum_order_amount": 9,
-    "id": 159335042,
-    "image_path": "0bf522f514e94e3a1f78936ee3d2704ejpeg",
+    "float_minimum_order_amount": 8,
+    "id": 1953935,
+    "image_path": "12727965cc60421d385b6411c98c759ejpeg",
     "is_new": false,
     "is_premium": false,
     "is_stock_empty": 0,
     "is_valid": 1,
-    "latitude": 21.151325,
-    "longitude": 110.300695,
+    "latitude": 21.122754,
+    "longitude": 110.302182,
     "max_applied_quantity_per_order": -1,
-    "name": "吃我吧",
-    "next_business_time": "15:30",
+    "name": "艇仔粥",
+    "next_business_time": "16:00",
     "only_use_poi": false,
     "opening_hours": [
-      "09:40/13:00",
-      "15:30/19:00"
+      "08:00/14:40",
+      "16:00/23:05"
     ],
-    "order_lead_time": 49,
-    "phone": "15816022825 18875950758",
+    "order_lead_time": 59,
+    "phone": "18813544578 15976536067 18813544578",
+    "piecewise_agent_fee": {
+      "description": "免配送费",
+      "extra_fee": 0,
+      "is_extra": false,
+      "rules": [
+        {
+          "fee": 0,
+          "price": 8
+        }
+      ],
+      "tips": "免配送费"
+    },
+    "promotion_info": "温馨提醒:因近段时间学校管制特别严格，多数外卖不能送上楼，送上楼的时间上午10点到12:40 下午16点到18:40在这上面时间下单男女都可全部送上楼，其它时间视配送员不能送上，请保持电话畅通以便联系，谢谢合作，外卖哥小董电话15768222506多多关照♡_♡",
+    "rating": 4.4,
+    "rating_count": 0,
+    "recent_order_num": 4566,
+    "recommend": {
+      "is_ad": false,
+      "reason": ""
+    },
+    "regular_customer_count": 0,
+    "scheme": "eleme://catering?restaurant_id=1953935",
+    "status": 1,
+    "supports": [],
+    "type": 0
+  },
+  {
+    "activities": [
+      {
+        "attribute": "6.0",
+        "description": "新用户下单立减6元",
+        "icon_color": "70bc46",
+        "icon_name": "首",
+        "id": 683584001,
+        "is_exclusive_with_food_activity": true,
+        "name": "新用户立减(不与其他活动共享)",
+        "tips": "新用户下单立减6元",
+        "type": 103
+      },
+      {
+        "attribute": "{\"40\": {\"1\": 3.0, \"0\": 0.0}, \"20\": {\"1\": 1.0, \"0\": 0.0}, \"30\": {\"1\": 2.0, \"0\": 0.0}}",
+        "description": "满20减1，满30减2，满40减3",
+        "icon_color": "f07373",
+        "icon_name": "减",
+        "id": 220597242,
+        "is_exclusive_with_food_activity": false,
+        "name": "优惠多多",
+        "tips": "满20减1，满30减2，满40减3",
+        "type": 102
+      },
+      {
+        "description": "三周年庆祝",
+        "icon_color": "f07373",
+        "icon_name": "特",
+        "id": 220607162,
+        "name": "三周年庆祝",
+        "tips": "三周年庆祝"
+      },
+      {
+        "description": "三周年庆祝",
+        "icon_color": "f1884f",
+        "icon_name": "特",
+        "id": 220600682,
+        "name": "三周年庆祝",
+        "tips": "三周年庆祝"
+      },
+      {
+        "attribute": "{\"11.0\": {\"quantity\": 1, \"must_pay_online\": 1, \"name\": \"\\u7518\\u8517\\u6c41\"}}",
+        "description": "满11元赠送甘蔗汁1份",
+        "icon_color": "3cc791",
+        "icon_name": "赠",
+        "id": 220595826,
+        "is_exclusive_with_food_activity": true,
+        "name": "优惠活动",
+        "tips": "满11元赠送甘蔗汁1份",
+        "type": 106
+      }
+    ],
+    "address": "湛江市广东海洋大学主校区负一楼9号",
+    "authentic_id": 1372054993783058,
+    "closing_count_down": 0,
+    "description": "",
+    "distance": 55,
+    "favored": false,
+    "float_delivery_fee": 0,
+    "float_minimum_order_amount": 9,
+    "id": 912258,
+    "image_path": "2ee80d154a384adaca3fc8213eb54f68jpeg",
+    "is_new": false,
+    "is_premium": false,
+    "is_stock_empty": 0,
+    "is_valid": 1,
+    "latitude": 21.150465,
+    "longitude": 110.301132,
+    "max_applied_quantity_per_order": -1,
+    "name": "皇味美食",
+    "next_business_time": "14:35",
+    "only_use_poi": false,
+    "opening_hours": [
+      "08:00/12:45",
+      "14:35/19:15"
+    ],
+    "order_lead_time": 59,
+    "phone": "13536395941",
     "piecewise_agent_fee": {
       "description": "免配送费",
       "extra_fee": 0,
@@ -1854,16 +1933,16 @@
       ],
       "tips": "免配送费"
     },
-    "promotion_info": "本店订餐电话18875950758/680758，男生女生送上楼哦",
+    "promotion_info": "女生也可以送上楼，新开张欢迎大家多多关照,为了不耽误大家的用餐时间请提前一个钟定餐，675941……13536395941",
     "rating": 4.4,
     "rating_count": 0,
-    "recent_order_num": 3464,
+    "recent_order_num": 985,
     "recommend": {
       "is_ad": false,
       "reason": ""
     },
     "regular_customer_count": 0,
-    "scheme": "eleme://catering?restaurant_id=159335042",
+    "scheme": "eleme://catering?restaurant_id=912258",
     "status": 5,
     "supports": [],
     "type": 0

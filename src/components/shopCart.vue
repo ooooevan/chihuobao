@@ -5,7 +5,12 @@
     </div>
     <div class="footer">
       <div class="left">总价：{{totalMoney}}</div>
-      <div class="right"></div>
+      <div class="right-" v-if='totalMoney > shopDetail.shopStartDelivery' @click='goPay'>
+        去支付
+      </div>
+      <div class="right" v-else>
+        {{shopDetail.shopStartDelivery}}元起送
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +26,8 @@ export default {
   computed: {
     ...mapGetters('user',
       [
-        'cartList'
+        'cartList',
+        'shopDetail'
       ]
     ),
     totalMoney () {
@@ -31,8 +37,11 @@ export default {
       })
       return money
     }
+
   },
   methods: {
+    goPay () {
+    },
     add (item) {
       this.addCartNum(item)
     },
@@ -63,13 +72,24 @@ export default {
   .footer
     height: 50px
     width: 100%
-    .left, .right
+    .left, .right-, .right
       height: 100%
       float: left
+      line-height: 50px
+      color: #fff
     .left
       width: 220px
+      text-indent: 10px
       background: #2c2c2c
     .right
       width: 130px
+      text-align: center
+      background: #b9b4b4
+      color: #000
+      cursor: default
+    .right-
+      width: 130px
+      text-align: center
       background: #51d862
+      cursor: pointer
 </style>

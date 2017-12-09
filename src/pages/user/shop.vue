@@ -3,7 +3,7 @@
     <div id="header">
       <div class="header container clearfix">
         <div class="simpleInfo">
-          <img :src='shopDetail.shopLogo'>
+          <img :src='shopDetail.logo'>
           <div class='shopName'>
             <h1>{{shopDetail.shopName}}</h1>
             <br>
@@ -49,17 +49,13 @@
         <div class="cardWrapper">
           <food-card :key='info.dishId' :status='shopDetail.status' @detail='detail' @addOne='addOne' :info='info' v-for='info in currentShopDishs' class='card'></food-card>
         </div>
-        <h2 class='padding15'>快餐分类</h2>
-        <div class="cardWrapper">
-          <div class="card padding15">456</div>
-        </div>
       </div>
       <div class="main fl" v-else-if="activeTag === shopTag[1]">
         <rate :data='rateData' class='rate padding15'></rate>
       </div>
       <div class="main fl" v-else-if="activeTag === shopTag[2]">
-        <img :src='shopDetail.shopStoresImages' style='float:left' alt="门面照" width='50%'>
-        <img :src='shopDetail.shopDetailImages' style='float:left' alt="" width='50%'>
+        <img :src='shopDetail.storesImages' style='float:left' alt="门面照" width='50%'>
+        <img :src='shopDetail.detailImages' style='float:left' alt="" width='50%'>
       </div>
       <div class="notice fr padding15">
         <p class='header'>公告</p>
@@ -99,7 +95,28 @@ export default {
       score: 0,
       shopId: 0,
       currentShopDishs: [],
-      filterList: ['热销', '面食', '粉类', '拌面类', '双拼类', '小吃', '水饺', '云吞'],
+      filterList: [
+        {
+          shopType: '热销',
+          shopTypeCode: 1
+        },
+        {
+          shopType: '面食',
+          shopTypeCode: 2
+        },
+        {
+          shopType: '粉类',
+          shopTypeCode: 3
+        },
+        {
+          shopType: '拌面类',
+          shopTypeCode: 4
+        },
+        {
+          shopType: '双拼类',
+          shopTypeCode: 5
+        }
+      ],
       shopTag: config.shopTag,
       activeTag: config.shopTag[0],
       detailVisible: false,
@@ -140,19 +157,16 @@ export default {
       this.detailVisible = false
     },
     addOne (item) {
+      const { shopId } = this.shopDetail
+      item.shopId = shopId
       this.addCartNum(item)
-      this.$notify({
-        title: '添加成功',
-        message: `商品：${item.dishName}`,
+      this.$message({
         type: 'success',
-        customClass: 'notification',
-        position: 'bottom-right',
-        duration: 3000,
-        offset: 200
+        message: '添加成功'
       })
     },
-    filterSelect (item) {
-      alert(`选择了：${item}`)
+    filterSelect (code) {
+      alert(`选择了：${this.filterList[code].shopType}`)
     },
     changeTag (index) {
       this.activeTag = config.shopTag[index]

@@ -36,7 +36,7 @@
           { required: true, message: '类型不能为空'}
         ]"
       >
-        <el-select v-model="validateForm.type" placeholder="请选择菜品类型">
+        <el-select v-model="validateForm.type" placeholder="请选择商铺类型">
           <el-option :key='item.value' :label='item.label' :value='item.value' v-for='item in types'></el-option>
         </el-select>
       </el-form-item>
@@ -54,7 +54,7 @@
         <el-upload
           class="avatar-uploader"
           :action='uploadUrl'
-          name='file'
+          name='image'
           :with-credentials="TRUE"
           :show-file-list="false"
           :drag="true"
@@ -70,7 +70,7 @@
         <el-upload
           class="avatar-uploader"
           :action='uploadUrl'
-          name='file'
+          name='image'
           :with-credentials="TRUE"
           :show-file-list="false"
           :drag="true"
@@ -86,7 +86,7 @@
         <el-upload
           class="avatar-uploader"
           :action='uploadUrl'
-          name='file'
+          name='image'
           :with-credentials="TRUE"
           :show-file-list="false"
           :drag="true"
@@ -105,7 +105,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { _apply } from 'common/javascript/userApi'
+import { _apply, _initCity } from 'common/javascript/userApi'
 import ALLAPI from 'common/javascript/apiList'
 const API = ALLAPI.user.upload
 
@@ -117,31 +117,15 @@ export default {
       cardPic: '',
       TRUE: '',
       uploadUrl: API,
+      longitude: '',
+      latitude: '',
       validateForm: {
         abstract: '',
         name: '',
         type: [],
         address: '',
         cardId: ''
-      },
-      types: [
-        {
-          label: '全部',
-          value: 1
-        },
-        {
-          label: '早餐',
-          value: 2
-        },
-        {
-          label: '午餐',
-          value: 3
-        },
-        {
-          label: '晚餐',
-          value: 4
-        }
-      ]
+      }
     }
   },
   computed: {
@@ -150,8 +134,21 @@ export default {
       [
         'cityOptions',
         'suggestionsList',
-        'userInfo'
-      ])
+        'userInfo',
+        'shopTypeList'
+      ]
+    ),
+    types () {
+      return this.shopTypeList.map(item => {
+        return {
+          label: item.shopType,
+          value: item.shopTypeCode
+        }
+      })
+    }
+  },
+  created () {
+    this.initCity()  // 用于获取经纬度
   },
   methods: {
     submitForm (formName) {
@@ -164,10 +161,10 @@ export default {
             })
             return false
           }
-          const { logoUrl, imgUrl, cardPic } = this
+          const { logoUrl, imgUrl, cardPic, longitude, latitude } = this
           const userId = this.userInfo
           const { name, abstract, cardId, type, address } = this.validateForm
-          _apply(userId, name, abstract, cardId, type, address, logoUrl, cardPic, imgUrl).then(res => {
+          _apply(userId, name, abstract, cardId, type, address, logoUrl, cardPic, imgUrl, longitude, latitude).then(res => {
             if (res.code === 1) {
               this.$message({
                 type: 'success',
@@ -189,26 +186,32 @@ export default {
     },
     logoSuccess (res, file) {
       // this.logoUrl = URL.createObjectURL(file.raw)
-      this.logoUrl = res.path
+      this.logoUrl = res.data.imageUrl
     },
     img1Success (res, file) {
       // this.imgUrl = URL.createObjectURL(file.raw)
-      this.imgUrl = res.path
+      this.imgUrl = res.data.imageUrl
     },
     cardPicSuccess (res, file) {
       // this.cardPic = URL.createObjectURL(file.raw)
-      this.cardPic = res.path
+      this.cardPic = res.data.imageUrl
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt5M = file.size / 1024 / 1024 < 5
       if (!isJPG) {
         this.$message.error('上传图片只能是 JPG 格式!')
       }
-      if (!isLt2M) {
-        this.$message.error('上传图片大小不能超过 2MB!')
+      if (!isLt5M) {
+        this.$message.error('上传图片大小不能超过 5MB!')
       }
-      return isJPG && isLt2M
+      return isJPG && isLt5M
+    },
+    initCity () {
+      _initCity().then(res => {
+        this.longitude = res.point.x
+        this.latitude = res.point.y
+      })
     }
   }
 }

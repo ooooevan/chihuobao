@@ -26,7 +26,7 @@ const mutations = {
     state.noteKaidian = false
   },
   [types.SET_SHOP_LIST] (state, list) {
-    state.shopList = state.shopList.concat(list)
+    state.shopList = list
   },
   [types.CLEAR_SHOP_LIST] (state) {
     state.shopList = []
@@ -42,6 +42,9 @@ const mutations = {
   },
   [types.CLEAR_CART_LIST] (state) {
     state.cartList = []
+  },
+  [types.SET_SHOPTYPE] (state, list) {
+    state.shopTypeList = list
   }
 }
 

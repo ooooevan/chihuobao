@@ -28,7 +28,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { initCity } from 'common/javascript/userApi'
+import { _initCity } from 'common/javascript/userApi'
 export default {
   data () {
     return {
@@ -39,7 +39,7 @@ export default {
     }
   },
   created () {
-    this._initCity()
+    this.initCity()
   },
   mounted () {
     const prepend = this.$refs.input.$el.getElementsByClassName('el-input-group__prepend')[0]
@@ -85,12 +85,12 @@ export default {
       this.setInexactAddress([province, city])
       this.clearSuggestionsList()
     },
-    _initCity () {
-      initCity().then(res => {
+    initCity () {
+      _initCity().then(res => {
         if (!this.isSelect) {
-          console.log(`定位到：${res.province}${res.city}`)
-          this.setInexactAddress([res.province, res.city])
-          this.location = res.city
+          console.log(`定位到：${res.address_detail.province}${res.address_detail.city}`)
+          this.setInexactAddress([res.address_detail.province, res.address_detail.city])
+          this.location = res.address_detail.city
         }
       })
     },

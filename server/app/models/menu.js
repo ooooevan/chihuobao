@@ -9,7 +9,10 @@ const Menu = new mongoose.Schema({
   },
   dish_name: String,
   dish_introduction: String,
-  dish_pics: String
+  dish_price: Number,
+  dish_pics: String,
+  level: Number,
+  dish_type: Number,
+  monthly_sales: Number
 })
-
 module.exports = mongoose.model('MenuModel', Menu)

@@ -78,7 +78,7 @@
     text-align: center
     &:hover
       background: #0c77d1
-  .router-link-exact-active
+  .router-link-active
     background: #006bc7
     &:hover
       background: #006bc7

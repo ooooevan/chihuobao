@@ -45,8 +45,8 @@
       >
         <el-upload
           class="avatar-uploader"
-          action="http://localhost:3333/upload"
-          name='file'
+          :action='uploadUrl'
+          name='image'
           :with-credentials="true"
           :show-file-list="false"
           :drag="true"
@@ -65,34 +65,20 @@
 <script>
   import { _addDish } from 'common/javascript/sellerApi'
   import { mapGetters } from 'vuex'
+  import ALLAPI from 'common/javascript/apiList'
+  const API = ALLAPI.seller.upload
+
   export default {
     data () {
       return {
         imageUrl: '',
+        uploadUrl: API,
         validateForm: {
           price: '',
           abstract: '',
           name: '',
           type: 1
-        },
-        types: [
-          {
-            label: '全部',
-            value: 1
-          },
-          {
-            label: '早餐',
-            value: 2
-          },
-          {
-            label: '午餐',
-            value: 3
-          },
-          {
-            label: '晚餐',
-            value: 4
-          }
-        ]
+        }
       }
     },
     computed: {
@@ -100,7 +86,20 @@
         [
           'sellerInfo'
         ]
-      )
+      ),
+      ...mapGetters('seller',
+        [
+          'shopTypeList'
+        ]
+      ),
+      types () {
+        return this.shopTypeList.map(item => {
+          return {
+            label: item.shopType,
+            value: item.shopTypeCode
+          }
+        })
+      }
     },
     methods: {
       add () {
@@ -142,20 +141,20 @@
       },
       handleAvatarSuccess (res, file) {
         // 这里需要修改url
-        this.imageUrl = URL.createObjectURL(file.raw)
-        this.imageUrl = `/uploads/${res.filename}`
+        // this.imageUrl = URL.createObjectURL(file.raw)
+        this.imageUrl = res.data.imageUrl
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀
-        const isLt2M = file.size / 1024 / 1024 < 2
+        const isLt5M = file.size / 1024 / 1024 < 5
 
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!')
         }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!')
+        if (!isLt5M) {
+          this.$message.error('上传头像图片大小不能超过 5MB!')
         }
-        return isJPG && isLt2M
+        return isJPG && isLt5M
       }
     }
   }

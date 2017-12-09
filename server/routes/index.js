@@ -27,7 +27,7 @@ module.exports = function (router, upload) {
   router.post('/api/info/check', User.getUserInfo)
   router.post('/api/info/modify', User.modifyInfo)
   router.post('/api/info/apply', User.applyShop)
-  router.post('/api/logout', User.logOut)
+  router.post('/api/info/logout', User.logOut)
   router.post('/api/order/find', User.getUserOrder)
   router.post('/api/order/delete', User.deleteOrder)
   router.post('/api/order/getPhone', User.getShopPhone)
@@ -35,6 +35,8 @@ module.exports = function (router, upload) {
   router.get('/api/shop/findByRange', User.getShopList)
   router.get('/api/shop/findById', User.getInfoByShopId)
   router.get('/api/shop/dish', User.getCommentByDishId)
+  router.post('/api/comment/user', User.rateOrder)
+  router.post('/api/types', User.getShopType)
 
   router.get('/api/shop/shopMsg', Seller.getShopInfo)
   router.get('/api/shopOrder', Seller.getShopOrder)
@@ -47,9 +49,23 @@ module.exports = function (router, upload) {
   router.post('/api/shop/addDish', Seller.addDish)
   router.post('/api/shop/updateShop', Seller.modifyShopInfo)
 
-  router.post('/api/upload', upload.single('file'), async (ctx, next) => {
+  router.post('/api/info/upload', upload.single('image'), async (ctx, next) => {
     // const { originalname, path, mimetype, filename } = ctx.req.file
-    ctx.body = ctx.req.file
+    ctx.body = {
+      code: 1,
+      data: {
+        imageUrl: 'http://localhost:3333/uploads/1512808569618.jpg'
+      }
+    }
+  })
+  router.post('/api/image/shop', upload.single('image'), async (ctx, next) => {
+    // const { originalname, path, mimetype, filename } = ctx.req.file
+    ctx.body = {
+      code: 1,
+      data: {
+        imageUrl: 'http://localhost:3333/uploads/1512808569618.jpg'
+      }
+    }
   })
 }
 

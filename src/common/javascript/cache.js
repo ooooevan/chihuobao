@@ -4,6 +4,7 @@ const addressKey = '__exactAddress__'
 const userKey = '__user__'
 const sellerKey = '__seller__'
 const cartKey = '__cartList__'
+const shopTypeKey = '__shopType__'
 
 // 定位信息
 export function _saveExactAddress (item) {
@@ -55,7 +56,7 @@ export function _getSellerInfo () {
 // 购物车信息
 export function _clearCartList () {
   storage.remove(cartKey)
-  return null
+  return []
 }
 export function _hashCartList () {
   return storage.has(cartKey)
@@ -65,6 +66,10 @@ export function _getCartList () {
 }
 export function _addCartNum (item) {
   let list = _getCartList()
+  if (list[0] && list[0].shopId !== item.shopId) {
+    // 不是一个商家，清空上一家的购物车
+    list = _clearCartList()
+  }
   let temp = list.find(ite => (ite.dishId === item.dishId))
   if (temp) {
     temp.num++
@@ -85,5 +90,12 @@ export function _subCartNum (item) {
     temp.num--
   }
   storage.set(cartKey, list)
+  return list
+}
+export function _getShopTypeList () {
+  return storage.get(shopTypeKey)
+}
+export function _setShopTypeList (list) {
+  storage.set(shopTypeKey, list)
   return list
 }

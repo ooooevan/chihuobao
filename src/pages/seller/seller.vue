@@ -28,6 +28,7 @@
 
 <script>
 import { _isNewOrder } from 'common/javascript/sellerApi'
+import { _getShopType } from 'common/javascript/userApi'
 import { mapMutations, mapGetters } from 'vuex'
 
 export default {
@@ -75,7 +76,8 @@ export default {
     ...mapGetters('seller',
       [
         'newOrderNum',
-        'sellerInfo'
+        'sellerInfo',
+        'shopTypeList'
       ]
     )
   },
@@ -84,6 +86,7 @@ export default {
     const path = fullPath.split('/')[2]
     this.defaultActive = this.routes.findIndex(route => route.route === path) + 1 + ''  // defaultActive需要一个String类型
     // 轮询请求是否有新订单
+    this.getShopType()
     this.isNewOrder()
     this.timer = setInterval(() => {
       this.isNewOrder()
@@ -93,6 +96,11 @@ export default {
     clearInterval(this.timer)
   },
   methods: {
+    getShopType () {
+      _getShopType().then(res => {
+        this.setShopType(res.data)
+      })
+    },
     isNewOrder () {
       const shopId = this.sellerInfo.shopId
       _isNewOrder(shopId).then(res => {
@@ -103,7 +111,8 @@ export default {
       })
     },
     ...mapMutations({
-      setNewOrderNum: 'seller/SET_NEW_ORDER_NUM'
+      setNewOrderNum: 'seller/SET_NEW_ORDER_NUM',
+      setShopType: 'seller/SET_SHOPTYPE'
     })
   }
 }

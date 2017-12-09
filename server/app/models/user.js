@@ -7,7 +7,14 @@ const UserSchema = new mongoose.Schema({
     type: String
   },
   user_pwd: String,
-  phone_num: Number,
+  phone_num: {
+    type: Number,
+    unique: true
+  },
+  avator: String,
+  gender: Number,
+  acceptAddress: String,
+  introduction: String,
   is_merchant: {
     type: Number,
     default: 0

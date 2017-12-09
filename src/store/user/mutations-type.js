@@ -28,3 +28,5 @@ export const SET_SHOP_DISHS = 'SET_SHOP_DISHS'
 export const CLEAR_CART_LIST = 'CLEAR_CART_LIST'
 
 export const SET_CART_LIST = 'SET_CART_LIST'
+
+export const SET_SHOPTYPE = 'SET_SHOPTYPE'

@@ -8,10 +8,10 @@ const API = ALLAPI.user
 // import apiList from './apiList'
 axios.defaults.withCredentials = true
 
-export function initCity () {
-  const url = `http://api.map.baidu.com/location/ip?ak=${config.ak}`
+export function _initCity () {
+  const url = `http://api.map.baidu.com/location/ip?ak=${config.ak}&coor=gcj02`
   return jsonp(url).then(res => {
-    return res && res.content.address_detail
+    return res && res.content
   })
 }
 
@@ -142,7 +142,7 @@ export function _getCommentByDishId (shopId, dishId) {
   }).then(res => res.data)
 }
 
-export function _apply (userId, shopName, shopAbstract, identificationNum, shopType, shopLocation, shopLogo, identificationPic, shopAuthImages) {
+export function _apply (userId, shopName, shopAbstract, identificationNum, shopTypeCode, shopLocation, shopLogo, identificationPic, shopAuthImages, shopLongitude, shopLatitude) {
   return axios({
     method: 'post',
     url: API.applyShop,
@@ -151,11 +151,13 @@ export function _apply (userId, shopName, shopAbstract, identificationNum, shopT
       shopName,
       shopAbstract,
       identificationNum,
-      shopType,
+      shopTypeCode,
       shopLocation,
       shopLogo,
       identificationPic,
-      shopAuthImages
+      shopAuthImages,
+      shopLongitude,
+      shopLatitude
     }
   }).then(res => res.data)
 }
@@ -209,5 +211,28 @@ export function _finishOrder (userOrderId) {
     data: {
       userOrderId
     }
+  }).then(res => res.data)
+}
+
+export function _rate (dishId, level, commend, userId, userOrderId, shopId) {
+  return axios({
+    method: 'post',
+    url: API.rateOrder,
+    data: {
+      dishId,
+      level: level || 4,
+      commend: commend || '',
+      userId,
+      userOrderId,
+      shopId
+    }
+  }).then(res => res.data)
+}
+
+export function _getShopType () {
+  return axios({
+    method: 'post',
+    url: API.getShopType
+
   }).then(res => res.data)
 }

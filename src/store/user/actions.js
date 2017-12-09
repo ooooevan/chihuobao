@@ -1,7 +1,6 @@
 import * as types from './mutations-type'
 import { getSuggestionApi, _logOutApi } from 'common/javascript/userApi'
-import { _saveExactAddress, _clearExactAddress, _saveUserInfo, _clearCartList, _addCartNum, _subCartNum } from 'common/javascript/cache'
-import { _clearUserInfo } from '../../common/javascript/cache'
+import { _clearUserInfo, _saveExactAddress, _clearExactAddress, _saveUserInfo, _clearCartList, _addCartNum, _subCartNum, _setShopTypeList } from 'common/javascript/cache'
 
 export function getSuggestion ({commit, state}, str) {
   const address = state.inexactAddress[1]  // 选择城市
@@ -37,4 +36,8 @@ export function addCartNum ({commit, state}, item) {
 
 export function subCartNum ({commit, state}, item) {
   commit(types.SET_CART_LIST, _subCartNum(item))
+}
+
+export function setShopType ({commit, state}, list) {
+  commit(types.SET_SHOPTYPE, _setShopTypeList(list))
 }

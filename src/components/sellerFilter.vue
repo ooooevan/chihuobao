@@ -2,9 +2,8 @@
   <div class="filter">
     <div class="label">{{filterMsg}}：</div>
     <ul v-if='filterList.length'>
-      <li :class='{active: activeTag === item}' @click='select(item)' v-for='item in filterList'>{{item}}</li>
+      <li :key='item.shopTypeCode' :class='{active: activeTag === item.shopTypeCode}' @click='select(item.shopTypeCode)' v-for='item in filterList'>{{item.shopType}}</li>
     </ul>
-    
   </div>
 </template>
 
@@ -12,7 +11,7 @@
   export default {
     data () {
       return {
-        activeTag: this.filterList[0]
+        activeTag: 1
       }
     },
     props: {
@@ -26,9 +25,9 @@
       }
     },
     methods: {
-      select (item) {
-        this.$emit('select', item)
-        this.activeTag = item
+      select (code) {
+        this.$emit('select', code)
+        this.activeTag = code
       }
     }
   }

@@ -9,6 +9,7 @@
 <script>
 import userHeader from 'components/userHeader'
 import userFooter from 'components/userFooter'
+import { _getShopType } from 'common/javascript/userApi'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -16,25 +17,34 @@ export default {
     userHeader,
     userFooter
   },
+  created () {
+    this.getShopType()
+  },
   methods: {
     ...mapActions(
       'user',
       [
-        'logOut'
+        'logOut',
+        'setShopType'
       ]
       ),
     ...mapMutations({
       noteKaidian: 'user/NOTE_KAIDIAN',
       clearKaidianNote: 'user/CLEAR_KAIDIAN_NOTE'
     }),
+    getShopType () {
+      _getShopType().then(res => {
+        this.setShopType(res.data)
+      })
+    },
     kaidian () {
       if (!this.userInfo.userId) {
         this.$message({
           showClose: true,
           message: '开店请先登录'
         })
-        this.noteKaidian()
         this.$router.push('/login')
+        this.noteKaidian()
       } else {
         this.$confirm('是否马上申请开店?', '提示', {
           confirmButtonText: '申请',
