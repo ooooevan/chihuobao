@@ -1,5 +1,6 @@
 const User = require('../app/controllers/user')
 const Seller = require('../app/controllers/seller')
+const Admin = require('../app/controllers/admin')
 
 module.exports = function (router, upload) {
   // router.use(async (ctx) => {
@@ -28,6 +29,8 @@ module.exports = function (router, upload) {
   router.post('/api/info/modify', User.modifyInfo)
   router.post('/api/info/apply', User.applyShop)
   router.post('/api/info/logout', User.logOut)
+  router.post('/api/order/new', User.newOrder)
+  router.post('/api/order/pay', User.payOrder)
   router.post('/api/order/find', User.getUserOrder)
   router.post('/api/order/delete', User.deleteOrder)
   router.post('/api/order/getPhone', User.getShopPhone)
@@ -48,6 +51,14 @@ module.exports = function (router, upload) {
   router.post('/api/shop/delDish', Seller.delDish)
   router.post('/api/shop/addDish', Seller.addDish)
   router.post('/api/shop/updateShop', Seller.modifyShopInfo)
+
+  router.post('/api/admin/login', Admin.login)
+  router.get('/api/admin/all', Admin.getAdminList)
+  router.post('/api/admin/addition', Admin.addition)
+  router.post('/api/admin/deletion', Admin.deletion)
+  router.post('/api/admin/configuration', Admin.configuration)
+  router.get('/api/shop/management/all', Admin.getShopsList)
+  router.get('/api/shopApply/management/:shopId', Admin.getShopInfoById)
 
   router.post('/api/info/upload', upload.single('image'), async (ctx, next) => {
     // const { originalname, path, mimetype, filename } = ctx.req.file

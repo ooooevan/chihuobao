@@ -40,7 +40,7 @@ export default {
       [
         'noteKaidian'
       ]
-      )
+    )
   },
   data () {
     const checkPhone = (rule, value, callback) => {

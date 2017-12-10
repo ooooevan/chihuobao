@@ -13,7 +13,6 @@
           <i class="el-icon-location"></i>
           <span>首页</span>
         </el-menu-item> -->
-        <br>
         <el-menu-item index="2" route='user'>
           <i class="el-icon-menu"></i>
           <span>用户管理</span>
@@ -56,8 +55,9 @@
 </template>
 
 <script>
-import adminLogin from 'components/adminLogin'
-
+import adminLogin from './adminLogin'
+import { _getShopType } from 'common/javascript/userApi'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   components: {
     adminLogin
@@ -68,8 +68,18 @@ export default {
       defaultActive: '2'
     }
   },
+  computed: {
+    ...mapGetters('admin',
+      [
+        'adminInfo'
+      ]
+    )
+  },
   created () {
     // 判断是否登录，弹出窗口
+    if (this.adminInfo && this.adminInfo.adminName) {
+      this.loginVisible = false
+    }
     const fullPath = this.$router.currentRoute.path
     const path = fullPath.split('/')[2]
     switch (path) {
@@ -106,6 +116,14 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      setShopType: 'admin/SET_SHOPTYPE'
+    }),
+    getShopType () {
+      _getShopType().then(res => {
+        this.setShopType(res.data)
+      })
+    },
     close () {
       this.loginVisible = false
     }

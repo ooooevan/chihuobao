@@ -1,6 +1,6 @@
 import axios from 'axios'
 import _jsonp from 'jsonp'
-// import config from './config'
+import config from './config'
 // import { encodeGeoHash } from './geohash'
 // import apiList from './apiList'
 axios.defaults.withCredentials = true
@@ -27,6 +27,25 @@ export function baseGET (api, params) {
   }).then(res => res.data)
 }
 
+export function baseGET2 (api, param) {
+  return axios({
+    method: 'get',
+    url: `${api}/${param}`
+  }).then(res => res.data)
+}
+
+export function basePOST (api, params) {
+  return axios({
+    method: 'post',
+    url: api,
+    headers: {
+      'content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: config.toFormData({
+      ...params
+    })
+  }).then(res => res.data)
+}
 // export function initCity () {
 //   const url = `http://api.map.baidu.com/location/ip?ak=${config.ak}`
 //   return jsonp(url).then(res => {

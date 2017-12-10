@@ -4,7 +4,7 @@
       <shop-cart-item @add='add(item)' @sub='sub(item)' :key ='item.dishId' v-for='item in cartList' :info='item'></shop-cart-item>
     </div>
     <div class="footer">
-      <div class="left">总价：{{totalMoney}}</div>
+      <div class="left">总价：{{totalMoney}}<span class='shopDeliveryCost'>   配送费：{{shopDetail.shopDeliveryCost}}元</span></div>
       <div class="right-" v-if='totalMoney > shopDetail.shopStartDelivery' @click='goPay'>
         去支付
       </div>
@@ -32,15 +32,26 @@ export default {
     ),
     totalMoney () {
       let money = 0
+      const shopDeliveryCost = this.shopDetail.shopDeliveryCost
       this.cartList.forEach(item => {
         money += item.num * item.dishPrice
       })
+      if (this.cartList.length > 0) {
+        money += shopDeliveryCost
+      }
       return money
     }
-
   },
   methods: {
     goPay () {
+      const item = this.cartList[0]
+      this.add({
+        dishName: '配送费',
+        dishPrice: item.shopDeliveryCost,
+        shopId: item.shopId,
+        shopName: item.shopName
+      })
+      this.$router.push('/shopCart/checkout')
     },
     add (item) {
       this.addCartNum(item)
@@ -81,6 +92,9 @@ export default {
       width: 220px
       text-indent: 10px
       background: #2c2c2c
+      .shopDeliveryCost
+        font-size: 14px
+        color: #999
     .right
       width: 130px
       text-align: center

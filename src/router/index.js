@@ -13,6 +13,7 @@ const register = () => import('pages/user/register')
 const login = () => import('pages/user/login')
 const shop = () => import('pages/user/shop')
 const applyShop = () => import('pages/user/applyShop')
+const checkout = () => import('pages/user/checkout')
 const userNo = () => import('pages/user/pageNoFind')
 
 // 商家页面
@@ -92,6 +93,18 @@ const router = new Router({
           path: '/register',
           name: 'register',
           component: register
+        },
+        {
+          path: '/shopCart',
+          name: 'shopCart',
+          redirect: '/shopCart/checkout',
+          component: checkout,
+          children: [
+            {
+              path: '/shopCart/checkout',
+              component: checkout
+            }
+          ]
         },
         {
           path: '/login',

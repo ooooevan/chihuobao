@@ -3,7 +3,7 @@
     <div id="header">
       <div class="header container clearfix">
         <div class="simpleInfo">
-          <img :src='shopDetail.logo'>
+          <img :src='shopDetail.logo' width='95' height='95'>
           <div class='shopName'>
             <h1>{{shopDetail.shopName}}</h1>
             <br>
@@ -79,7 +79,7 @@ import sellerFilter from 'components/sellerfilter'
 import foodCard from 'components/foodCard'
 import foodDetailCard from 'components/foodDetailCard'
 import rate from 'components/shopRate'
-import shopCart from 'components/shopCart'
+import shopCart from './shopCart'
 
 export default {
   components: {
@@ -157,8 +157,10 @@ export default {
       this.detailVisible = false
     },
     addOne (item) {
-      const { shopId } = this.shopDetail
+      const { shopId, shopName, shopDeliveryCost } = this.shopDetail
       item.shopId = shopId
+      item.shopName = shopName
+      item.shopDeliveryCost = shopDeliveryCost
       this.addCartNum(item)
       this.$message({
         type: 'success',
@@ -166,7 +168,7 @@ export default {
       })
     },
     filterSelect (code) {
-      alert(`选择了：${this.filterList[code].shopType}`)
+      alert(`选择了：${this.filterList.find(item => (item.shopTypeCode === code)).shopType}`)
     },
     changeTag (index) {
       this.activeTag = config.shopTag[index]

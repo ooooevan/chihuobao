@@ -50,6 +50,7 @@ require('../models/menu')
 
 // 添加用户
 // const User = mongoose.model('User')
+// User.create({user_name: 'user', user_pwd: '123456', phone_num: '12345678910', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})
 // User.create({user_name: 'eee', user_pwd: '123456', phone_num: '11111122331', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})
 // User.create({user_name: 'test1', user_pwd: '123456', phone_num: '11111122332', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})
 // User.create({user_name: 'test2', user_pwd: '123456', phone_num: '11111122333', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})

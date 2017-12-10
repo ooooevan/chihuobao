@@ -1,6 +1,6 @@
 <template>
   <div class="card" ref='card'>
-    <img :src="info.dishImage" @click='detail'>
+    <img :src="info.dishImage" @click='detail' width='100'>
     <div class="message">
       <p class='name'>{{info.dishName}}</p>
       <p class='abstract'>{{info.dishAbstract && info.dishAbstract.length > 15 ? `${info.dishAbstract.substr(0, 15)}...` : info.dishAbstract}}</p>

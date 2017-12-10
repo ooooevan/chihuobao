@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { jsonp } from './baseApi'
+import { jsonp, basePOST, baseGET } from './baseApi'
 import config from './config'
 import ALLAPI from './apiList'
 const API = ALLAPI.user
@@ -31,147 +31,171 @@ export function getSuggestionApi ({address, str}) {
 }
 
 export function _login (phone, password, loginType) {
-  return axios({
-    method: 'post',
-    url: API.login,
-    data: {
-      phone,
-      password,
-      loginType
-    }
-  }).then(res => res.data)
+  return basePOST(API.login, { phone, password, loginType })
+  // return axios({
+  //   method: 'post',
+  //   url: API.login,
+  //   headers: {
+  //     'content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   data: config.toFormData({
+  //     phone,
+  //     password,
+  //     loginType
+  //   })
+  // }).then(res => res.data)
 }
 
 export function _sendCode (phone) {
-  return axios({
-    method: 'post',
-    url: API.sendCode,
-    data: {
-      phone
-    }
-  }).then(res => res.data)
+  return basePOST(API.sendCode, { phone })
+  // return axios({
+  //   method: 'post',
+  //   headers: {
+  //     'content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   url: API.sendCode,
+  //   data: config.toFormData({
+  //     phone
+  //   })
+  // }).then(res => res.data)
 }
 
 export function _register (phone, password, checkCode) {
-  return axios({
-    method: 'post',
-    url: API.register,
-    data: {
-      phone,
-      password,
-      checkCode
-    }
-  }).then(res => res.data)
+  return basePOST(API.register, { phone, password, checkCode })
+  // return axios({
+  //   method: 'post',
+  //   url: API.register,
+  //   headers: {
+  //     'content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   data: config.toFormData({
+  //     phone,
+  //     password,
+  //     checkCode
+  //   })
+  // }).then(res => res.data)
 }
 
 export function _reset (phone, password, checkCode) {
-  return axios({
-    method: 'post',
-    url: API.reset,
-    data: {
-      phone,
-      password,
-      checkCode
-    }
-  }).then(res => res.data)
+  return basePOST(API.reset, { phone, password, checkCode })
+  // return axios({
+  //   method: 'post',
+  //   url: API.reset,
+  //   headers: config.toFormData({
+  //     'content-Type': 'application/x-www-form-urlencoded'
+  //   }),
+  //   data: config.toFormData({
+  //     phone,
+  //     password,
+  //     checkCode
+  //   })
+  // }).then(res => res.data)
 }
 
 export function _logOutApi (userId) {
-  return axios({
-    method: 'post',
-    url: API.logOut,
-    data: {
-      userId
-    }
-  }).then(res => res.data)
+  return basePOST(API.logOut, { userId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.logOut,
+  //   data: {
+  //     userId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _initInfo (userId) {
-  return axios({
-    method: 'post',
-    url: API.initInfo,
-    data: {
-      userId
-    }
-  }).then(res => res.data)
+  return basePOST(API.initInfo, { userId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.initInfo,
+  //   data: {
+  //     userId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _modifyInfo (info) {
-  return axios({
-    method: 'post',
-    url: API.modifyInfo,
-    data: {
-      ...info
-    }
-  }).then(res => res.data)
+  return basePOST(API.modifyInfo, { info })
+  // return axios({
+  //   method: 'post',
+  //   url: API.modifyInfo,
+  //   data: {
+  //     ...info
+  //   }
+  // }).then(res => res.data)
 }
 
 // 商铺列表，包括搜索
 export function _getShopList (longitude, latitude, pageNum, shopType, name) {
-  return axios({
-    method: 'get',
-    url: API.getShopList,
-    params: {
-      longitude,
-      latitude,
-      pageNum,
-      shopType,
-      name
-    }
-  }).then(res => res.data)
+  return baseGET(API.getShopList, { longitude, latitude, pageNum, shopType, name })
+  // return axios({
+  //   method: 'get',
+  //   url: API.getShopList,
+  //   params: {
+  //     longitude,
+  //     latitude,
+  //     pageNum,
+  //     shopType,
+  //     name
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _getInfoByShopId (shopId) {
-  return axios({
-    method: 'get',
-    url: API.getInfoByShopId,
-    params: {
-      shopId
-    }
-  }).then(res => res.data)
+  return baseGET(API.getInfoByShopId, { shopId })
+  // return axios({
+  //   method: 'get',
+  //   url: API.getInfoByShopId,
+  //   params: {
+  //     shopId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _getCommentByDishId (shopId, dishId) {
-  return axios({
-    method: 'get',
-    url: API.getCommentByDishId,
-    params: {
-      shopId,
-      dishId
-    }
-  }).then(res => res.data)
+  return baseGET(API.getCommentByDishId, { shopId, dishId })
+  // return axios({
+  //   method: 'get',
+  //   url: API.getCommentByDishId,
+  //   params: {
+  //     shopId,
+  //     dishId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _apply (userId, shopName, shopAbstract, identificationNum, shopTypeCode, shopLocation, shopLogo, identificationPic, shopAuthImages, shopLongitude, shopLatitude) {
-  return axios({
-    method: 'post',
-    url: API.applyShop,
-    data: {
-      userId,
-      shopName,
-      shopAbstract,
-      identificationNum,
-      shopTypeCode,
-      shopLocation,
-      shopLogo,
-      identificationPic,
-      shopAuthImages,
-      shopLongitude,
-      shopLatitude
-    }
-  }).then(res => res.data)
+  return basePOST(API.applyShop, { userId, shopName, shopAbstract, identificationNum, shopTypeCode, shopLocation, shopLogo, identificationPic, shopAuthImages, shopLongitude, shopLatitude })
+  // return axios({
+  //   method: 'post',
+  //   url: API.applyShop,
+  //   data: {
+  //     userId,
+  //     shopName,
+  //     shopAbstract,
+  //     identificationNum,
+  //     shopTypeCode,
+  //     shopLocation,
+  //     shopLogo,
+  //     identificationPic,
+  //     shopAuthImages,
+  //     shopLongitude,
+  //     shopLatitude
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _getUserOrder (userId, page, orderType) {
-  return axios({
-    method: 'post',
-    url: API.getUserOrder,
-    data: {
-      userId,
-      page,
-      orderType
-    }
-  }).then(res => res.data)
+  return basePOST(API.getUserOrder, { userId, page, orderType })
+  // return axios({
+  //   method: 'post',
+  //   url: API.getUserOrder,
+  //   data: {
+  //     userId,
+  //     page,
+  //     orderType
+  //   }
+  // }).then(res => res.data)
 }
 
 // export function _cancelOrder (userOrderId) {
@@ -185,54 +209,88 @@ export function _getUserOrder (userId, page, orderType) {
 // }
 
 export function _getSopPhone (shopId) {
-  return axios({
-    method: 'post',
-    url: API.getShopPhone,
-    data: {
-      shopId
-    }
-  }).then(res => res.data)
+  return basePOST(API.getShopPhone, { shopId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.getShopPhone,
+  //   data: {
+  //     shopId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _deleteOrder (userOrderId) {
-  return axios({
-    method: 'post',
-    url: API.deleteOrder,
-    data: {
-      userOrderId
-    }
-  }).then(res => res.data)
+  return basePOST(API.deleteOrder, { userOrderId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.deleteOrder,
+  //   data: {
+  //     userOrderId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _finishOrder (userOrderId) {
-  return axios({
-    method: 'post',
-    url: API.finishOrder,
-    data: {
-      userOrderId
-    }
-  }).then(res => res.data)
+  return basePOST(API.finishOrder, { userOrderId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.finishOrder,
+  //   data: {
+  //     userOrderId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _rate (dishId, level, commend, userId, userOrderId, shopId) {
-  return axios({
-    method: 'post',
-    url: API.rateOrder,
-    data: {
-      dishId,
-      level: level || 4,
-      commend: commend || '',
-      userId,
-      userOrderId,
-      shopId
-    }
-  }).then(res => res.data)
+  level = level || 4
+  commend = commend || ''
+  return basePOST(API.rateOrder, { dishId, level, commend, userId, userOrderId, shopId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.rateOrder,
+  //   data: {
+  //     dishId,
+  //     level: level || 4,
+  //     commend: commend || '',
+  //     userId,
+  //     userOrderId,
+  //     shopId
+  //   }
+  // }).then(res => res.data)
 }
 
 export function _getShopType () {
-  return axios({
-    method: 'post',
-    url: API.getShopType
+  return basePOST(API.getShopType, {})
+  // return axios({
+  //   method: 'post',
+  //   url: API.getShopType
+  // }).then(res => res.data)
+}
 
-  }).then(res => res.data)
+export function _newOrder (shopId, shopName, userId, cartList, amount, remarks, acceptAddress) {
+  const dishs = cartList
+  return basePOST(API.newOrder, { shopId, shopName, userId, dishs, amount, remarks, acceptAddress })
+  // return axios({
+  //   method: 'post',
+  //   url: API.newOrder,
+  //   data: {
+  //     shopId,
+  //     shopName,
+  //     userId,
+  //     foods: cartList,
+  //     amount,
+  //     remarks,
+  //     acceptAddress
+  //   }
+  // }).then(res => res.data)
+}
+export function _payOrder (userOrdersId) {
+  return basePOST(API.payOrder, { userOrdersId })
+  // return axios({
+  //   method: 'post',
+  //   url: API.payOrder,
+  //   data: {
+  //     userOrdersId
+  //   }
+  // }).then(res => res.data)
 }

@@ -5,6 +5,7 @@ const userKey = '__user__'
 const sellerKey = '__seller__'
 const cartKey = '__cartList__'
 const shopTypeKey = '__shopType__'
+const adminKey = '__admin__'
 
 // 定位信息
 export function _saveExactAddress (item) {
@@ -98,4 +99,20 @@ export function _getShopTypeList () {
 export function _setShopTypeList (list) {
   storage.set(shopTypeKey, list)
   return list
+}
+
+// 管理员
+export function _saveAdminInfo (info) {
+  storage.set(adminKey, info)
+  return info
+}
+export function _clearAdminInfo () {
+  storage.remove(adminKey)
+  return {}
+}
+export function _hasAdminInfo () {
+  return storage.has(adminKey)
+}
+export function _getAdminInfo () {
+  return storage.get(adminKey) || {}
 }

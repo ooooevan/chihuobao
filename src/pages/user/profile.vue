@@ -14,7 +14,13 @@
         <el-input v-model="info.introduction"></el-input>
       </el-form-item>
       <el-form-item label="收货地址">
-        <el-input v-model="info.acceptAddress"></el-input>
+        <el-cascader
+          class='address'
+          :options="cityOptions"
+          change-on-select
+          v-model='address'
+        ></el-cascader>
+        <el-input class='acceptAddress' v-model="info.acceptAddress"></el-input>
       </el-form-item>
       <el-form-item label="头像">
         <img :src="info.avator">
@@ -38,10 +44,11 @@
           userName: '',
           avator: '',
           gender: '',
-          acceptAddress: '',
           introduction: '',
-          phone: ''
+          phone: '',
+          acceptAddress: ''
         },
+        address: [],
         types: [
           {
             label: '男',
@@ -57,7 +64,8 @@
     computed: {
       ...mapGetters('user',
         [
-          'userInfo'
+          'userInfo',
+          'cityOptions'
         ]
       )
     },
@@ -82,8 +90,9 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then((re) => {
-          let { info } = this
+          let { info, address } = this
           info.userId = this.userInfo.userId
+          info.acceptAddress = `${address.join('')}${info.acceptAddress}`
           _modifyInfo(info).then(res => {
             if (res.code === 1) {
               this.$message({
@@ -119,6 +128,10 @@
   .el-form
     width: 50%
     margin: 0 auto
-    .el-rate
-      transform: translateY(9px)
+  .acceptAddress, .address
+    display: inline-block
+  .acceptAddress
+    width: 65%
+  .address
+    width: 30%
 </style>

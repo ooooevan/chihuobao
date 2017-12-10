@@ -21,7 +21,9 @@ export default {
     finishOrder: `${baseUrl}/order/finish`,
     rateOrder: `${baseUrl}/comment/user`,
     upload: `${baseUrl}/info/upload`,
-    getShopType: `${baseUrl}/types`
+    getShopType: `${baseUrl}/types`,
+    newOrder: `${baseUrl}/order/new`,
+    payOrder: `${baseUrl}/order/pay`
   },
   seller: {
     initInfo: `${baseUrl}/shop/shopMsg`,
@@ -36,5 +38,13 @@ export default {
     isNewOrder: `${baseUrl}/shopOrder/getNewOrder`,
     upload: `${baseUrl}/image/shop`
   },
-  admin: {}
+  admin: {
+    login: `${baseUrl}/admin/login`,
+    addAdmin: `${baseUrl}/admin/addition`,
+    getAdminList: `${baseUrl}/admin/all`,
+    delAdmin: `${baseUrl}/admin/deletion`,
+    adminConfig: `${baseUrl}/admin/configuration`,
+    getShopsList: `${baseUrl}/shop/management/all`,
+    getShopInfoById: `${baseUrl}/shopApply/management`
+  }
 }

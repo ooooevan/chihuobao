@@ -772,3 +772,18 @@ exports.getShopType = async ctx => {
     data: types
   }
 }
+exports.newOrder = async ctx => {
+  console.log(ctx.request.body)
+  ctx.body = {
+    code: 1,
+    data: 4324324324423
+  }
+}
+exports.payOrder = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      message: ''
+    }
+  }
+}

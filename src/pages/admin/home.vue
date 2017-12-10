@@ -1,5 +1,5 @@
 <template>
-  <div class="div">管理员首页</div>
+  <div class="div">请登录</div>
 </template>
 <script>
   

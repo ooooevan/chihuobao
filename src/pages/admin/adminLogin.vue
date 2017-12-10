@@ -3,7 +3,7 @@
     <p>管理员登录</p>
       <el-form :model="ruleForm" status-icon :rules="rules" size='small' ref="ruleForm" class="ruleForm">
         <el-form-item prop="phone">
-          <el-input placeholder="手机号" v-model.number="ruleForm.phone"></el-input>
+          <el-input placeholder="账号" v-model.number="ruleForm.phone"></el-input>
         </el-form-item>
         <el-form-item prop="pass">
           <el-input placeholder="密码" type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
@@ -15,27 +15,20 @@
   </el-dialog>
 </template>
 <script>
+import { _login } from 'common/javascript/adminApi'
+import { mapActions } from 'vuex'
 export default {
   data () {
     var checkPhone = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('手机号不能为空'))
+        return callback(new Error('账号不能为空'))
       }
-      setTimeout(() => {
-        if (!Number.isInteger(value) || `${value}`.length !== 11) {
-          callback(new Error('请输入正确的手机号'))
-        } else {
-          callback()
-        }
-      }, 100)
+      callback()
     }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
-        }
         callback()
       }
     }
@@ -46,10 +39,10 @@ export default {
       },
       rules: {
         pass: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass }
         ],
         phone: [
-          { validator: checkPhone, trigger: 'blur' }
+          { validator: checkPhone }
         ]
       }
     }
@@ -61,33 +54,29 @@ export default {
     }
   },
   methods: {
+    ...mapActions('admin',
+      [
+        'saveAdminInfo'
+      ]
+    ),
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 发送请求
-          // const { checkcode, pass, phone } = this.ruleForm
-          // _reset(phone, pass, checkcode).then(obj => {
-          //   if (obj.code === 1) {
-          //     this.$message({
-          //       showClose: true,
-          //       message: '重置成功',
-          //       type: 'success'
-          //     })
-          //     this.$emit('close')
-          //   } else if (obj.code === 605) {
-          //     this.$message({
-          //       showClose: true,
-          //       message: '该手机号未注册',
-          //       type: 'error'
-          //     })
-          //   } else {
-          //     this.$message({
-          //       showClose: true,
-          //       message: '重置失败，请稍后再试',
-          //       type: 'error'
-          //     })
-          //   }
-          // })
+          const { pass, phone } = this.ruleForm
+          _login(phone, pass).then(obj => {
+            if (obj.code === 1) {
+              this.saveAdminInfo(obj.data)
+              this.$emit('close')
+              this.$router.push('/admin/user')
+            } else {
+              this.$message({
+                showClose: true,
+                message: '登录失败',
+                type: 'error'
+              })
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
