@@ -31,7 +31,6 @@ export default {
       ]
     ),
     shopCartList () {
-      // mongo分支测试数据--
       return this.cartList.filter(item => (item.dishId))
     },
     totalMoney () {
