@@ -1,7 +1,7 @@
 <template>
   <div class='shopCart'>
     <div class="list">
-      <shop-cart-item @add='add(item)' @sub='sub(item)' :key ='item.dishId' v-for='item in cartList' :info='item'></shop-cart-item>
+      <shop-cart-item @add='add(item)' @sub='sub(item)' :key ='item.dishId' v-for='item in shopCartList' :info='item'></shop-cart-item>
     </div>
     <div class="footer">
       <div class="left">总价：{{totalMoney}}<span class='shopDeliveryCost'>   配送费：{{shopDetail.shopDeliveryCost}}元</span></div>
@@ -30,13 +30,17 @@ export default {
         'shopDetail'
       ]
     ),
+    shopCartList () {
+      // mongo分支测试数据--
+      return this.cartList.filter(item => (item.dishId))
+    },
     totalMoney () {
       let money = 0
       const shopDeliveryCost = this.shopDetail.shopDeliveryCost
-      this.cartList.forEach(item => {
+      this.cartList.filter(item => (item.dishId)).forEach(item => {
         money += item.num * item.dishPrice
       })
-      if (this.cartList.length > 0) {
+      if (this.cartList.filter(item => (item.dishId)).length > 0) {
         money += shopDeliveryCost
       }
       return money

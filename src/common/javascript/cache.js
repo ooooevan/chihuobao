@@ -71,8 +71,12 @@ export function _addCartNum (item) {
     // 不是一个商家，清空上一家的购物车
     list = _clearCartList()
   }
+
   let temp = list.find(ite => (ite.dishId === item.dishId))
-  if (temp) {
+  if (item.dishName === '配送费' && temp) {
+    // 同一家多次点击支付，防止生成多个配送费。
+    temp.num = 1
+  } else if (temp) {
     temp.num++
   } else {
     item.num = 1

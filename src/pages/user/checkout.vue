@@ -76,6 +76,13 @@ export default {
       })
       const amount = this.totalMoney
       const { remarks, acceptAddress } = this.form
+      if (!shopId || !userId) {
+        this.$message({
+          type: 'error',
+          message: '操作失败'
+        })
+        return false
+      }
       _newOrder(shopId, shopName, userId, cartList, amount, remarks, acceptAddress).then(res => {
         if (res.code === 1) {
           _payOrder(res.data).then(res => {
