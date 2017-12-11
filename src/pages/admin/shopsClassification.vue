@@ -34,7 +34,6 @@ export default {
     handleClose (tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
     },
-
     showInput () {
       this.inputVisible = true
       this.$nextTick(_ => {

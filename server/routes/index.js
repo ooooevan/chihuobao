@@ -58,9 +58,19 @@ module.exports = function (router, upload) {
   router.post('/api/admin/deletion', Admin.deletion)
   router.post('/api/admin/configuration', Admin.configuration)
   router.get('/api/shop/management/all', Admin.getShopsList)
-  router.get('/api/shopApply/management/:shopId', Admin.getShopInfoById)
+  router.post('/api/shop/management/freeze', Admin.freezeShop)
+  router.get('/api/shop/management/:shopId', Admin.getShopInfoById)
+  router.get('/api/shopApply/management/all', Admin.getApplyList)
+  router.post('/api/shopApply/management/examination', Admin.auditApply)
+  router.get('/api/shopApply/management/:shopApplyId', Admin.getApplyInfoById)
+  router.get('/api/shopType/management/all', Admin.getShopTypeList)
+  router.post('/api/shopType/management/deletion', Admin.delShopType)
+  router.get('/api/foodType/management/all', Admin.getFoodTypeList)
+  router.post('/api/foodType/management/deletion', Admin.delFoodType)
+  router.post('/api/foodType/management/addition', Admin.addFoodType)
+  router.post('/api/shopType/management/addition', Admin.addShopType)
 
-  router.post('/api/info/upload', upload.single('image'), async (ctx, next) => {
+  router.post('/api/upload', upload.single('image'), async (ctx, next) => {
     // const { originalname, path, mimetype, filename } = ctx.req.file
     ctx.body = {
       code: 1,

@@ -41,13 +41,13 @@
           <i class="el-icon-setting"></i>
           <span>管理员</span>
         </el-menu-item>
-        <el-menu-item index="5" route='statistics'>
+        <!-- <el-menu-item index="5" route='statistics'>
           <i class="el-icon-setting"></i>
           <span>统计管理</span>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-menu>
     </el-aside>
-    <admin-login @close='close' :visible='loginVisible'></admin-login>
+    <!-- <admin-login @close='close' :visible='loginVisible'></admin-login> -->
     <el-main>
       <router-view></router-view>
     </el-main>
@@ -55,16 +55,16 @@
 </template>
 
 <script>
-import adminLogin from './adminLogin'
+// import adminLogin from './adminLogin'
 import { _getShopType } from 'common/javascript/userApi'
 import { mapMutations, mapGetters } from 'vuex'
 export default {
-  components: {
-    adminLogin
-  },
+  // components: {
+  //   adminLogin
+  // },
   data () {
     return {
-      loginVisible: true,
+      // loginVisible: false,
       defaultActive: '2'
     }
   },
@@ -77,9 +77,9 @@ export default {
   },
   created () {
     // 判断是否登录，弹出窗口
-    if (this.adminInfo && this.adminInfo.adminName) {
-      this.loginVisible = false
-    }
+    // if (this.adminInfo && this.adminInfo.adminName) {
+    //   this.loginVisible = false
+    // }
     const fullPath = this.$router.currentRoute.path
     const path = fullPath.split('/')[2]
     switch (path) {

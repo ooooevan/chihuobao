@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { _hashExactAddress } from 'common/javascript/cache'
+import { _hashExactAddress, _hasAdminInfo } from 'common/javascript/cache'
 
 // 用户页面
 const index = () => import('pages/user/index')
@@ -49,7 +49,7 @@ const router = new Router({
       path: '/',
       name: 'index',
       component: index,
-      redirect: '/home',
+      redirect: '/place',
       children: [
         {
           path: 'home',
@@ -127,7 +127,7 @@ const router = new Router({
       path: '/admin',
       name: 'admin',
       component: admin,
-      redirect: '/admin/user',
+      redirect: '/admin/home',
       children: [
         {
           path: 'home',
@@ -135,35 +135,99 @@ const router = new Router({
         },
         {
           path: 'audit',
-          component: audit
+          component: audit,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'shops',
-          component: adminShops
+          component: adminShops,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'statistics',
-          component: statistics
+          component: statistics,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'user',
-          component: adminUser
+          component: adminUser,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'classification',
-          component: classification
+          component: classification,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'goodsClassification',
-          component: goodsClassification
+          component: goodsClassification,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'shopsClassification',
-          component: shopsClassification
+          component: shopsClassification,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: 'administrator',
-          component: administrator
+          component: administrator,
+          beforeEnter: (to, from, next) => {
+            // 判断是否有登录
+            if (_hasAdminInfo()) {
+              next()
+            } else {
+              next('/admin/home')
+            }
+          }
         },
         {
           path: '*',
@@ -175,7 +239,7 @@ const router = new Router({
       path: '/seller',
       name: 'seller',
       component: seller,
-      redirect: '/seller/home',
+      redirect: '/seller/order',
       children: [
         {
           path: 'home',

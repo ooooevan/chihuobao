@@ -37,10 +37,10 @@ export default {
       defaultActive: '',
       timer: null,
       routes: [
-        {
-          route: 'home',
-          label: '首页'
-        },
+        // {
+        //   route: 'home',
+        //   label: '首页'
+        // },
         {
           route: 'order',
           label: '订单'
@@ -57,18 +57,18 @@ export default {
           route: 'rate',
           label: '菜品评论'
         },
-        {
-          route: 'revenue',
-          label: '营业信息'
-        },
+        // {
+        //   route: 'revenue',
+        //   label: '营业信息'
+        // },
         {
           route: 'info',
           label: '商铺信息'
-        },
-        {
-          route: 'statistics',
-          label: '统计信息'
         }
+        // {
+        //   route: 'statistics',
+        //   label: '统计信息'
+        // }
       ]
     }
   },

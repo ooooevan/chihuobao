@@ -20,7 +20,7 @@ export default {
     getUserOrder: `${baseUrl}/order/find`,
     finishOrder: `${baseUrl}/order/finish`,
     rateOrder: `${baseUrl}/comment/user`,
-    upload: `${baseUrl}/info/upload`,
+    upload: `${baseUrl}/upload`,
     getShopType: `${baseUrl}/types`,
     newOrder: `${baseUrl}/order/new`,
     payOrder: `${baseUrl}/order/pay`
@@ -45,6 +45,16 @@ export default {
     delAdmin: `${baseUrl}/admin/deletion`,
     adminConfig: `${baseUrl}/admin/configuration`,
     getShopsList: `${baseUrl}/shop/management/all`,
-    getShopInfoById: `${baseUrl}/shopApply/management`
+    getShopInfoById: `${baseUrl}/shopApply/management`,
+    freeze: `${baseUrl}/shop/management/freeze`,
+    getApplyList: `${baseUrl}/shopApply/management/all`,
+    getApplyInfoById: `${baseUrl}/shopApply/management`,
+    auditApply: `${baseUrl}/shopApply/management/examination`,
+    getShopTypeList: `${baseUrl}/shopType/management/all`,
+    getFoodTypeList: `${baseUrl}/foodType/management/all`,
+    delShopType: `${baseUrl}/shopType/management/deletion`,
+    delFoodType: `${baseUrl}/foodType/management/deletion`,
+    addShopype: `${baseUrl}/shopType/management/addition`,
+    addFoodType: `${baseUrl}/foodType/management/addition`
   }
 }

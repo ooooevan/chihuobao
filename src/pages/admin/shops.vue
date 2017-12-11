@@ -106,7 +106,7 @@
 </template>
 <script>
   import searchBox from 'components/searchBox'
-  import { _getShopsList, _getShopInfoById } from 'common/javascript/adminApi'
+  import { _getShopsList, _getShopInfoById, _freeze } from 'common/javascript/adminApi'
   export default {
     components: {
       searchBox
@@ -152,19 +152,46 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          // 冻结商铺
-          // _freeze(item.shopId)
+          const type = 'freeze'
+          _freeze(item.shopId, type).then(res => {
+            if (res.code === 1) {
+              this.$message({
+                type: 'success',
+                message: '已冻结'
+              })
+            } else {
+              this.$message({
+                type: 'error',
+                message: '冻结失败'
+              })
+            }
+            this.getShopsList()
+          })
         }).catch(() => {
-          console.log('取消冻结')
+          console.log('取消冻结操作')
         })
       },
-      unFreeze () {
+      unFreeze (item) {
         this.$confirm('是否解冻该商铺?', '提示', {
           confirmButtonText: '解冻',
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          // 解冻
+          const type = 'unfreeze'
+          _freeze(item.shopId, type).then(res => {
+            if (res.code === 1) {
+              this.$message({
+                type: 'success',
+                message: '已冻结'
+              })
+            } else {
+              this.$message({
+                type: 'error',
+                message: '冻结失败'
+              })
+            }
+            this.getShopsList()
+          })
         }).catch(() => {
           console.log('取消解冻')
         })

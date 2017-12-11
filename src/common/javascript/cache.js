@@ -103,16 +103,16 @@ export function _setShopTypeList (list) {
 
 // 管理员
 export function _saveAdminInfo (info) {
-  storage.set(adminKey, info)
+  storage.session.set(adminKey, info)
   return info
 }
 export function _clearAdminInfo () {
-  storage.remove(adminKey)
+  storage.session.remove(adminKey)
   return {}
 }
 export function _hasAdminInfo () {
-  return storage.has(adminKey)
+  return storage.session.has(adminKey)
 }
 export function _getAdminInfo () {
-  return storage.get(adminKey) || {}
+  return storage.session.get(adminKey) || {}
 }

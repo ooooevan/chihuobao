@@ -6,7 +6,7 @@
       <router-link v-show="!home" to="/order" tag='a' class='fl nav'>我的订单</router-link>
       <!-- <router-link v-show="!home" to="/join" tag='a' class='fl nav'>商家入驻</router-link> -->
       <router-link class='kaidian fr' to="" v-if='!userInfo.userName'><span @click='kaidian'>我要开店</span></router-link>
-      <el-col :span="12" class='fr nav' v-if='userInfo.userName'>
+      <el-col :span="12" class='fr nav userName' v-if='userInfo.userName'>
         <el-dropdown :show-timeout='timeout'>
           <span class="el-dropdown-link">
             {{userInfo.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -115,4 +115,6 @@
     border-radius: 3px
     &:hover
       background: #5db423
+  .userName
+    width: 200px
 </style>

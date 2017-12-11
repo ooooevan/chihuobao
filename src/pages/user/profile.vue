@@ -1,5 +1,5 @@
 <template>
-  <div class="info">
+  <div class="profile">
     <h1>基本信息</h1>
     <el-form label-position="right" label-width="150px" size='small' :model="info">
       <el-form-item label="用户名">
@@ -23,7 +23,18 @@
         <el-input class='acceptAddress' v-model="info.acceptAddress"></el-input>
       </el-form-item>
       <el-form-item label="头像">
-        <img :src="info.avator">
+        <el-upload
+          class="avatar-uploader"
+          :action='uploadUrl'
+          name='image'
+          :with-credentials="TRUE"
+          :show-file-list="false"
+          :drag="TRUE"
+          :on-success="cardPicSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="info.avator" :src="info.avator" class="avatar" width='100'>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
       <el-form-item label="手机">
         <el-input v-model="info.phone"></el-input>
@@ -37,6 +48,8 @@
 <script>
   import { _initInfo, _modifyInfo } from 'common/javascript/userApi'
   import { mapGetters } from 'vuex'
+  import ALLAPI from 'common/javascript/apiList'
+  const API = ALLAPI.user.upload
   export default {
     data () {
       return {
@@ -48,6 +61,8 @@
           phone: '',
           acceptAddress: ''
         },
+        uploadUrl: API,
+        TRUE: true,
         address: [],
         types: [
           {
@@ -73,6 +88,21 @@
       this.initInfo()
     },
     methods: {
+      cardPicSuccess (res, file) {
+        // this.cardPic = URL.createObjectURL(file.raw)
+        this.info.avator = res.data.imageUrl
+      },
+      beforeAvatarUpload (file) {
+        const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀
+        const isLt5M = file.size / 1024 / 1024 < 5
+        if (!isJPG) {
+          this.$message.error('上传图片只能是 JPG 格式!')
+        }
+        if (!isLt5M) {
+          this.$message.error('上传图片大小不能超过 5MB!')
+        }
+        return isJPG && isLt5M
+      },
       initInfo () {
         const userId = this.userInfo.userId
         _initInfo(userId).then(res => {
@@ -114,24 +144,28 @@
     }
   }
 </script>
-<style scoped lang='sass'>
-.info
-  padding: 10px
-  height: 100%
-  box-sizing: border-box
-  background: #fff
-  h1
-    font-size: 17px
-    font-weight: 600
-    margin: 20px
-    text-align: center
-  .el-form
-    width: 50%
-    margin: 0 auto
-  .acceptAddress, .address
-    display: inline-block
-  .acceptAddress
-    width: 65%
-  .address
-    width: 30%
+<style lang='sass'>
+  .profile
+    padding: 10px
+    height: 100%
+    box-sizing: border-box
+    background: #fff
+    h1
+      font-size: 17px
+      font-weight: 600
+      margin: 20px
+      text-align: center
+    .el-form
+      width: 50%
+      margin: 0 auto
+    .avatar-uploader
+      .el-upload-dragger
+        width: 100px
+        height: 100px
+    .acceptAddress, .address
+      display: inline-block
+    .acceptAddress
+      width: 65%
+    .address
+      width: 30%
 </style>

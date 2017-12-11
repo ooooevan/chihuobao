@@ -178,3 +178,202 @@ exports.getShopInfoById = async ctx => {
     }
   }
 }
+
+exports.freezeShop = async ctx => {
+  ctx.obdy = {
+    code: 1,
+    data: ''
+  }
+}
+
+exports.getApplyList = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      pageNum: 1,
+      pages: 6,
+      list: [
+        {
+          shopApplyId: 1,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 2,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 3,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 4,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 5,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 6,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 7,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        },
+        {
+          shopApplyId: 8,
+          userId: 45678,
+          identificationNum: 441566353636277262,
+          shopName: '大碗饭',
+          shopLocation: '海大'
+        }
+      ]
+    }
+  }
+}
+
+exports.getApplyInfoById = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      shopApplyId: 1,
+      userId: 11,
+      identificationNum: 4040199912110102,
+      identificationPic: 'url1',
+      shopName: '大碗饭',
+      shopLogo: 'url2',
+      shopAbstract: '非常好吃',
+      shopLocation: '北京xxxxxxx',
+      shopAuthImages: 'url3'
+    }
+  }
+}
+
+exports.auditApply = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: ''
+  }
+}
+
+exports.getShopTypeList = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      list: [
+        {
+          shopTypeId: 1,
+          type: '火锅'
+        },
+        {
+          shopTypeId: 2,
+          type: '午餐'
+        },
+        {
+          shopTypeId: 3,
+          type: '早餐'
+        },
+        {
+          shopTypeId: 4,
+          type: '小吃'
+        },
+        {
+          shopTypeId: 5,
+          type: '料理'
+        },
+        {
+          shopTypeId: 6,
+          type: '水果'
+        },
+        {
+          shopTypeId: 7,
+          type: '宵夜'
+        }
+      ]
+    }
+  }
+}
+
+exports.getFoodTypeList = async ctx => {
+  ctx.body = {
+    code: 1,
+    data: {
+      list: [
+        {
+          shopTypeId: 1,
+          type: '麻辣'
+        },
+        {
+          shopTypeId: 2,
+          type: '点心'
+        },
+        {
+          shopTypeId: 3,
+          type: '下午茶'
+        },
+        {
+          shopTypeId: 4,
+          type: '清淡'
+        },
+        {
+          shopTypeId: 5,
+          type: '烧烤'
+        },
+        {
+          shopTypeId: 6,
+          type: '面食'
+        },
+        {
+          shopTypeId: 7,
+          type: '饮料'
+        }
+      ]
+    }
+  }
+}
+
+exports.delShopType = async ctx => {
+  ctx.body = {
+    code: 1
+  }
+}
+
+exports.delFoodType = async ctx => {
+  ctx.body = {
+    code: 1
+  }
+}
+
+exports.addFoodType = async ctx => {
+  ctx.body = {
+    code: 1
+  }
+}
+
+exports.addShopType = async ctx => {
+  ctx.body = {
+    code: 1
+  }
+}

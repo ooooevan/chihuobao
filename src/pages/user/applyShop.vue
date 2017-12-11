@@ -162,7 +162,7 @@ export default {
             return false
           }
           const { logoUrl, imgUrl, cardPic, longitude, latitude } = this
-          const userId = this.userInfo
+          const userId = this.userInfo.userId
           const { name, abstract, cardId, type, address } = this.validateForm
           _apply(userId, name, abstract, cardId, type, address, logoUrl, cardPic, imgUrl, longitude, latitude).then(res => {
             if (res.code === 1) {

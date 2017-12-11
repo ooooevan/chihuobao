@@ -1,27 +1,33 @@
 <template>
   <el-dialog :visible.sync='visible' width='70%' :before-close='close'>
     <p>商铺申请审核</p>
-      <el-form label-position="right" label-width="80px" :model="info">
+      <el-form label-position="right" label-width="150px" :model="info">
         <el-form-item label="商铺名称">
           <el-input v-model="info.shopName" disabled></el-input>
         </el-form-item>
-        <el-form-item label="联系人">
-          <el-input v-model="info.userName" disabled></el-input>
+        <el-form-item label="用户id">
+          <el-input v-model="info.userId" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号码">
+          <el-input v-model="info.identificationNum" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="身份证照片">
+          <el-input v-model="info.identificationPic" disabled></el-input>
         </el-form-item>
         <el-form-item label="外卖电话">
           <el-input v-model="info.phone" disabled></el-input>
         </el-form-item>
-        <el-form-item label="商铺分类">
-          <el-input v-model="info.shopClass" disabled></el-input>
+        <el-form-item label="简介">
+          <el-input v-model="info.shopAbstract" disabled></el-input>
         </el-form-item>
         <el-form-item label="地址">
-          <el-input v-model="info.address" disabled></el-input>
+          <el-input v-model="info.shopAbstract" disabled></el-input>
         </el-form-item>
         <el-form-item label="商铺logo">
-          <img :src="info.logo">
+          <img :src="info.shopLogo">
         </el-form-item>
         <el-form-item label="商铺图片">
-          <img :src="info.img1" height=200>
+          <img :src="info.shopAuthImages" height=200>
           <img :src="info.img2" height=200>
         </el-form-item>
         <el-form-item>

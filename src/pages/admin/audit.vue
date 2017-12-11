@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <div class="header">
+    <!-- <div class="header">
       <el-select v-model="filter" placeholder="筛选">
         <el-option
           v-for="item in options"
@@ -10,11 +10,17 @@
         </el-option>
       </el-select>
       <search-box class='searchBox' @search='search'></search-box>
-    </div>
+    </div> -->
     <div class="content">
       <el-table
-        :data="infoData"
+        :data="applyList"
         style="width: 100%">
+        <el-table-column
+          align='center'
+          prop="shopApplyId"
+          label="商铺申请id"
+          width="180">
+        </el-table-column>
         <el-table-column
           align='center'
           prop="shopName"
@@ -23,27 +29,21 @@
         </el-table-column>
         <el-table-column
           align='center'
-          prop="userName"
-          label="联系人"
-          width="130">
-        </el-table-column>
-        <el-table-column
-          align='center'
-          width="120"
-          prop="shopClass"
-          label="商铺分类">
-        </el-table-column>
-        <el-table-column
-          align='center'
-          prop="phone"
-          label="外卖电话"
+          prop="userId"
+          label="用户id"
           width="180">
         </el-table-column>
         <el-table-column
           align='center'
-          width="280"
-          prop="address"
+          width="180"
+          prop="shopLocation"
           label="地址">
+        </el-table-column>
+        <el-table-column
+          align='center'
+          prop="identificationNum"
+          label="用户身份证"
+          width="180">
         </el-table-column>
         <el-table-column
           align='center'
@@ -56,13 +56,18 @@
         </el-table-column>
       </el-table>
     </div>
+    <el-pagination
+      layout="prev, pager, next"
+      @current-change='changePage'
+      :page-count='pages'>
+    </el-pagination>
     <admin-audit-detail-card @reject='_reject' @submit='_submit' class='detailCard' :visible='detailVisible' @close='closeDetail' :info='detailInfo'></admin-audit-detail-card>
   </div>
 </template>
 <script>
   import searchBox from 'components/searchBox'
   import adminAuditDetailCard from 'components/adminAudiDetailCard'
-
+  import { _getApplyList, _getApplyInfoById, _auditApply } from 'common/javascript/adminApi'
   export default {
     components: {
       searchBox,
@@ -72,66 +77,47 @@
       return {
         filter: '',
         detailVisible: false,
-        options: [
-          {
-            label: '用户id',
-            value: 'id'
-          },
-          {
-            label: '用户名',
-            value: 'name'
-          },
-          {
-            label: '手机号',
-            value: 'phone'
-          }
-        ],
-        infoData: [
-          {
-            shopName: '海大面包店',
-            userName: '王小虎',
-            phone: 1231321321,
-            shopClass: '1',
-            address: '上海市普陀区金沙江路 1518 弄21',
-            logo: 'https://fuss10.elemecdn.com/7/37/3035f05e693d405b214af9941e100jpeg.jpeg?imageMogr2/thumbnail/70x70/format/webp/quality/85',
-            img1: 'https://fuss10.elemecdn.com/8/24/3f438bbeee3c1ca016aa86e125722jpeg.jpeg?imageMogr/format/webp/',
-            img2: 'https://fuss10.elemecdn.com/c/11/ebb61411f0a8530c653c6bee9c86ajpeg.jpeg?imageMogr/format/webp/'
-          },
-          {
-            shopName: '海浪楼下',
-            userName: '王小虎',
-            phone: 1231321321,
-            shopClass: '2',
-            address: '上海市普陀区金沙江路 1518 弄2'
-          },
-          {
-            shopName: '三番',
-            userName: '王小虎',
-            phone: 1231321321,
-            shopClass: '3',
-            address: '上海市普陀区金沙江路 1518 弄3'
-          },
-          {
-            shopName: '四饭',
-            userName: '王小虎',
-            phone: 1231321321,
-            shopClass: '5',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }
-        ],
+        pageNum: 1,
+        pages: 2,  // 总页数
+        // options: [
+        //   {
+        //     label: '用户id',
+        //     value: 'id'
+        //   },
+        //   {
+        //     label: '用户名',
+        //     value: 'name'
+        //   },
+        //   {
+        //     label: '手机号',
+        //     value: 'phone'
+        //   }
+        // ],
+        applyList: [],
         detailInfo: {}
       }
     },
+    created () {
+      this.getApplyList()
+    },
     methods: {
+      getApplyList () {
+        const { pageNum } = this
+        _getApplyList(pageNum).then(res => {
+          this.applyList = res.data.list
+          this.pageNum = res.data.pageNum
+          this.pages = res.data.pages
+        })
+      },
       reject (item) {
         this.$confirm('是否审核不通过?', '提示', {
           confirmButtonText: '不通过',
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          this._reject()
+          this._reject(item)
         }).catch(() => {
-          console.log('取消冻结')
+          console.log('取消不通过操作')
         })
       },
       submit (item) {
@@ -140,27 +126,67 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          this._submit()
+          this._submit(item)
         }).catch(() => {
-          console.log('取消冻结')
+          console.log('取消通过操作')
         })
       },
       _submit (item) {
+        const { shopApplyId } = item
+        // 1表示通过，2表示不通过
+        const result = 1
+        _auditApply(shopApplyId, result).then(res => {
+          if (res.code === 1) {
+            this.$message({
+              type: 'success',
+              message: '已审核通过'
+            })
+          } else {
+            this.$message({
+              type: 'error',
+              message: '操作失败'
+            })
+          }
+          this.getApplyList()
+        })
         this.closeDetail()
       },
       _reject (item) {
+        const { shopApplyId } = item
+        const result = 2
+        _auditApply(shopApplyId, result).then(res => {
+          if (res.code === 1) {
+            this.$message({
+              type: 'success',
+              message: '已审核为不通过'
+            })
+          } else {
+            this.$message({
+              type: 'error',
+              message: '操作失败'
+            })
+          }
+          this.getApplyList()
+        })
         this.closeDetail()
       },
       closeDetail () {
         this.detailVisible = false
       },
-      handleShow (item) {
-        this.detailInfo = item
-        this.detailVisible = true
+      changePage (page) {
+        this.pageNum = page
+        this.getApplyList()
       },
-      search (keyword) {
-        alert(`搜索${keyword},分类，${this.filter}`)
+      handleShow (item) {
+        const { shopApplyId } = item
+        _getApplyInfoById(shopApplyId).then(res => {
+          this.detailInfo = res.data
+          this.detailVisible = true
+        })
       }
+      // search (keyword) {
+      //   alert(`搜索${keyword},分类，${this.filter}`)
+      // }
     }
   }
 </script>
