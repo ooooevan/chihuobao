@@ -24,21 +24,22 @@ module.exports = function (router, upload) {
   router.post('/api/login', User.login)
   router.post('/api/code', User.sendCode)
   router.post('/api/regist', User.register)
-  router.post('/api/reset', User.reset)
-  router.post('/api/info/check', User.getUserInfo)
-  router.post('/api/info/modify', User.modifyInfo)
-  router.post('/api/info/apply', User.applyShop)
+  router.post('/api/reset', User.needSignIn, User.reset)
+  router.post('/api/info/check', User.needSignIn, User.getUserInfo)
+  router.post('/api/info/modify', User.needSignIn, User.modifyInfo)
+  router.post('/api/info/apply', User.needSignIn, User.applyShop)
   router.post('/api/info/logout', User.logOut)
-  router.post('/api/order/new', User.newOrder)
-  router.post('/api/order/pay', User.payOrder)
+  router.post('/api/order/new', User.needSignIn, User.newOrder)
+  router.post('/api/order/pay', User.needSignIn, User.payOrder)
+  router.post('/api/order/handleIsPay', User.handleIsPay)
   router.post('/api/order/find', User.getUserOrder)
-  router.post('/api/order/delete', User.deleteOrder)
+  router.post('/api/order/delete', User.needSignIn, User.deleteOrder)
   router.post('/api/order/getPhone', User.getShopPhone)
-  router.post('/api/order/finish', User.finishOrder)
+  router.post('/api/order/finish', User.needSignIn, User.finishOrder)
   router.get('/api/shop/findByRange', User.getShopList)
   router.get('/api/shop/findById', User.getInfoByShopId)
   router.get('/api/shop/dish', User.getCommentByDishId)
-  router.post('/api/comment/user', User.rateOrder)
+  router.post('/api/comment/user', User.needSignIn, User.rateOrder)
   router.post('/api/types', User.getShopType)
 
   router.get('/api/shop/shopMsg', Seller.getShopInfo)
@@ -47,35 +48,36 @@ module.exports = function (router, upload) {
   router.get('/api/comment/dish', Seller.getRateList)
   router.get('/api/shopOrder/getNewOrder', Seller.isNewOrder)
   router.post('/api/shopOrder/handle', Seller.handleOrder)
-  router.post('/api/shop/modifDish', Seller.modifyDish)
-  router.post('/api/shop/delDish', Seller.delDish)
-  router.post('/api/shop/addDish', Seller.addDish)
-  router.post('/api/shop/updateShop', Seller.modifyShopInfo)
+  router.post('/api/shop/modifDish', Seller.needSignIn, Seller.modifyDish)
+  router.post('/api/shop/delDish', Seller.needSignIn, Seller.delDish)
+  router.post('/api/shop/addDish', Seller.needSignIn, Seller.addDish)
+  router.post('/api/shop/updateShop', Seller.needSignIn, Seller.modifyShopInfo)
 
   router.post('/api/admin/login', Admin.login)
   router.get('/api/admin/all', Admin.getAdminList)
-  router.post('/api/admin/addition', Admin.addition)
-  router.post('/api/admin/deletion', Admin.deletion)
-  router.post('/api/admin/configuration', Admin.configuration)
+  router.post('/api/admin/addition', Admin.needSignIn, Admin.addition)
+  router.post('/api/admin/deletion', Admin.needSignIn, Admin.deletion)
+  router.post('/api/admin/configuration', Admin.needSignIn, Admin.configuration)
+  router.post('/api/shop/management/freeze', Admin.needSignIn, Admin.freezeShop)
   router.get('/api/shop/management/all', Admin.getShopsList)
-  router.post('/api/shop/management/freeze', Admin.freezeShop)
   router.get('/api/shop/management/:shopId', Admin.getShopInfoById)
   router.get('/api/shopApply/management/all', Admin.getApplyList)
-  router.post('/api/shopApply/management/examination', Admin.auditApply)
   router.get('/api/shopApply/management/:shopApplyId', Admin.getApplyInfoById)
   router.get('/api/shopType/management/all', Admin.getShopTypeList)
-  router.post('/api/shopType/management/deletion', Admin.delShopType)
   router.get('/api/foodType/management/all', Admin.getFoodTypeList)
-  router.post('/api/foodType/management/deletion', Admin.delFoodType)
-  router.post('/api/foodType/management/addition', Admin.addFoodType)
-  router.post('/api/shopType/management/addition', Admin.addShopType)
+  router.post('/api/shopApply/management/examination', Admin.needSignIn, Admin.auditApply)
+  router.post('/api/shopType/management/deletion', Admin.needSignIn, Admin.delShopType)
+  router.post('/api/foodType/management/deletion', Admin.needSignIn, Admin.delFoodType)
+  router.post('/api/foodType/management/addition', Admin.needSignIn, Admin.addFoodType)
+  router.post('/api/shopType/management/addition', Admin.needSignIn, Admin.addShopType)
+  router.get('/api/user/management/all', Admin.getUserList)
 
   router.post('/api/upload', upload.single('image'), async (ctx, next) => {
     // const { originalname, path, mimetype, filename } = ctx.req.file
     ctx.body = {
       code: 1,
       data: {
-        imageUrl: 'http://localhost:3333/uploads/1512808569618.jpg'
+        imageUrl: ctx.req.file.path.replace('public', '')
       }
     }
   })
@@ -84,7 +86,7 @@ module.exports = function (router, upload) {
     ctx.body = {
       code: 1,
       data: {
-        imageUrl: 'http://localhost:3333/uploads/1512808569618.jpg'
+        imageUrl: ctx.req.file.path.replace('public', '')
       }
     }
   })

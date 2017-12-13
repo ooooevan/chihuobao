@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { _isNewOrder } from 'common/javascript/sellerApi'
+import { _isNewOrder, _getFoodType } from 'common/javascript/sellerApi'
 import { _getShopType } from 'common/javascript/userApi'
 import { mapMutations, mapGetters } from 'vuex'
 
@@ -77,7 +77,8 @@ export default {
       [
         'newOrderNum',
         'sellerInfo',
-        'shopTypeList'
+        'shopTypeList',
+        'foodTypeList'
       ]
     )
   },
@@ -87,6 +88,7 @@ export default {
     this.defaultActive = this.routes.findIndex(route => route.route === path) + 1 + ''  // defaultActive需要一个String类型
     // 轮询请求是否有新订单
     this.getShopType()
+    this.getFoodType()
     this.isNewOrder()
     this.timer = setInterval(() => {
       this.isNewOrder()
@@ -101,6 +103,12 @@ export default {
         this.setShopType(res.data)
       })
     },
+    getFoodType () {
+      const { shopId } = this.sellerInfo
+      _getFoodType(shopId).then(res => {
+        this.setFoodType(res.data.list)
+      })
+    },
     isNewOrder () {
       const shopId = this.sellerInfo.shopId
       _isNewOrder(shopId).then(res => {
@@ -112,7 +120,8 @@ export default {
     },
     ...mapMutations({
       setNewOrderNum: 'seller/SET_NEW_ORDER_NUM',
-      setShopType: 'seller/SET_SHOPTYPE'
+      setShopType: 'seller/SET_SHOPTYPE',
+      setFoodType: 'seller/SET_FOODTYPE'
     })
   }
 }
@@ -135,7 +144,7 @@ export default {
       border-right: none
   .el-main
     // border: 1px solid #eee
-    background: #eee
+    background: #fff
     padding: 0
   .badge
     display: inline-block

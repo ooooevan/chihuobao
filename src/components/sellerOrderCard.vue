@@ -6,10 +6,6 @@
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
-          <!-- <p>共支付：<span class='cost'>{{props.row.orderAmount}}</span></p>
-          <p class='userInfo'>{{props.row.userName}}&nbsp;&nbsp;&nbsp;{{props.row.userPhone}}</p>
-          <p>地址：{{props.row.acceptAddress}}</p>
-          <p>备注：{{props.row.orderRemarks}}</p> -->
           <el-table
             :data="props.row.dishs"
             show-summary

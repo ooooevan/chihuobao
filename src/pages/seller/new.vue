@@ -77,7 +77,7 @@
           price: '',
           abstract: '',
           name: '',
-          type: 1
+          type: ''
         }
       }
     },
@@ -89,14 +89,14 @@
       ),
       ...mapGetters('seller',
         [
-          'shopTypeList'
+          'foodTypeList'
         ]
       ),
       types () {
-        return this.shopTypeList.map(item => {
+        return this.foodTypeList.map(item => {
           return {
-            label: item.shopType,
-            value: item.shopTypeCode
+            label: item.typeDes,
+            value: item.foodTypeId
           }
         })
       }
@@ -163,7 +163,7 @@
   ._new
     box-sizing: border-box
     padding: 20px
-    height: 100%
+    min-height: 500px
     background: #fff
     .el-form
       margin: 30px auto 0

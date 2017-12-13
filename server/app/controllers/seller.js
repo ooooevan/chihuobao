@@ -1,424 +1,179 @@
-// const mongoose = require('mongoose')
-// const User = mongoose.model('User')
+const mongoose = require('mongoose')
+const ShopOrder = mongoose.model('ShopOrder')
+const request = require('request')
+const User = mongoose.model('User')
+const UserOrder = mongoose.model('UserOrder')
+const MenuModel = mongoose.model('MenuModel')
+const DishComment = mongoose.model('DishComment')
+const Shop = mongoose.model('Shop')
 // const request = require('request')
 // const Session = require('../common/session')
 // const config = require('../../config')
 // const { registerName } = require('../common/utils')
 // const MapMsg = require('./dataMapping').codeToMessage
+const shopOrderPerPage = 8
+const commentPerPage = 8
+
+exports.needSignIn = async (ctx, next) => {
+  if (!ctx.session.db) {
+    ctx.throw(401)
+  } else {
+    await next()
+  }
+}
 
 exports.getShopOrder = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {
-      pageNum: 1,
-      totalPage: 10,
-      shopOrders: [
-        {
-          shopOrderId: 63465,
-          userName: '点菜者',
-          dishName: '鸡翅',
-          orderAmount: 14,
-          acceptAddress: '广东海洋大学西区',
-          orderRemarks: '我是备注beizhu 备注',
-          userPhone: '16484382432',
-          orderStatus: 4,
-          dishs: [
-            {
-              dishId: 62,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 31372421,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 62472,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 31132511,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        },
-        {
-          shopOrderId: 145653652,
-          userName: '点菜者名字',
-          dishName: '鸡翅',
-          orderAmount: 14,
-          userPhone: '16484382432',
-          acceptAddress: '广东海洋大学海浪',
-          orderRemarks: '我是备注',
-          orderStatus: 3,
-          dishs: [
-            {
-              dishId: 64137636,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 5436543437,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 364134621321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 321763321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        },
-        {
-          shopOrderId: 12456522,
-          userName: '点菜者名字2',
-          dishName: '鸡翅2',
-          orderAmount: 14,
-          userPhone: '16484382432',
-          acceptAddress: '广东海洋大学海浪2',
-          orderRemarks: '我是备注2',
-          orderStatus: 5,
-          dishs: [
-            {
-              dishId: 64137636,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 5436543437,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 364134621321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 321763321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        },
-        {
-          shopOrderId: 1212456522,
-          userName: '点菜者名字2',
-          dishName: '鸡翅2',
-          orderAmount: 14,
-          userPhone: '16484382432',
-          acceptAddress: '广东海洋大学海浪2',
-          orderRemarks: '我是备注2',
-          orderStatus: 2,
-          dishs: [
-            {
-              dishId: 64137636,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 5436543437,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 364134621321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 321763321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        },
-        {
-          shopOrderId: 1231212456522,
-          userName: '点菜者名字2',
-          dishName: '鸡翅2',
-          orderAmount: 14,
-          userPhone: '16484382432',
-          acceptAddress: '广东海洋大学海浪2',
-          orderRemarks: '我是备注2',
-          orderStatus: 3,
-          dishs: [
-            {
-              dishId: 64137636,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 5436543437,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 364134621321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 321763321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        },
-        {
-          shopOrderId: 1231212456522,
-          userName: '点菜者名字2',
-          dishName: '鸡翅2',
-          orderAmount: 14,
-          userPhone: '16484382432',
-          acceptAddress: '广东海洋大学海浪2',
-          orderRemarks: '我是备注2',
-          orderStatus: 3,
-          dishs: [
-            {
-              dishId: 64137636,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 5436543437,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 364134621321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 321763321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        },
-        {
-          shopOrderId: 1212456522123,
-          userName: '点菜者名字2',
-          dishName: '鸡翅2',
-          orderAmount: 14,
-          userPhone: '16484382432',
-          acceptAddress: '广东海洋大学海浪2',
-          orderRemarks: '我是备注2',
-          orderStatus: 3,
-          dishs: [
-            {
-              dishId: 64137636,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 5436543437,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 364134621321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            },
-            {
-              dishId: 321763321,
-              dishName: '鸡翅',
-              dishImage: 'https://fuss10.elemecdn.com/b/54/0933a2222d026b618221d680c5251jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-              dishPrice: 123,
-              dishNum: 21
-            }
-          ]
-        }
-      ]
+  const { pageNum = 1, type, shopId } = ctx.request.query
+  try {
+    const totalPage = Math.ceil(await ShopOrder.count({shop_id: shopId, order_status: type}) / shopOrderPerPage)
+    const orderList = await ShopOrder.find({shop_id: shopId, order_status: type})
+                                    .skip((pageNum - 1) * shopOrderPerPage)
+                                    .limit(shopOrderPerPage)
+                                    .exec()
+    ctx.body = {
+      code: 1,
+      data: {
+        pageNum,
+        totalPage,
+        shopOrders: await Promise.all(orderList.map(async item => {
+          const user = await User.findOne({_id: item.user_id}).exec()
+          return {
+            shopOrderId: item._id,
+            userName: item.userName || '名字',
+            dishName: item.dishName || '鸡翅',
+            orderAmount: item.order_amount,
+            acceptAddress: item.accept_address,
+            orderRemarks: item.order_remarks,
+            userPhone: user.phone_num,
+            orderStatus: item.order_status,
+            dishs: JSON.parse(item.food_list)
+          }
+        }))
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
     }
   }
 }
 
 exports.handleOrder = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: ''
+  // 1为接单，2不接单, 3取消订单, 4删除订单,5已收货
+  const { shopId, shopOrderId, type } = ctx.request.body
+  // 两个订单表_id是一样的
+  const shopOrder = await ShopOrder.findOne({/* shop_id: shopId, */_id: shopOrderId}).exec()
+  const userOrder = await UserOrder.findOne({/* shop_id: shopId, */_id: shopOrderId}).exec()
+  try {
+    if (type === '1') {
+      shopOrder.order_status = 4
+      userOrder.order_status = 4
+    } else if (type === '2') {
+      shopOrder.order_status = 7
+      userOrder.order_status = 7
+    } else if (type === '3') {
+      shopOrder.order_status = 5
+      userOrder.order_status = 5
+    } else if (type === '4') {
+      shopOrder.order_status = 6
+      userOrder.order_status = 6
+    } else if (type === '5') {
+      // 已完成订单，将菜品销量加一
+      shopOrder.order_status = 2
+      userOrder.order_status = 2
+      let foodList = JSON.parse(shopOrder.food_list)
+      await Promise.all(foodList.forEach(async item => {
+        let menu = await MenuModel.findOne({_id: item.dishId}).exec()
+        menu.monthly_sales++
+        await menu.save()
+      }))
+    }
+    await shopOrder.save()
+    await userOrder.save()
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    if (err) console.log(err)
+    ctx.body = {
+      code: 1,
+      data: err
+    }
   }
 }
 
 exports.getAllDish = async ctx => {
+  const { shopId } = ctx.request.query
+  let shopList = []
+  try {
+    shopList = await MenuModel.find({shop_id: shopId}).exec()
+  } catch (err) {
+    console.log(err)
+  }
   ctx.body = {
     code: 1,
-    data: [
-      {
-        dishId: 63,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 3,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 765,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 52,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 154,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 1354,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 543,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 12,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      },
-      {
-        dishId: 213,
-        dishName: '名字名字222',
-        dishImage: 'https://fuss10.elemecdn.com/8/77/41eb9ee1123516297dfcf2c09a2f1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: 13.2,
-        dishAbstract: '这是描述······1·',
-        dishType: 1,
-        level: 3,
-        monthlySales: 412
-      }
-    ]
+    data: shopList.map(item => ({
+      dishId: item._id,
+      dishName: item.dish_name,
+      dishImage: item.dish_pics,
+      dishPrice: item.dish_price,
+      dishAbstract: item.dish_introduction,
+      dishType: item.dish_type,
+      level: item.level,
+      monthlySales: item.monthly_sales
+    }))
   }
 }
 
 exports.getShopInfo = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {
-      shopId: 12321321,
-      shopName: '名字',
-      logo: 'https://fuss10.elemecdn.com/a/c3/9f33ec59741cb71d2e786cd6f2786png.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
-      shopAbstract: '商铺简介····、···。。·。',
-      shopLocation: '地址地址',
-      shopAnnouncement: '我是公告',
-      shopPhone: 1233242142143,
-      shopWorkTime: '08-20',
-      shopDeliveryCost: 3.4,
-      shopStartDelivery: 12,
-      storesImages: 'https://fuss10.elemecdn.com/0/9f/23cfcc8ad15a56734ab10d95c14aajpeg.jpeg?imageMogr/format/webp/',
-      detailImages: 'https://fuss10.elemecdn.com/a/43/4cacac3068b534c56a3cb1288ca67jpeg.jpeg?imageMogr/format/webp/',
-      deliveryTime: '40',
-      level: 4.3
+  const { shopId } = ctx.request.query
+  try {
+    const shop = await Shop.findOne({_id: shopId}).exec()
+    ctx.body = {
+      code: 1,
+      data: {
+        shopId: shop._id,
+        shopName: shop.shop_name,
+        logo: shop.shop_logo,
+        shopAbstract: shop.shop_abstract,
+        shopLocation: shop.shop_location,
+        shopAnnouncement: shop.shop_announcement,
+        shopPhone: shop.shop_phone,
+        shopWorkTime: shop.shop_work_time,
+        shopDeliveryCost: shop.shop_delivery_cost,
+        shopStartDelivery: shop.shop_start_delivery,
+        storesImages: shop.shop_stores_images,
+        detailImages: shop.shop_detail_images,
+        deliveryTime: shop.delivery_time,
+        level: shop.level
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
     }
   }
 }
 
 exports.modifyDish = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: ''
+  const { shopId, dishId, dishPrice, dishAbstract, dishType } = ctx.request.body
+  let dish
+  try {
+    dish = await MenuModel.findOne({_id: dishId}).exec()
+    dish.dish_introduction = dishAbstract
+    dish.dish_price = dishPrice
+    dish.dish_type = dishType
+    await dish.save()
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
   }
 }
 
@@ -430,116 +185,96 @@ exports.delDish = async ctx => {
 }
 
 exports.addDish = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: ''
+  const { shopId, dishName, dishPrice, dishType, dishAbstract, dishImage } = ctx.request.body
+  try {
+    await MenuModel.create({shop_id: shopId, dish_name: dishName, dish_introduction: dishAbstract, dish_price: dishPrice, dish_pics: dishImage, dish_type: dishType})
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
   }
 }
 
 exports.modifyShopInfo = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: ''
+  const { shopId, shopName, shopLogo, shopAbstract, shopLocation, shopAnnouncement, shopPhone, shopWorkTime, shopDeliveryCost, shopStartDelivery } = ctx.request.body
+  try {
+    let shop = await Shop.findOne({_id: shopId}).exec()
+    if (shopName !== 'undefined') shop.shop_name = shopName
+    if (shopLogo !== 'undefined') shop.shop_logo = shopLogo
+    if (shopAbstract !== 'undefined') shop.shop_abstract = shopAbstract
+    if (shopLocation !== 'undefined') shop.shop_location = shopLocation
+    if (shopAnnouncement !== 'undefined') shop.shop_announcement = shopAnnouncement
+    if (shopPhone !== 'undefined') shop.shop_phone = +shopPhone
+    if (shopWorkTime !== 'undefined') shop.shop_work_time = shopWorkTime
+    if (shopDeliveryCost !== 'undefined') shop.shop_delivery_cost = +shopDeliveryCost
+    if (shopStartDelivery !== 'undefined') shop.shop_start_delivery = shopStartDelivery
+    await shop.save()
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
   }
 }
 
 exports.getRateList = async ctx => {
-  // 评论一页九条
+  const { shopId, pageNum } = ctx.request.query
+  let commentList = []
+  let totalPage = 1
+  let code = 1
+  try {
+    totalPage = Math.ceil(await DishComment.count({shop_id: shopId}) / commentPerPage)
+    commentList = await DishComment.find({shop_id: shopId})
+                                  .skip((pageNum - 1) * commentPerPage)
+                                  .limit(commentPerPage)
+                                  .exec()
+    commentList = await Promise.all(commentList.map(async item => {
+      const user = await User.findOne({_id: item.user_id}).exec()
+      const dish = await MenuModel.findOne({_id: item.dish_id}).exec()
+      return {
+        commentId: item._id,
+        dishId: item.dish_id,
+        dishName: dish.dish_name,
+        username: user.user_name,
+        level: item.level,
+        comment: item.comment,
+        commentDate: item.comment_date
+      }
+    }))
+  } catch (err) {
+    code = 0
+  }
   ctx.body = {
-    code: 1,
+    code,
     data: {
-      pageNum: 2,
-      totalPage: 10,
-      dishComment: [
-        {
-          commentId: 653214234423432,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名222222222222222222222222222222222222222222222222',
-          level: 4.5,
-          comment: '还行还行还行2222222222222222222222222222222222222222222还行还行还行2222222222222222222222222222222222222222222还行还行还行2222222222222222222222222222222222222222222还行还行还行2222222222222222222222222222222222222222222',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 4723312214423432,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 267321442331432123,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 3583214423432132,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 8763214423432123,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 8543214423432321,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 765321442331432123,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 5433214423432132,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        },
-        {
-          commentId: 5323213214423432123,
-          dishId: 5435365,
-          dishName: '鸡腿',
-          username: '用户名名',
-          level: 4.5,
-          comment: '还行还行还行',
-          commentDate: '2017-12-02'
-        }
-      ]
+      pageNum,
+      totalPage,
+      dishComment: commentList
     }
   }
 }
 
 exports.isNewOrder = async ctx => {
+  const { shopId } = ctx.request.query
+  let num = 0
+  try {
+    num = await ShopOrder.count({shop_id: shopId, order_status: 3}).exec()
+  } catch (err) {
+    console.log(err)
+    ctx.body = {
+      code: 0,
+      data: 0
+    }
+  }
   ctx.body = {
     code: 1,
-    data: 2
+    data: num
   }
 }

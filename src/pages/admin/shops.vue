@@ -40,7 +40,6 @@
               <el-form-item label="商铺状态">
                 :<span>{{ props.row.shopStatus }}</span>
               </el-form-item>
-              <br>
               <el-form-item label="商铺电话">
                 :<span>{{ props.row.shopPhone }}</span>
               </el-form-item>
@@ -84,6 +83,10 @@
           label="联系电话">
         </el-table-column>
         <el-table-column
+          prop="shopStatus"
+          label="商铺状态">
+        </el-table-column>
+        <el-table-column
           prop="shopLocation"
           label="地址">
         </el-table-column>
@@ -106,6 +109,7 @@
 </template>
 <script>
   import searchBox from 'components/searchBox'
+  import config from 'common/javascript/config'
   import { _getShopsList, _getShopInfoById, _freeze } from 'common/javascript/adminApi'
   export default {
     components: {
@@ -115,7 +119,7 @@
       return {
         property: '',
         pageNum: 1,
-        pages: 10, // 总页数
+        pages: 1, // 总页数
         keyword: '',
         options: [
           {
@@ -141,7 +145,11 @@
       getShopsList () {
         const { pageNum, property, keyword } = this
         _getShopsList(pageNum, property, keyword).then(res => {
-          this.infoData = res.data.list
+          this.infoData = res.data.list.map(item => {
+            return Object.assign(item, {
+              shopStatus: config.shopStatus[item.shopStatus]
+            })
+          })
           this.pages = res.data.pages
           this.pageNum = res.data.pageNum
         })
@@ -182,12 +190,12 @@
             if (res.code === 1) {
               this.$message({
                 type: 'success',
-                message: '已冻结'
+                message: '已解冻'
               })
             } else {
               this.$message({
                 type: 'error',
-                message: '冻结失败'
+                message: '解冻失败'
               })
             }
             this.getShopsList()
@@ -211,11 +219,9 @@
         this.getShopsList()
       },
       search (keyword) {
-        if (keyword) {
-          this.keyword = keyword
-          this.pageNum = 1
-          this.getShopsList()
-        }
+        this.keyword = keyword
+        this.pageNum = 1
+        this.getShopsList()
       }
     }
   }

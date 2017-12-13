@@ -44,7 +44,29 @@ export function basePOST (api, params) {
     data: config.toFormData({
       ...params
     })
-  }).then(res => res.data)
+  }).then(res => {
+    return res.data
+  }).catch(() => {
+    // window.location.href = '/#/login'   // hash模式
+    window.location.href = '/login'
+  })
+}
+export function basePOST1 (api, params) {
+  return axios({
+    method: 'post',
+    url: api,
+    headers: {
+      'content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: config.toFormData({
+      ...params
+    })
+  }).then(res => {
+    return res.data
+  }).catch(() => {
+    // window.location.href = '/#/admin/home'   // hash模式
+    window.location.href = '/admin/home'
+  })
 }
 // export function initCity () {
 //   const url = `http://api.map.baidu.com/location/ip?ak=${config.ak}`

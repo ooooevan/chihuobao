@@ -1,7 +1,7 @@
 <template>
   <div id='app'>
     <user-header :home='home' @kaidian='kaidian' @logOut='_logOut' logo="https://www.baidu.com/img/baidu_jgylogo3.gif" :userInfo='userInfo'></user-header>
-    PageNoFind
+    <div class="main">页面已经被吃掉了...</div>
     <user-footer></user-footer>
   </div>
 </template>
@@ -76,5 +76,9 @@ export default {
     height: 100%
     width: 100%
     // background: url('../../common/images/2.jpg')
+    .main
+      min-height: 550px
+      text-align: center
+      padding-top: 250px
     
 </style>

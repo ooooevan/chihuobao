@@ -45,15 +45,15 @@
     <div id="content" class="container clearfix">
       <div class="main fl" v-if="activeTag === shopTag[0]">
         <seller-filter filterMsg='商品分类' class='filter padding15' :filterList='filterList' @select='filterSelect'></seller-filter>
-        <h2 class='padding15'>热销</h2>
+        <!-- <h2 class='padding15'>热销</h2> -->
         <div class="cardWrapper">
           <food-card :key='info.dishId' :status='shopDetail.status' @detail='detail' @addOne='addOne' :info='info' v-for='info in currentShopDishs' class='card'></food-card>
         </div>
       </div>
-      <div class="main fl" v-else-if="activeTag === shopTag[1]">
+      <!-- <div class="main fl" v-else-if="activeTag === shopTag[1]">
         <rate :data='rateData' class='rate padding15'></rate>
-      </div>
-      <div class="main fl" v-else-if="activeTag === shopTag[2]">
+      </div> -->
+      <div class="main fl" v-else-if="activeTag === shopTag[1]">
         <img :src='shopDetail.storesImages' style='float:left' alt="门面照" width='50%'>
         <img :src='shopDetail.detailImages' style='float:left' alt="" width='50%'>
       </div>
@@ -220,7 +220,7 @@ export default {
       width: 100px
       text-align: center
   .shopNav
-    width: 400px
+    width: 300px
     ul
       display: flex
       li

@@ -5,9 +5,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import store from './store'
-
+import moment from 'moment'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+Object.defineProperty(Vue.prototype, '$moment', {value: moment})
+
 /* eslint-disable */
 //                   _ooOoo_ 
 //                  o8888888o 

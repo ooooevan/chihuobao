@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const app = new Koa()
+const fs = require('fs')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
@@ -19,7 +20,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage})
 const moment = require('moment')
-moment().format()
+moment().format('YYYY-MM-DD HH:mm:ss')
 
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
@@ -79,14 +80,26 @@ require('./routes/index')(router, upload)
 //   if (err) throw new Error(err)
 //   console.log(`添加到数据库成功`)
 // })
-
+// const Shop = mongoose.model('Shop')
+// Shop.create({shop_name: '123'})
+// console.log('创建一个shop，123')
 app
   .use(router.routes())
   .use(router.allowedMethods())
 
 app.use(async (ctx) => {
-  ctx.status = 404
-  ctx.body = `404404404404`
+  // ctx.body = await fs.readFile(`${__dirname}/public/index.html`)
+  var htmlFile = await new Promise(function (resolve, reject) {
+    fs.readFile(`${__dirname}/public/index.html`, (err, data) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(data)
+      }
+    })
+  })
+  ctx.type = 'html'
+  ctx.body = htmlFile
 })
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

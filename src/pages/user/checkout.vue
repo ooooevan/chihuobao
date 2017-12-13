@@ -33,13 +33,33 @@
         <el-button type="primary" @click="onSubmit">立即支付</el-button>
       </el-form-item>
       </el-form>
+      <el-dialog
+        title="提示"
+        :visible.sync='dialogVisible'
+        width='30%'
+        :before-close='handleClose'>
+        <span>请支付完后点击我已支付,若已支付请点击‘我已支付’</span>
+        <a :href='payLocation' target='_blank' class='payLocation'>若未正常跳转可点击手动跳转</a>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click='handleClose'>取消支付</el-button>
+          <el-button type="primary" @click='handleClick'>我已支付</el-button>
+        </span>
+      </el-dialog>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { _newOrder, _payOrder } from 'common/javascript/userApi'
+import config from 'common/javascript/config'
+import { _newOrder, _payOrder, _handleIsPay } from 'common/javascript/userApi'
 export default {
+  data () {
+    return {
+      dialogVisible: false,
+      payLocation: '',  // 去支付的链接
+      orderCode: 0  // 订单id
+    }
+  },
   computed: {
     ...mapGetters('user', [
       'cartList',
@@ -52,9 +72,10 @@ export default {
       }
     },
     totalMoney () {
+      const { accMul, accAdd } = config
       let money = 0
       this.cartList.forEach(item => {
-        money += item.num * item.dishPrice
+        money = accAdd(money, accMul(item.num, item.dishPrice))
       })
       return money
     }
@@ -85,11 +106,36 @@ export default {
       }
       _newOrder(shopId, shopName, userId, cartList, amount, remarks, acceptAddress).then(res => {
         if (res.code === 1) {
+          this.orderCode = res.data
           _payOrder(res.data).then(res => {
-            debugger
+            this.dialogVisible = true
+            this.payLocation = res.data
+            window.open(res.data)
           })
         }
       })
+    },
+    handleClick () {
+      // 点击我已支付
+      const { orderCode } = this
+      _handleIsPay(orderCode).then(res => {
+        if (res.code === 1) {
+          this.$router.push('/shopCart/success')
+        } else {
+          this.$message({
+            type: 'error',
+            message: '未检测到支付，请稍后'
+          })
+        }
+      })
+    },
+    handleClose () {
+      // 取消支付
+      this.$confirm('确认取消支付?')
+            .then(_ => {
+              this.$router.push('/order')
+            })
+            .catch(_ => {})
     }
   }
 }
@@ -113,4 +159,9 @@ export default {
 .el-form
   width: 50%
   margin: 0 auto
+.payLocation
+  cursor: pointer
+  color: red
+  &:hover
+    text-decoration: underline
 </style>

@@ -53,20 +53,20 @@
       <el-form :model="current" label-position='left'>
         <el-form-item label="商铺分类管理">
           <el-select v-model="current.shopTypeMp">
-            <el-option value=0></el-option>
-            <el-option value=1></el-option>
+            <el-option label='无权限' value=0></el-option>
+            <el-option label='有权限' value=1></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="食物分类管理">
           <el-select v-model="current.foodTypeMp">
-            <el-option value=0></el-option>
-            <el-option value=1></el-option>
+            <el-option label='无权限' value=0></el-option>
+            <el-option label='有权限' value=1></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="商铺管理">
           <el-select v-model="current.shopMp">
-            <el-option value=0></el-option>
-            <el-option value=1></el-option>
+            <el-option label='无权限' value=0></el-option>
+            <el-option label='有权限' value=1></el-option>
           </el-select>
         </el-form-item>
         <!-- <el-form-item label="用户管理">
@@ -117,15 +117,16 @@
 </template>
 <script>
   import { _addAdmin, _getAdminList, _delAdmin, _adminConfig } from 'common/javascript/adminApi'
+  import config from 'common/javascript/config'
   export default {
     data () {
       return {
-        AUTH: ['无权限', '有权限'],
         adminList: [],
         detailVisible: false,
         current: {},
         newVisible: false,
-        newAdmin: {}
+        newAdmin: {},
+        auth: config.auth
       }
     },
     created () {
@@ -179,11 +180,22 @@
       },
       getAdminList () {
         _getAdminList().then(res => {
-          this.adminList = res.data.list
+          // 将入口的数据改成有语义话的，1表示有权限
+          this.adminList = res.data.list.map(item => {
+            return Object.assign(item, {
+              shopMp: config.auth[item.shopMp],
+              shopTypeMp: config.auth[item.shopTypeMp],
+              foodTypeMp: config.auth[item.foodTypeMp]
+            })
+          })
         })
       },
       change () {
-        const { adminName, foodTypeMp, shopMp, shopTypeMp } = this.current
+        let { adminName, foodTypeMp, shopMp, shopTypeMp } = this.current
+        // 出口数据要保证是数据，因为修改时，选择了就是数字，为修改的还是字符串如'无权限',则需要改成数字
+        if (isNaN(foodTypeMp)) foodTypeMp = this.auth.findIndex(item => item === foodTypeMp)
+        if (isNaN(shopMp)) shopMp = this.auth.findIndex(item => item === shopMp)
+        if (isNaN(shopTypeMp)) shopTypeMp = this.auth.findIndex(item => item === shopTypeMp)
         _adminConfig(adminName, foodTypeMp, shopMp, shopTypeMp).then(res => {
           if (res.code === 1) {
             this.$message({

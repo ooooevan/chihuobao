@@ -13,17 +13,17 @@ const UserSchema = new mongoose.Schema({
   },
   avator: String,
   gender: Number,
-  acceptAddress: String,
+  accept_address: String,
   introduction: String,
-  is_merchant: {
+  is_merchant: {   // 是否商户
     type: Number,
     default: 0
   },
-  createAt: {
+  create_at: {
     type: Date,
     default: Date.now()
   },
-  updateAt: {
+  update_at: {
     type: Date,
     default: Date.now()
   }
@@ -32,9 +32,9 @@ const UserSchema = new mongoose.Schema({
 UserSchema.pre('save', function (next) {
   const user = this
   if (this.isNew) {
-    this.createAt = this.updateAt = Date.now()
+    this.create_at = this.update_at = Date.now()
   } else {
-    this.updateAt = Date.now()
+    this.update_at = Date.now()
   }
   bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
     if (err) return next(err)
@@ -49,7 +49,7 @@ UserSchema.statics = {
   fetch: function (cb) {
     return this
       .find({})
-      .sort('updateAt')
+      .sort('update_at')
       .exec(cb)
   },
   findById: function (id, cb) {

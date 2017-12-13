@@ -23,7 +23,8 @@ export default {
     upload: `${baseUrl}/upload`,
     getShopType: `${baseUrl}/types`,
     newOrder: `${baseUrl}/order/new`,
-    payOrder: `${baseUrl}/order/pay`
+    payOrder: `${baseUrl}/order/pay`,
+    handleIsPay: `${baseUrl}/order/handleIsPay`
   },
   seller: {
     initInfo: `${baseUrl}/shop/shopMsg`,
@@ -36,7 +37,8 @@ export default {
     modifyShopInfo: `${baseUrl}/shop/updateShop`,
     getRateList: `${baseUrl}/comment/dish`,
     isNewOrder: `${baseUrl}/shopOrder/getNewOrder`,
-    upload: `${baseUrl}/image/shop`
+    upload: `${baseUrl}/image/shop`,
+    getFoodType: `${baseUrl}/foodType/management/all`
   },
   admin: {
     login: `${baseUrl}/admin/login`,
@@ -45,7 +47,7 @@ export default {
     delAdmin: `${baseUrl}/admin/deletion`,
     adminConfig: `${baseUrl}/admin/configuration`,
     getShopsList: `${baseUrl}/shop/management/all`,
-    getShopInfoById: `${baseUrl}/shopApply/management`,
+    getShopInfoById: `${baseUrl}/shop/management`,
     freeze: `${baseUrl}/shop/management/freeze`,
     getApplyList: `${baseUrl}/shopApply/management/all`,
     getApplyInfoById: `${baseUrl}/shopApply/management`,
@@ -54,7 +56,8 @@ export default {
     getFoodTypeList: `${baseUrl}/foodType/management/all`,
     delShopType: `${baseUrl}/shopType/management/deletion`,
     delFoodType: `${baseUrl}/foodType/management/deletion`,
-    addShopype: `${baseUrl}/shopType/management/addition`,
-    addFoodType: `${baseUrl}/foodType/management/addition`
+    addShopType: `${baseUrl}/shopType/management/addition`,
+    addFoodType: `${baseUrl}/foodType/management/addition`,
+    getUserList: `${baseUrl}/user/management/all`
   }
 }

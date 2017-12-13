@@ -45,7 +45,7 @@
       <el-form-item label="门面照">
         <el-upload
           class="avatar-uploader"
-          :action='info.uploadUrl'
+          :action='uploadUrl'
           name='image'
           :with-credentials="true"
           :show-file-list="false"
@@ -59,7 +59,7 @@
       <el-form-item label="商铺照">
         <el-upload
           class="avatar-uploader"
-          :action='info.uploadUrl'
+          :action='uploadUrl'
           name='image'
           :with-credentials="true"
           :show-file-list="false"
@@ -85,6 +85,7 @@
   export default {
     data () {
       return {
+        uploadUrl: API,
         info: {
           shopName: '',
           shopId: 1,
@@ -92,7 +93,6 @@
           shopLocation: '',
           logo: '',
           shopAnnouncement: '',
-          uploadUrl: API,
           shopDeliveryCost: 1,
           shopStartDelivery: 1,
           storesImages: '',
@@ -100,7 +100,6 @@
           shopWorkTime: '',
           deliveryTime: '',
           level: 0
-
         }
       }
     },
@@ -142,7 +141,7 @@
         }).then((re) => {
           let { info } = this
           info.shopId = this.sellerInfo.shopId
-          _modifyShopInfo(info).then(res => {
+          _modifyShopInfo(JSON.parse(JSON.stringify(info))).then(res => {
             if (res.code === 1) {
               this.$message({
                 type: 'success',

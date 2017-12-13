@@ -9,6 +9,7 @@ const Shop = new mongoose.Schema({
   },
   shop_name: String,
   shop_logo: String,
+  shop_type: Number,
   shop_abstract: String,
   shop_location: String,
   shop_announcement: String,
@@ -18,13 +19,17 @@ const Shop = new mongoose.Schema({
   shop_delivery_cost: Number,
   shop_delivery_time: Number,
   shop_start_delivery: String,
-  shop_stores_images: String,
+  shop_stores_images: String,  // 门面照，跟apply表不一致
   shop_detail_images: String,
   shop_longitude: Number,
   shop_latitude: Number,
   delivery_time: Number,
   level: Number,
-  monthly_sales: Number
+  monthly_sales: Number,
+  create_time: {
+    type: Date,
+    default: new Date()
+  }
 })
 
 module.exports = mongoose.model('Shop', Shop)

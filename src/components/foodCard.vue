@@ -13,7 +13,7 @@
           show-score
           text-color='#ff9900'>
         </el-rate>
-        <p class='perMonth'>月售{{info.monthlySales}}份</p>
+        <p class='perMonth'>月售{{info.monthlySales || 0}}份</p>
       </div>
       <span class='money'>￥{{info.dishPrice}}</span>
       <div :class='_status' @click='addToCart'>加入购物车</div>

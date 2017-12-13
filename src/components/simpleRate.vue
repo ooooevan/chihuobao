@@ -8,7 +8,7 @@
             v-model="item.level"
             disabled>
           </el-rate>
-          <span class='rateTime'>{{item.commentDate}}</span>
+          <span class='rateTime'>{{$moment(item.commentDate).format('YYYY-MM-DD HH:mm:ss')}}</span>
         </div>
         {{item.commen && item.comment.length > 30 ? `${item.comment.slice(0, 30)}...` : item.comment}}
       </li>

@@ -12,7 +12,7 @@
           <el-input v-model="info.identificationNum" disabled></el-input>
         </el-form-item>
         <el-form-item label="身份证照片">
-          <el-input v-model="info.identificationPic" disabled></el-input>
+          <img :src="info.identificationPic" width='200'>
         </el-form-item>
         <el-form-item label="外卖电话">
           <el-input v-model="info.phone" disabled></el-input>
@@ -27,8 +27,8 @@
           <img :src="info.shopLogo">
         </el-form-item>
         <el-form-item label="商铺图片">
-          <img :src="info.shopAuthImages" height=200>
-          <img :src="info.img2" height=200>
+          <img :src="info.shopAuthImages" height='200'>
+          <img :src="info.img2" height='200'>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submit('')">审核通过</el-button>

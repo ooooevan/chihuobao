@@ -5,3 +5,5 @@ export const CLEAR_NEW_ORDER_NUM = 'CLEAR_NEW_ORDER_NUM'
 export const SET_SELLER_INFO = 'SET_SELLER_INFO'
 
 export const SET_SHOPTYPE = 'SET_SHOPTYPE'
+
+export const SET_FOODTYPE = 'SET_FOODTYPE'

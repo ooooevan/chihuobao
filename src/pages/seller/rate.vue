@@ -2,11 +2,11 @@
   <div class="rate" ref='rate'>
     <ul>
       <li :key='item.commentId' v-for='item in rateList'>
-        <div class='name' :title='item.username'>{{item.username.length > 5 ? item.username.slice(0, 5) + '...' : item.username}}</div>
+        <div class='name' :title='item.username'>{{item.username.slice(0, 2) + '**' + item.username.substr(-2)}}</div>
         <div class='comment'>
           <div class="clearfix">
             <p class='fl dishName'>{{item.dishName}}</p>
-            <p class='fr'>{{item.commentDate}}</p>
+            <p class='fr date'>{{$moment(item.commentDate).format('YYYY-MM-DD HH:mm:ss')}}</p>
             <el-rate
               disabled
               ref='el-rate'
@@ -63,7 +63,8 @@
           setTimeout(() => {
             this.loading = false   // 防止滚动到底部同时出现多个请求
           }, 1000)
-          this.rateList = res.data.dishComment // 这里在strict模式会提示不是通过mutations设置state的，不知为何
+           // 这里在strict模式会提示不是通过mutations设置state的，不知为何
+          this.rateList = res.data.dishComment
         })
       },
       changePage (page) {
@@ -76,11 +77,11 @@
 <style lang='sass'>
   .rate
     background: #fff
-    padding: 15px
     position: relative
+    height: 100%
     ul
       li
-        margin-top: 35px
+        padding: 25px 28px
         .name,.comment
           display: inline-block
         .name
@@ -94,6 +95,8 @@
           .content
             margin-top: 5px
             color: #969696
+          .date
+            font-size: 15px
       .el-rate
         transform: translateY(-3px)
     .el-pagination

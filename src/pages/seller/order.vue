@@ -1,21 +1,23 @@
 <template>
-  <div class="order">
+  <div class="order" ref='order'>
     <div class="header">
       <ul>
         <li @click='changeTag(tag.value)' :key='index' :class='{active: tag.value === activeTag}' v-for='(tag, index) in orderTag'>{{tag.label}}</li>
       </ul>
     </div>
-    <div class="content">
-      <!-- <order-card :key='index' @accept='accept' @cancel='cancelOrder' class='orderCard' v-for='(item, index) in info' :info='item'></order-card> -->
-      <order-card @accept='accept' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.orderStatus === activeTag)'></order-card>
+    <div class="wrapper">
+      <div class="content">
+        <!-- <order-card :key='index' @accept='accept' @cancel='cancelOrder' class='orderCard' v-for='(item, index) in info' :info='item'></order-card> -->
+        <order-card @accept='accept' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.orderStatus === activeTag)'></order-card>
+      </div>
+      <el-pagination
+        class='el-pagination'
+        layout="prev, pager, next"
+        :page-size='pageSize'
+        @current-change='changePage'
+        :page-count="totalPage">
+      </el-pagination>
     </div>
-    <el-pagination
-      class='el-pagination'
-      layout="prev, pager, next"
-      :page-size='pageSize'
-      @current-change='changePage'
-      :page-count="totalPage">
-    </el-pagination>
   </div>
 </template>
 <script>
@@ -57,13 +59,21 @@
     mounted () {
       // 请求订单数据
       this.getSellerOrder()
+      // 进入订单路由就返回顶部方便看订单
+      document.getElementsByClassName('el-main')[0].scrollTo(0, 0)
     },
     computed: {
       ...mapGetters('seller',
         [
-          'sellerInfo'
+          'sellerInfo',
+          'newOrderNum'
         ]
       )
+    },
+    watch: {
+      newOrderNum () {
+        this.getSellerOrder()
+      }
     },
     methods: {
       changePage (page) {
@@ -115,7 +125,7 @@
         // 1为接单，2不接单，3取消订单
         const shopId = this.sellerInfo.shopId
         const shopOrderId = item.shopOrderId
-        const type = 1
+        const type = 3
         _handleOrder(shopId, shopOrderId, type).then(res => {
           if (res.code === 1) {
             this.$message({
@@ -174,9 +184,11 @@
           &.active
             box-shadow: 0px -2px #1e89e0 inset
             color: #1e89e0
+  .wrapper
+    background: #eee
+    padding: 10px
   .content
     height: 550px
-    margin: 10px
     padding: 15px
     background: #fff
     .orderCard

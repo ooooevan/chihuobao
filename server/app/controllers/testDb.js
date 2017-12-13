@@ -72,8 +72,8 @@ require('../models/menu')
 //   shop_location: '北京朝阳区',
 //   shop_auth_images: 'https://fuss10.elemecdn.com/8/b4/af28b7f1ec408a72f7043b75c0383jpeg.jpeg?imageMogr/format/webp/',
 //   shop_type: 1,
-//   latitude: '21.150362',
-//   longitude: '110.301132'
+//   shop_latitude: '21.150362',
+//   shop_longitude: '110.301132'
 // })
 // ShopApply.create({
 //   user_id: '5a2bcb6395f94c4708b6d155',
@@ -85,8 +85,8 @@ require('../models/menu')
 //   shop_location: '广东海洋大学主校区正门口对面月岭村委会综合楼一楼13号',
 //   shop_auth_images: 'https://fuss10.elemecdn.com/8/b4/af28b7f1ec408a72f7043b75c0383jpeg.jpeg?imageMogr/format/webp/',
 //   shop_type: 1,
-//   latitude: '21.144709',
-//   longitude: '110.302246'
+//   shop_latitude: '21.144709',
+//   shop_longitude: '110.302246'
 // })
 // ShopApply.find({}).exec((err, shops) => {
 //   if (err) console.log(err)
@@ -94,7 +94,7 @@ require('../models/menu')
 // })
 
 // 添加商铺，用上面shopApply赋值
-// const Shop = mongoose.model('Shop')
+const Shop = mongoose.model('Shop')
 // ShopApply.find({}).exec((err, shops) => {
 //   if (err) console.log(err)
 //   shops.forEach(shop => {
@@ -117,29 +117,64 @@ require('../models/menu')
 // })
 
 // 往商铺添加菜单
-const Menu = mongoose.model('MenuModel')
-// Menu.create({
-//   shop_id: '5a2bd62b9e20434fe8db0569',
-//   dish_name: '熊猫奶盖茶',
-//   dish_introduction: '茶底有珍珠、寒天冻，奶盖上面有奥利奥饼干碎，配料十分丰富！',
-//   dish_price: 14,
-//   dish_pics: 'https://fuss10.elemecdn.com/c/93/e65a59628dfc5144a63f7e2bf2163jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85'
+// const Menu = mongoose.model('MenuModel')
+// Shop.findOne({}).exec((err, shop) => {
+//   Menu.create({
+//     shop_id: shop._id,
+//     dish_name: '熊猫奶盖茶',
+//     dish_introduction: '茶底有珍珠、寒天冻，奶盖上面有奥利奥饼干碎，配料十分丰富！',
+//     dish_price: 14,
+//     dish_pics: 'https://fuss10.elemecdn.com/c/93/e65a59628dfc5144a63f7e2bf2163jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85'
+//   })
+//   Menu.create({
+//     shop_id: shop._id,
+//     dish_name: '布丁奶绿',
+//     dish_introduction: '布丁奶绿布丁奶绿```',
+//     dish_price: 10,
+//     dish_pics: 'https://fuss10.elemecdn.com/3/fc/6d17ba6a9685d248206fbc8cd58fbjpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85'
+//   })
+//   Menu.create({
+//     shop_id: shop._id,
+//     dish_name: '熊猫果茶',
+//     dish_introduction: '熊猫果茶熊猫果茶```',
+//     dish_price: 14,
+//     dish_pics: 'https://fuss10.elemecdn.com/3/ca/a84cb3f8cb2d6cd0cfb2d8726efa3jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85'
+//   })
+//   // Menu.find({}).exec((err, menu) => {
+//   //   if (err) console.log(err)
+//   //   console.log(menu)
+//   // })
 // })
-// Menu.create({
-//   shop_id: '5a2bd62b9e20434fe8db0569',
-//   dish_name: '布丁奶绿',
-//   dish_introduction: '布丁奶绿布丁奶绿```',
-//   dish_price: 10,
-//   dish_pics: 'https://fuss10.elemecdn.com/3/fc/6d17ba6a9685d248206fbc8cd58fbjpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85'
-// })
-// Menu.create({
-//   shop_id: '5a2bd62b9e20434fe8db0569',
-//   dish_name: '熊猫果茶',
-//   dish_introduction: '熊猫果茶熊猫果茶```',
-//   dish_price: 14,
-//   dish_pics: 'https://fuss10.elemecdn.com/3/ca/a84cb3f8cb2d6cd0cfb2d8726efa3jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85'
-// })
-// Menu.find({}).exec((err, menu) => {
+
+// 添加管理员，配置不同模块的权限
+// const Admin = mongoose.model('Admin')
+// Admin.create({admin_name: 'root', admin_pwd: 'root', merchant_mp: 1, shop_type_mp: 1, shop_mp: 1, food_type_mp: 1, is_super: 1})
+// Admin.create({admin_name: 'admin', admin_pwd: '123456', merchant_mp: 1, shop_type_mp: 1, shop_mp: 1, food_type_mp: 1, is_super: 0})
+// Admin.create({admin_name: 'admin2', admin_pwd: '123456', merchant_mp: 1, shop_type_mp: 1, shop_mp: 1, food_type_mp: 1, is_super: 0})
+// const aaa = 'Admin'
+// const property = 'admin_name'
+// const reg = new RegExp(aaa, 'igm')
+// Admin.find({[property]: reg}).exec((err, admins) => {
 //   if (err) console.log(err)
-//   console.log(menu)
+//   console.log(admins)
+// })
+
+// 查询测试
+// const User = mongoose.model('User')
+// const property = 'phone_num'
+// const keyword = '13432841079'
+// User.find({[property]: keyword}).exec((err,user) => {
+//   console.log(user)
+// })
+// const keyword = 'test'
+// User.find({'user_name': keyword}).exec((err, user) => {
+//   console.log(user)
+// })
+
+// console.log(new Date(moment(new Date())))
+
+// 查看销量，看order的food_list长度
+// const ShopOrder = mongoose.model('ShopOrder')
+// ShopOrder.find({shop_id: '5a2e6babd8760360f828cde9'}).exec((err, order) => {
+//   console.log(JSON.parse(order[0].food_list))
 // })

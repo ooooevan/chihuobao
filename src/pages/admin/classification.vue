@@ -8,7 +8,7 @@
         closable
         :disable-transitions="false"
         @close="sellerClose(tag)">
-        {{tag.type}}
+        {{tag.typeDes}}
       </el-tag>
       <el-input
         class="input-new-tag"
@@ -29,7 +29,7 @@
         closable
         :disable-transitions="false"
         @close="foodClose(tag)">
-        {{tag.type}}
+        {{tag.typeDes}}
       </el-tag>
       <el-input
         class="input-new-tag"

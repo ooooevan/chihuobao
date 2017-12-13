@@ -1,7 +1,7 @@
 <template>
   <div class='card'>
     <el-table
-    :data="info"
+    :data="_info"
     style="width: 100%">
     <el-table-column type="expand">
       <template slot-scope="props">
@@ -59,7 +59,8 @@
         <!-- <el-button @click="dispatch(scope.row)" v-if='scope.row.status === 4' class='accept' type="text" size="small">配送</el-button> -->
         <!-- <el-button @click="finish(scope.row)" v-if='scope.row.status === 4' class='accept' type="text" size="small">完成</el-button> -->
         <el-button @click="cancel(scope.row)" v-if='scope.row.status === 1 || scope.row.status === 3 || scope.row.status === 4' class='notAccept' type="text" size="small">取消订单</el-button>
-        <el-button @click="showRate(scope.row)" v-if='scope.row.status === 2' class='accept' type="text" size="small">评价</el-button>
+        <el-button @click="showRate(scope.row)" v-if='scope.row.status === 2 && !scope.row.isComment' class='accept' type="text" size="small">评价</el-button>
+        <el-button v-if='scope.row.status === 2 && scope.row.isComment' class='disabled' type="text" size="small">已评价</el-button>
         <el-button v-if='scope.row.status === 5' class='disabled' type="text" size="small">已取消</el-button>
         <el-button @click="del(scope.row)" v-if='scope.row.status === 2 || scope.row.status === 5' class='notAccept' type="text" size="small">删除订单</el-button>
       </template>
@@ -86,12 +87,24 @@
         default: []
       }
     },
+    computed: {
+      _info () {
+        return this.$props.info.map((item, index) => {
+          return Object.assign(this.$props.info[index], {
+            createTime: this.$moment(this.$props.info.createTime).format('YYYY-MM-DD HH:mm:ss')
+          })
+        })
+      }
+    },
     methods: {
+      goaccept (item) {
+        this.$emit('goaccept', item)
+      },
       accept (item) {
         this.$emit('accept', item)
       },
       showRate (item) {
-        this.rateItems = item.dishs
+        this.rateItems = item.dishs.filter(item => (item.dishId))
         // 将商家id等填入
         this.rateItems.forEach(ite => {
           ite.userId = item.userId
@@ -101,7 +114,7 @@
         this.rateVisible = true
       },
       handleRate (item) {
-        this.$confirm('确认rate订单吗？', '提示', {
+        this.$confirm('确认评价订单吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -118,6 +131,7 @@
         this.$emit('cancel', item)
       },
       del (item) {
+        debugger
         this.$confirm('确认删除订单吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

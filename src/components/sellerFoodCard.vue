@@ -1,6 +1,6 @@
 <template>
   <div class='card' @click='click'>
-    <img :src='info.dishImage'>
+    <img :src='info.dishImage' width='100' height='100'>
     <div class='message'>
       <p>{{info.dishName}}</p>
       <el-rate

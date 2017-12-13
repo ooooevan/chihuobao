@@ -138,3 +138,7 @@ export function _isNewOrder (shopId) {
   //   }
   // }).then(res => res.data)
 }
+
+export function _getFoodType (shopId) {
+  return baseGET(API.getFoodType, { shopId })
+}

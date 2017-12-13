@@ -1,6 +1,6 @@
 class User {
-  constructor (db, code) {
-    this.db = db
+  constructor (user, code) {
+    this.db = user
     this.code = code
   }
 }

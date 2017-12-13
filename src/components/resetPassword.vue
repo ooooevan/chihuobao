@@ -127,8 +127,8 @@ export default {
           // 这里发送重置密码。若验证码错误，请求回来再提示验证码错误
           if (this.ruleForm.checkCode) {
             // 发送请求
-            const { checkcode, pass, phone } = this.ruleForm
-            _reset(phone, pass, checkcode).then(obj => {
+            const { checkCode, pass, phone } = this.ruleForm
+            _reset(phone, pass, checkCode).then(obj => {
               if (obj.code === 1) {
                 this.$message({
                   showClose: true,

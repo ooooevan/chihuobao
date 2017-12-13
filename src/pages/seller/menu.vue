@@ -18,7 +18,7 @@
 </template>
 <script>
   import sellerFoodCard from 'components/sellerFoodCard'
-  import sellerFoodDetailCard from 'components/sellerFoodDetailCard'
+  import sellerFoodDetailCard from './sellerFoodDetailCard'
   import { _getAllDish, _modifyDish, _deleteDish } from 'common/javascript/sellerApi'
   import { mapGetters } from 'vuex'
   export default{
@@ -42,14 +42,14 @@
       ...mapGetters('seller',
         [
           'sellerInfo',
-          'shopTypeList'
+          'foodTypeList'
         ]
       ),
       options () {
-        return this.shopTypeList.map(item => {
+        return this.foodTypeList.map(item => {
           return {
-            label: item.shopType,
-            value: item.shopTypeCode
+            label: item.typeDes,
+            value: item.foodTypeId
           }
         })
       }
@@ -125,4 +125,5 @@
     .card
       float: left
       width: 20%
+      min-width: 200px
 </style>

@@ -37,7 +37,7 @@
           <el-menu-item index="4-1" route='shopsClassification'>商铺分类</el-menu-item>
           <el-menu-item index="4-2" route='goodsClassification'>商品分类</el-menu-item>
         </el-submenu> -->
-        <el-menu-item index="6" route='administrator'>
+        <el-menu-item index="6" route='administrator' v-if='adminInfo.flagSuper === 1'>
           <i class="el-icon-setting"></i>
           <span>管理员</span>
         </el-menu-item>

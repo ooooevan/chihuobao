@@ -3,7 +3,7 @@
     <h1>评价菜品</h1>
     <div>
       <card-item :key='item.dishId' v-for='item in info' :data.sync='item'></card-item>
-      <button @click='commend'>提交</button>
+      <input type='submit' value='提交' @click='commend' class='submit'></input>
     </div>
   </el-dialog>
 </template>
@@ -65,4 +65,9 @@ export default {
   h1
     text-align: center
     font-size: 20px
+  .submit
+    background: #409eff
+    padding: 7px 15px
+    color: #fff
+    border-radius: 3px
 </style>

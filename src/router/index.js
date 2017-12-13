@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { _hashExactAddress, _hasAdminInfo } from 'common/javascript/cache'
+import { _hashExactAddress, _hasAdminInfo, _hasSellerInfo } from 'common/javascript/cache'
 
 // 用户页面
 const index = () => import('pages/user/index')
@@ -14,6 +14,9 @@ const login = () => import('pages/user/login')
 const shop = () => import('pages/user/shop')
 const applyShop = () => import('pages/user/applyShop')
 const checkout = () => import('pages/user/checkout')
+const shopCartSuccess = () => import('pages/user/shopCartSuccess')
+const shopCartError = () => import('pages/user/shopCartError')
+const shopCartPaying = () => import('pages/user/shopCartPaying')
 const userNo = () => import('pages/user/pageNoFind')
 
 // 商家页面
@@ -35,9 +38,9 @@ const audit = () => import('pages/admin/audit')
 const adminShops = () => import('pages/admin/shops')
 const statistics = () => import('pages/admin/statistics')
 const adminUser = () => import('pages/admin/user')
-const goodsClassification = () => import('pages/admin/goodsClassification')
+// const goodsClassification = () => import('pages/admin/goodsClassification')
 const classification = () => import('pages/admin/classification')
-const shopsClassification = () => import('pages/admin/shopsClassification')
+// const shopsClassification = () => import('pages/admin/shopsClassification')
 const administrator = () => import('pages/admin/administrator')
 const adminNo = () => import('pages/admin/pageNoFind')
 Vue.use(Router)
@@ -95,16 +98,20 @@ const router = new Router({
           component: register
         },
         {
-          path: '/shopCart',
-          name: 'shopCart',
-          redirect: '/shopCart/checkout',
-          component: checkout,
-          children: [
-            {
-              path: '/shopCart/checkout',
-              component: checkout
-            }
-          ]
+          path: '/shopCart/checkout',
+          component: checkout
+        },
+        {
+          path: '/shopCart/success',
+          component: shopCartSuccess
+        },
+        {
+          path: '/shopCart/paying',
+          component: shopCartPaying
+        },
+        {
+          path: '/shopCart/error',
+          component: shopCartError
         },
         {
           path: '/login',
@@ -193,30 +200,30 @@ const router = new Router({
             }
           }
         },
-        {
-          path: 'goodsClassification',
-          component: goodsClassification,
-          beforeEnter: (to, from, next) => {
-            // 判断是否有登录
-            if (_hasAdminInfo()) {
-              next()
-            } else {
-              next('/admin/home')
-            }
-          }
-        },
-        {
-          path: 'shopsClassification',
-          component: shopsClassification,
-          beforeEnter: (to, from, next) => {
-            // 判断是否有登录
-            if (_hasAdminInfo()) {
-              next()
-            } else {
-              next('/admin/home')
-            }
-          }
-        },
+        // {
+        //   path: 'goodsClassification',
+        //   component: goodsClassification,
+        //   beforeEnter: (to, from, next) => {
+        //     // 判断是否有登录
+        //     if (_hasAdminInfo()) {
+        //       next()
+        //     } else {
+        //       next('/admin/home')
+        //     }
+        //   }
+        // },
+        // {
+        //   path: 'shopsClassification',
+        //   component: shopsClassification,
+        //   beforeEnter: (to, from, next) => {
+        //     // 判断是否有登录
+        //     if (_hasAdminInfo()) {
+        //       next()
+        //     } else {
+        //       next('/admin/home')
+        //     }
+        //   }
+        // },
         {
           path: 'administrator',
           component: administrator,
@@ -240,6 +247,13 @@ const router = new Router({
       name: 'seller',
       component: seller,
       redirect: '/seller/order',
+      beforeEnter: (to, from, next) => {
+        if (_hasSellerInfo()) {
+          next()
+        } else {
+          next('/login')
+        }
+      },
       children: [
         {
           path: 'home',

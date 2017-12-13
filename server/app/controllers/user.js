@@ -1,14 +1,19 @@
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const Shop = mongoose.model('Shop')
-const Menu = mongoose.model('MenuModel')
-const DishType = mongoose.model('DishType')
+const MenuModel = mongoose.model('MenuModel')
+const DishComment = mongoose.model('DishComment')
+const UserOrder = mongoose.model('UserOrder')
+const ShopOrder = mongoose.model('ShopOrder')
+const ShopApply = mongoose.model('ShopApply')
 const request = require('request')
 const Session = require('../common/session')
 const config = require('../../config')
 const { registerName } = require('../common/utils')
 const MapMsg = require('./dataMapping').codeToMessage
 const shopListNumPerPage = 20
+const userOrderPerPage = 8
+
 exports.login = async ctx => {
   const { phone, password, loginType } = ctx.request.body
   let user
@@ -18,30 +23,39 @@ exports.login = async ctx => {
     if (user) {
       match = await user.comparePassword(password, user.user_pwd)
     }
-  } catch (err) {
-    console.log(err)
-  }
-  if (match) {
-    ctx.session.db = new Session(user)
-    console.log(user)
-    let response = {
-      code: 1,
-      // data: user
-      data: {
-        userId: user._id,
-        userName: user.user_name,
-        avator: 'https://fuss10.elemecdn.com/5/d3/f15d1526ac771189439ea0971c55apng.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
-        gender: 1,
-        phone: user.phone_num,
-        acceptAddress: '地址地址',
-        introduction: '我是简介我是简介'
+    if (match) {
+      ctx.session = new Session(user)
+      let response = {
+        code: 1,
+        data: {
+          userId: user._id,
+          userName: user.user_name,
+          avator: user.avator,
+          gender: user.gender,
+          phone: user.phone_num,
+          acceptAddress: user.accept_address,
+          introduction: user.introduction
+        }
+      }
+      if (loginType === '1') {
+        const shop = await Shop.findOne({user_id: user._id}).exec()
+        if (!shop) {
+          ctx.body = {
+            code: 0,
+            data: MapMsg[4]   // 非商户
+          }
+        }
+        response.data.shopId = shop._id
+      }
+      ctx.body = response
+    } else {
+      ctx.body = {
+        code: 0,
+        data: MapMsg[0]
       }
     }
-    if (loginType === 1) {
-      response.data.shopId = 12321321
-    }
-    ctx.body = response
-  } else {
+  } catch (err) {
+    console.log(err)
     ctx.body = {
       code: 0,
       data: MapMsg[0]
@@ -51,21 +65,6 @@ exports.login = async ctx => {
 
 exports.sendCode = async ctx => {
   const { phone } = ctx.request.body
-  // const hasRegister = await new Promise((resolve, reject) => {
-  //   User.findOne({phone_num: phone}, (err, user) => {
-  //     if (err) {
-  //       console.log(err)
-  //     }
-  //     resolve(user)
-  //   })
-  // })
-  // if (hasRegister) {
-  //   ctx.body = {
-  //     data: MapMsg[0],
-  //     code: 0
-  //   }
-  //   return
-  // }
   const ranCode = Math.random().toString().substr(2, 6)
   ctx.session = new Session(null, ranCode)
   const result = await new Promise((resolve, reject) => {
@@ -101,14 +100,7 @@ exports.register = async ctx => {
   const session = ctx.session
   if (session.code === code) {
     // 判断是否已经注册
-    const hasRegister = await new Promise((resolve, reject) => {
-      User.findOne({phone_num: phone}, (err, user) => {
-        if (err) {
-          console.log(err)
-        }
-        resolve(user)
-      })
-    })
+    const hasRegister = await User.findOne({phone_num: phone})
     if (hasRegister) {
       ctx.body = {
         code: 603,
@@ -117,15 +109,7 @@ exports.register = async ctx => {
       return
     }
     // 数据库要新增一条数据
-    const create = await new Promise((resolve, reject) => {
-      User.create({user_name: registerName(), user_pwd: password, phone_num: phone}, (err, newUser) => {
-        if (err) {
-          console.log(err)
-        } else {
-          resolve(newUser)
-        }
-      })
-    })
+    const create = await User.create({user_name: registerName(), user_pwd: password, phone_num: phone})
     if (create) {
       // 创建成功
       ctx.body = {
@@ -136,8 +120,8 @@ exports.register = async ctx => {
   } else {
     // 验证码不正确
     ctx.body = {
-      code: 0,
-      message: MapMsg[0]
+      code: 5,
+      message: MapMsg[5]
     }
   }
 }
@@ -145,116 +129,115 @@ exports.register = async ctx => {
 exports.reset = async ctx => {
   const { phone, password, checkCode } = this.request.body
   const { code } = ctx.session
-  let user, match
-  try {
-    user = await User.findOne({phone_num: phone}).exec()
-    if (user) {
-      match = await user.comparePassword(password, user.user_pwd)
+  let user
+  if (code === checkCode) {
+    try {
+      user = await User.findOne({phone_num: +phone}).exec()
+      user.user_pwd = password
+      await user.save()
+      ctx.body = {
+        code: 1
+      }
+    } catch (err) {
+      console.log(err)
+      ctx.body = {
+        code: 0,
+        data: err
+      }
     }
-  } catch (err) {
-    console.log(err)
-  }
-  // if (match && code === checkCode) {
-  //   user.user_pwd = password
-  //   user.save((err, _user) => {
-  //     if (err) {
-  //       console.log(err)
-  //     } else {
-  //       console.log(_user)
-  //       ctx.body = {
-  //         code: 1,
-  //         data: {}
-  //       }
-  //     }
-  //   })
-  // } else {
-  //   ctx.body = {
-  //     code: 0,
-  //     data: MapMsg[0]
-  //   }
-  // }
-  ctx.body = {
-    code: 1,
-    data: {}
+  } else {
+    ctx.body = {
+      code: 5,
+      data: MapMsg[5]
+    }
   }
 }
 
 exports.logOut = async ctx => {
   ctx.session = {}
   ctx.body = {
-    code: 1,
-    data: MapMsg[1]
+    code: 1
   }
 }
 
 exports.getUserInfo = async ctx => {
-  // const user = ctx.session.db
-  // if (user) {
-  //   ctx.body = {
-  //     code: 1,
-  //     data: {
-  //       userId: user._id,
-  //       userName: user.user_name,
-  //       avator: '',
-  //       gender: 1,
-  //       phone: user.phone_num,
-  //       acceptAddress: '',
-  //       introduction: ''
-  //     }
-  //   }
-  // } else {
-  //   ctx.body = {
-  //     code: 0,
-  //     data: ''
-  //   }
-  // }
-  ctx.body = {
-    code: 1,
-    data: {
-      userId: 3213232132141421,
-      userName: '名字名字',
-      avator: 'https://fuss10.elemecdn.com/5/d3/f15d1526ac771189439ea0971c55apng.png?imageMogr2/thumbnail/70x70/format/webp/quality/85',
-      gender: 1,
-      phone: 1357912579,
-      acceptAddress: '地址地址',
-      introduction: '我是简介我是简介'
+  const _user = ctx.session.db
+  try {
+    const user = await User.findOne({_id: _user._id}).exec()
+    ctx.body = {
+      code: 1,
+      data: {
+        userId: user._id,
+        userName: user.user_name,
+        avator: user.avator,
+        gender: user.gender,
+        phone: user.phone_num,
+        acceptAddress: user.accept_address,
+        introduction: user.introduction
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
     }
   }
 }
 
 exports.modifyInfo = async ctx => {
-  // let { user } = ctx.session
-  // const { userName, avator, gender, acceptAddress, introduction, phone } = ctx.request.body
-  // Object.assign(user, {
-  //   user_name: userName,
-  //   phone_num: phone,
-  //   avator,  // 这个属性没有
-  //   gender,
-  //   acceptAddress,
-  //   introduction
-  // })
-  // user.save((err, _user) => {
-  //   if (err) console.log(err)
-  //   ctx.body = {
-  //     code: 1,
-  //     data: {}
-  //   }
-  // })
-  ctx.body = {
-    code: 1,
-    data: {}
+  let _user = ctx.session.db
+  const { userId, userName, avator, gender, acceptAddress, introduction, phone } = ctx.request.body
+  try {
+    const user = await User.findOne({_id: _user._id}).exec()
+    if (avator) user.avator = avator
+    if (+gender) user.gender = gender
+    if (phone) user.phone_num = +phone
+    if (userName) user.user_name = userName
+    if (acceptAddress) user.accept_address = acceptAddress
+    if (introduction) user.introduction = introduction
+    await user.save()
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
   }
 }
 
 exports.applyShop = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {}
+  const { userId, shopAbstract, shopName, identificationNum, shopTypeCode, shopLocation, shopLogo, identificationPic, shopAuthImages, shopLongitude, shopLatitude } = ctx.request.body
+  try {
+    const _user = ctx.session.db
+    ShopApply.create({
+      user_id: _user._id,
+      shop_abstract: shopAbstract,
+      shop_name: shopName,
+      identification_num: identificationNum,
+      shop_type: shopTypeCode,
+      shop_location: shopLocation,
+      shop_logo: shopLogo,
+      identification_pic: identificationPic,
+      shop_auth_images: shopAuthImages,
+      shop_longitude: shopLongitude,
+      shop_latitude: shopLatitude
+    })
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
   }
 }
 
 exports.getShopList = async ctx => {
   const { longitude, latitude, pageNum, shopType, name } = ctx.request.query
+  // 本来是要根据经纬度，返回附近的商家，现在直接返回全部商家
   const totalPage = Math.ceil(await Shop.count({}) / shopListNumPerPage)
   const shopList = await Shop.find({})
                             .skip((pageNum - 1) * shopListNumPerPage)
@@ -275,6 +258,7 @@ exports.getShopList = async ctx => {
         level: item.level || 3,
         monthlySales: item.monthlySales || 121
       }))
+    /*
       // shopBrieflys: [
       //   {
       //     shopId: 123,
@@ -313,196 +297,90 @@ exports.getShopList = async ctx => {
       //     monthlySales: 122
       //   }
       // ]
+      */
     }
   }
 }
 
 exports.getInfoByShopId = async ctx => {
   const { shopId } = ctx.request.query
-  const shop = await Shop.findById(shopId)
-  const dishs = await Menu.find({shop_id: shopId})
-
-  ctx.body = {
-    code: 1,
-    data: {
-      shopDetail: {
-        shopId: shop._id,
-        shopName: shop.shop_name,
-        logo: shop.shop_logo,
-        shopAbstract: shop.shop_abstract,
-        shopLocation: shop.shop_location,
-        shopAnnouncement: shop.shop_announcement || '公告公告···',
-        shopPhone: shop.shop_phone || 13151315432,
-        shopWorkTime: shop.shop_work_time || '8:00~22:00',
-        shopDeliveryCost: shop.shop_delivery_cost || 3,
-        level: shop.level || 5,
-        shopStartDelivery: shop.shop_start_delivery || 12,
-        deliveryTime: shop.shop_delivery_time || 49,
-        status: shop.shop_status || 1,
-        storesImages: shop.shop_stores_images,
-        detailImages: shop.shop_detail_images || 'https://fuss10.elemecdn.com/c/b4/8b2b01d64f72a4e9bf434b72c8a85jpeg.jpeg?imageMogr/format/webp/'
-      },
-      dishs: dishs.map(item => ({
-        dishId: item._id,
-        dishName: item.dish_name,
-        dishImage: item.dish_pics,
-        dishPrice: item.dish_price,
-        level: item.level || '4',
-        dishAbstract: item.dish_introduction,
-        monthlySales: item.monthly_sales,
-        dishType: item.dish_type || 2
-      }))
-      // dishs: [
-      //   {
-      //     dishId: '3123231',
-      //     dishName: '炸鸡块',
-      //     dishImage: 'https://fuss10.elemecdn.com/4/ad/11cf68cb44416e3a9316b65d6fa93jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-      //     dishPrice: 11,
-      //     level: 5,
-      //     dishAbstract: '这是菜品描述····',
-      //     monthlySales: 123,
-      //     dishType: 3
-      //   },
-      //   {
-      //     dishId: '12123231',
-      //     dishName: '麦香鱼',
-      //     dishImage: 'https://fuss10.elemecdn.com/2/a1/4d914c92a96d8248a2042351911e1jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-      //     dishPrice: 17,
-      //     level: 5,
-      //     dishAbstract: '这是菜品描述····',
-      //     monthlySales: 123,
-      //     dishType: 3
-      //   },
-      //   {
-      //     dishId: '31233231',
-      //     dishName: '巨无霸',
-      //     dishImage: 'https://fuss10.elemecdn.com/5/3e/5ca037d2090ec808f61cc4ef0719ajpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-      //     dishPrice: 20,
-      //     level: 5,
-      //     dishAbstract: '这是菜品描述····',
-      //     monthlySales: 123,
-      //     dishType: 3
-      //   },
-      //   {
-      //     dishId: '122312231',
-      //     dishName: '麦趣鸡盒',
-      //     dishImage: 'https://fuss10.elemecdn.com/e/ae/dfbfc113c0036278355017844259ajpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-      //     dishPrice: 89,
-      //     level: 5,
-      //     dishAbstract: '这是菜品描述····',
-      //     monthlySales: 123,
-      //     dishType: 3
-      //   },
-      //   {
-      //     dishId: '123232231',
-      //     dishName: '鸡翅',
-      //     dishImage: 'https://fuss10.elemecdn.com/f/d3/0e5d77178e55cac3e2ac2cda2698ejpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-      //     dishPrice: 16,
-      //     level: 5,
-      //     abstract: '这是菜品描述····',
-      //     monthlySales: 123,
-      //     dishType: 3
-      //   },
-      //   {
-      //     dishId: '12323321',
-      //     dishName: '香芋派',
-      //     dishImage: 'https://fuss10.elemecdn.com/a/f2/5c1713881b46dfc75975ba19e0838jpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-      //     dishPrice: 12,
-      //     level: 5,
-      //     abstract: '这是菜品描述····',
-      //     monthlySales: 123,
-      //     dishType: 3
-      //   }
-      // ]
+  try {
+    const shop = await Shop.findById(shopId)
+    const dishs = await MenuModel.find({shop_id: shopId})
+    ctx.body = {
+      code: 1,
+      data: {
+        shopDetail: {
+          shopId: shop._id,
+          shopName: shop.shop_name,
+          logo: shop.shop_logo,
+          shopAbstract: shop.shop_abstract,
+          shopLocation: shop.shop_location,
+          shopAnnouncement: shop.shop_announcement || '公告公告···',
+          shopPhone: shop.shop_phone || 13151315432,
+          shopWorkTime: shop.shop_work_time || '8:00~22:00',
+          shopDeliveryCost: shop.shop_delivery_cost || 3,
+          level: shop.level || 5,
+          shopStartDelivery: shop.shop_start_delivery || 12,
+          deliveryTime: shop.shop_delivery_time || 49,
+          status: shop.shop_status || 1,
+          storesImages: shop.shop_stores_images,
+          detailImages: shop.shop_detail_images || 'https://fuss10.elemecdn.com/c/b4/8b2b01d64f72a4e9bf434b72c8a85jpeg.jpeg?imageMogr/format/webp/'
+        },
+        dishs: dishs.map(item => ({
+          dishId: item._id,
+          dishName: item.dish_name,
+          dishImage: item.dish_pics,
+          dishPrice: item.dish_price,
+          level: item.level || '4',
+          dishAbstract: item.dish_introduction,
+          monthlySales: item.monthly_sales,
+          dishType: item.dish_type || 2
+        }))
+  
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: {
+        message: err
+      }
     }
   }
 }
 
 exports.getCommentByDishId = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {
-      dishComment: [
-        {
-          commentId: 321313,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行2121221212321321321321',
-          commentDate: '2017-12-01',
-          replyComment: '我回复了2121',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 321321,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行21321321',
-          commentDate: '2017-12-01',
-          replyComment: '我回复321321321312了',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 543543,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行cds``1',
-          commentDate: '2017-12-01',
-          replyComment: '我回复了dsa1`',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 654765,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行dd2```',
-          commentDate: '2017-12-01',
-          replyComment: '我回复了`11111',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 15431,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行`````',
-          commentDate: '2017-12-01',
-          replyComment: '我回复了`1`1```',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 7653245,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还212121212121行',
-          commentDate: '2017-12-01',
-          replyComment: '我回复21了',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 654314,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行22222222222222',
-          commentDate: '2017-12-01',
-          replyComment: '我回复了1',
-          reply: '2017-12-02'
-        },
-        {
-          commentId: 543163,
-          username: 'dfsaf',
-          level: 3,
-          comment: '还行还行1111111111111111111111',
-          commentDate: '2017-12-01',
-          replyComment: '我回复了21',
-          reply: '2017-12-02'
-        }
-      ],
-      dish: {
-        dishId: 1321321321,
-        dishName: '名字名字',
-        dishImage: 'https://fuss10.elemecdn.com/5/3e/5ca037d2090ec808f61cc4ef0719ajpeg.jpeg?imageMogr2/thumbnail/100x100/format/webp/quality/85',
-        dishPrice: '12',
-        dishAbstract: '这是描述描述描述描述·················'
+  const { dishId } = ctx.request.query
+  try {
+    const dish = await MenuModel.findOne({_id: dishId}).exec()
+    let comments = await DishComment.find({dish_id: dishId}).exec()
+    comments = await Promise.all(comments.map(async item => {
+      const user = await User.findOne({_id: item.user_id}).exec()
+      return {
+        commentId: item._id,
+        username: user.user_name,
+        level: item.level,
+        comment: item.comment,
+        commentDate: item.comment_date
       }
+    }))
+    ctx.body = {
+      code: 1,
+      data: {
+        dish: {
+          dishId: dish._id,
+          dishName: dish.dish_name,
+          dishImage: dish.dish_pics,
+          dishPrice: dish.dish_price,
+          dishAbstract: dish.dish_abstract
+        },
+        dishComment: comments
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0
     }
   }
 }
@@ -515,247 +393,133 @@ exports.needSignIn = async (ctx, next) => {
   }
 }
 exports.getUserOrder = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {
-      total: 11,
-      page: 1,
-      orders: [
-        {
-          userOrderId: +Math.random().toString().substr(2, 10),
-          userId: +Math.random().toString().substr(2, 10),
-          shopId: +Math.random().toString().substr(2, 10),
-          shopNamme: '商铺名称',
-          orderCode: +Math.random().toString().substr(2, 10),
-          amount: +Math.random().toString().substr(2, 4),
-          status: 3,
-          createTime: '2017-12-02',
-          remarks: '备注备注备注',
-          deliveryWay: '美团专送',
-          payWay: '支付宝',
-          acceptAddress: '海浪',
-          dishs: [
-            {
-              dishId: 23243214,
-              dishName: '鸡翅',
-              dishPrice: 12.2,
-              dishNum: 2
-            },
-            {
-              dishId: 23321,
-              dishName: '鸡翅2',
-              dishPrice: 12.2,
-              dishNum: 3
-            },
-            {
-              dishId: 23321123,
-              dishName: '鸡翅3',
-              dishPrice: 12.2,
-              dishNum: 4
-            }
-          ]
-        },
-        {
-          userOrderId: +Math.random().toString().substr(2, 10),
-          userId: +Math.random().toString().substr(2, 10),
-          shopId: +Math.random().toString().substr(2, 10),
-          shopNamme: '商铺名称',
-          orderCode: +Math.random().toString().substr(2, 10),
-          amount: +Math.random().toString().substr(2, 4),
-          status: 5,
-          createTime: '2017-12-02',
-          remarks: '备注备注备注',
-          deliveryWay: '美团专送',
-          payWay: '支付宝',
-          acceptAddress: '海浪',
-          dishs: [
-            {
-              dishId: 23243214,
-              dishName: '鸡翅',
-              dishPrice: 12.2,
-              dishNum: 2
-            },
-            {
-              dishId: 23321,
-              dishName: '鸡翅2',
-              dishPrice: 12.2,
-              dishNum: 3
-            },
-            {
-              dishId: 23321123,
-              dishName: '鸡翅3',
-              dishPrice: 12.2,
-              dishNum: 4
-            }
-          ]
-        },
-        {
-          userOrderId: +Math.random().toString().substr(2, 10),
-          userId: +Math.random().toString().substr(2, 10),
-          shopId: +Math.random().toString().substr(2, 10),
-          shopNamme: '商铺名称',
-          orderCode: +Math.random().toString().substr(2, 10),
-          amount: +Math.random().toString().substr(2, 4),
-          status: 4,
-          createTime: '2017-12-02',
-          remarks: '备注备注备注',
-          deliveryWay: '美团专送',
-          payWay: '支付宝',
-          acceptAddress: '海浪',
-          dishs: [
-            {
-              dishId: 23243214,
-              dishName: '鸡翅',
-              dishPrice: 12.2,
-              dishNum: 2
-            },
-            {
-              dishId: 23321,
-              dishName: '鸡翅2',
-              dishPrice: 12.2,
-              dishNum: 3
-            },
-            {
-              dishId: 23321123,
-              dishName: '鸡翅3',
-              dishPrice: 12.2,
-              dishNum: 4
-            }
-          ]
-        },
-        {
-          userOrderId: +Math.random().toString().substr(2, 10),
-          userId: +Math.random().toString().substr(2, 10),
-          shopId: +Math.random().toString().substr(2, 10),
-          shopNamme: '商铺名称',
-          orderCode: +Math.random().toString().substr(2, 10),
-          amount: +Math.random().toString().substr(2, 4),
-          status: 3,
-          createTime: '2017-12-02',
-          remarks: '备注备注备注',
-          deliveryWay: '美团专送',
-          payWay: '支付宝',
-          acceptAddress: '海浪',
-          dishs: [
-            {
-              dishId: 23243214,
-              dishName: '鸡翅',
-              dishPrice: 12.2,
-              dishNum: 2
-            },
-            {
-              dishId: 23321,
-              dishName: '鸡翅2',
-              dishPrice: 12.2,
-              dishNum: 3
-            },
-            {
-              dishId: 23321123,
-              dishName: '鸡翅3',
-              dishPrice: 12.2,
-              dishNum: 4
-            }
-          ]
-        },
-        {
-          userOrderId: +Math.random().toString().substr(2, 10),
-          userId: +Math.random().toString().substr(2, 10),
-          shopId: +Math.random().toString().substr(2, 10),
-          shopNamme: '商铺名称',
-          orderCode: +Math.random().toString().substr(2, 10),
-          amount: +Math.random().toString().substr(2, 4),
-          status: 2,
-          createTime: '2017-12-02',
-          remarks: '备注备注备注',
-          deliveryWay: '美团专送',
-          payWay: '支付宝',
-          acceptAddress: '海浪',
-          dishs: [
-            {
-              dishId: 23243214,
-              dishName: '鸡翅',
-              dishPrice: 12.2,
-              dishNum: 2
-            },
-            {
-              dishId: 23321,
-              dishName: '鸡翅2',
-              dishPrice: 12.2,
-              dishNum: 3
-            },
-            {
-              dishId: 23321123,
-              dishName: '鸡翅3',
-              dishPrice: 12.2,
-              dishNum: 4
-            }
-          ]
-        },
-        {
-          userOrderId: +Math.random().toString().substr(2, 10),
-          userId: +Math.random().toString().substr(2, 10),
-          shopId: +Math.random().toString().substr(2, 10),
-          shopNamme: '商铺名称',
-          orderCode: +Math.random().toString().substr(2, 10),
-          amount: +Math.random().toString().substr(2, 4),
-          status: 1,
-          createTime: '2017-12-02',
-          remarks: '备注备注备注',
-          deliveryWay: '美团专送',
-          payWay: '支付宝',
-          acceptAddress: '海浪',
-          dishs: [
-            {
-              dishId: 23243214,
-              dishName: '鸡翅',
-              dishPrice: 12.2,
-              dishNum: 2
-            },
-            {
-              dishId: 23321,
-              dishName: '鸡翅2',
-              dishPrice: 12.2,
-              dishNum: 3
-            },
-            {
-              dishId: 23321123,
-              dishName: '鸡翅3',
-              dishPrice: 12.2,
-              dishNum: 4
-            }
-          ]
-        }
-      ]
+  const { userId, page, orderType } = ctx.request.body
+  try {
+    const totalPage = Math.ceil(await UserOrder.count({user_id: userId, order_status: orderType}).exec() / userOrderPerPage)
+    let orderList = await UserOrder.find({user_id: userId, order_status: orderType})
+                        .skip((page - 1) * userOrderPerPage)
+                        .limit(userOrderPerPage)
+                        .exec()
+    orderList = await Promise.all(orderList.map(async item => {
+      const shop = await Shop.findOne({_id: item.shop_id}).exec()
+      return ({
+        userOrderId: item._id,
+        userId: item.user_id,
+        shopId: item.shop_id,
+        shopNamme: shop.shop_name,
+        orderCode: +Math.random().toString().substr(2, 10),  // 不需要，临时随机用
+        amount: item.order_amount,
+        isComment: item.is_comment,
+        status: item.order_status,
+        createTime: item.order_create_time,
+        remarks: item.order_remarks,
+        deliveryWay: '美团专送',  // 不需要，临时随机用
+        payWay: '支付宝', // 不需要，临时随机用
+        acceptAddress: item.accept_address,
+        dishs: item.food_list && JSON.parse(item.food_list).concat({   // 将配送费放入商品列表
+          dishName: '配送费',
+          dishNum: 1,
+          dishPrice: Shop.shop_delivery_cost
+        })
+      })
+    }))
+    ctx.body = {
+      code: 1,
+      data: {
+        total: totalPage,
+        page,
+        orders: orderList
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      err: err,
+      data: {
+        total: 1,
+        page: 1,
+        orders: []
+      }
     }
   }
 }
 
 exports.deleteOrder = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {}
+  const { userOrdersId } = ctx.request.body
+  try {
+    const res = await new Promise((resolve, reject) => {
+      request.post(`${config.domain}/api/shopOrder/handle`, {
+        form: {
+          shopOrderId: userOrdersId,
+          type: 4
+        }
+      }, (err, res, body) => {
+        if (err) console.log(err)
+        resolve(body)
+      })
+    })
+    ctx.body = res
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
   }
 }
 
 exports.getShopPhone = async ctx => {
+  const { shopId } = ctx.request.body
+  const shop = await Shop.find({_id: shopId}).exec()
   ctx.body = {
     code: 1,
     data: {
-      shop_phone: 11111113638
+      shop_phone: shop.shop_phone || 110
     }
   }
 }
 
 exports.finishOrder = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {}
+  const { userOrderId } = ctx.request.body
+  try {
+    const res = await new Promise((resolve, reject) => {
+      request.post(`${config.domain}/api/shopOrder/handle`, {
+        form: {
+          shopOrderId: userOrderId,
+          type: 5
+        }
+      }, (err, res, body) => {
+        if (err) console.log(err)
+        resolve(body)
+      })
+    })
+    ctx.body = res  // 返回的就包含code和data。所以直接返回即可
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
+    console.log(err)
   }
 }
 exports.rateOrder = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: {}
+  const { dishId, level, commend, userId, userOrderId, shopId } = ctx.request.body
+  try {
+    await DishComment.create({dish_id: dishId, shop_id: shopId, order_id: userOrderId, user_id: userId, level: +level, comment: commend})
+    let userOrder = await UserOrder.findOne({_id: userOrderId}).exec()
+    let shopOrder = await ShopOrder.findOne({_id: userOrderId}).exec()
+    userOrder.is_comment = 1  // 标记订单为已评论
+    shopOrder.is_comment = 1
+    userOrder.save()
+    shopOrder.save()
+    ctx.body = {
+      code: 1,
+      data: {}
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: {}
+    }
   }
 }
 exports.getShopType = async ctx => {
@@ -773,17 +537,60 @@ exports.getShopType = async ctx => {
   }
 }
 exports.newOrder = async ctx => {
-  console.log(ctx.request.body)
+  const { shopId, shopName, userId, dishs, amount, remarks, acceptAddress } = ctx.request.body
+  // 生成订单，默认未支付状态
+  const userOrder = await UserOrder.create({
+    user_id: userId,
+    shop_id: shopId,
+    food_list: JSON.stringify(dishs),
+    order_amount: amount,
+    order_remarks: remarks,
+    accept_address: acceptAddress
+  })
+  // 建商铺订单表，_id是一样的，便于查找
+  await ShopOrder.create({
+    _id: userOrder._id,
+    user_id: userId,
+    shop_id: shopId,
+    food_list: JSON.stringify(dishs),
+    order_amount: amount,
+    order_remarks: remarks,
+    accept_address: acceptAddress
+  })
   ctx.body = {
     code: 1,
-    data: 4324324324423
+    data: userOrder._id
   }
 }
 exports.payOrder = async ctx => {
+  // 支付接口，应该返回支付页面接口
   ctx.body = {
     code: 1,
-    data: {
-      message: ''
+    data: '/shopCart/paying'
+  }
+}
+exports.handleIsPay = async ctx => {
+  // 判断是否已经支付
+  const { userOrderCode } = ctx.request.body
+  if (Math.random() > 0.5) {
+    try {
+      let userOrder = await UserOrder.findOne({_id: userOrderCode})
+      let shopOrder = await ShopOrder.findOne({_id: userOrderCode})
+      userOrder.order_status = 3
+      shopOrder.order_status = 3
+      userOrder.save()
+      shopOrder.save()
+      ctx.body = {
+        code: 1
+      }
+    } catch (err) {
+      ctx.body = {
+        code: 0
+      }
+    }
+  } else {
+    ctx.body = {
+      code: 0
     }
   }
 }

@@ -18,7 +18,7 @@
 <script>
 import shopCartItem from 'components/shopCartItem'
 import { mapGetters, mapActions } from 'vuex'
-
+import config from 'common/javascript/config'
 export default {
   components: {
     shopCartItem
@@ -34,13 +34,14 @@ export default {
       return this.cartList.filter(item => (item.dishId))
     },
     totalMoney () {
+      const { accAdd, accMul } = config
       let money = 0
-      const shopDeliveryCost = this.shopDetail.shopDeliveryCost
+      const shopDeliveryCost = this.cartList.find(item => (!item.dishId)).dishPrice
       this.cartList.filter(item => (item.dishId)).forEach(item => {
-        money += item.num * item.dishPrice
+        money = accAdd(money, accMul(item.num, item.dishPrice))
       })
       if (this.cartList.filter(item => (item.dishId)).length > 0) {
-        money += shopDeliveryCost
+        money = accAdd(money, shopDeliveryCost)
       }
       return money
     }

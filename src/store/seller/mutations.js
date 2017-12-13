@@ -12,6 +12,9 @@ const mutations = {
   },
   [types.SET_SHOPTYPE] (state, list) {
     state.shopTypeList = list
+  },
+  [types.SET_FOODTYPE] (state, list) {
+    state.foodTypeList = list
   }
 }
 

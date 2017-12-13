@@ -15,6 +15,7 @@
       </el-form-item>
       <el-form-item label="收货地址">
         <el-cascader
+          v-if='!info.acceptAddress'
           class='address'
           :options="cityOptions"
           change-on-select
@@ -37,7 +38,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="手机">
-        <el-input v-model="info.phone"></el-input>
+        <el-input v-model="info.phone" disabled></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="check">修改</el-button>
@@ -123,7 +124,8 @@
           let { info, address } = this
           info.userId = this.userInfo.userId
           info.acceptAddress = `${address.join('')}${info.acceptAddress}`
-          _modifyInfo(info).then(res => {
+          // 用json转是为了去掉undefined值的键
+          _modifyInfo(JSON.parse(JSON.stringify(info))).then(res => {
             if (res.code === 1) {
               this.$message({
                 type: 'success',

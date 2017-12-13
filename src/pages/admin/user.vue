@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="header">
-      <el-select v-model="filter" placeholder="筛选">
+      <el-select v-model="property" placeholder="筛选">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -16,18 +16,29 @@
         :data="infoData"
         style="width: 100%">
         <el-table-column
-          prop="id"
+          prop="userId"
           label="用户id"
-          width="180">
+          width="230">
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="userName"
           label="用户名"
-          width="180">
+          width="200">
         </el-table-column>
         <el-table-column
           prop="phone"
-          label="手机号">
+          label="手机号"
+          width='180'>
+        </el-table-column>
+        <el-table-column
+          prop="introduction"
+          label="简介"
+          width='180'>
+        </el-table-column>
+        <el-table-column
+          prop="gender"
+          label="性别"
+          width='180'>
         </el-table-column>
         <el-table-column
           prop="address"
@@ -35,63 +46,63 @@
         </el-table-column>
       </el-table>
     </div>
+    <el-pagination
+      layout="prev, pager, next"
+      @current-change='changePage'
+      :page-count='pages'>
+    </el-pagination>
   </div>
 </template>
 <script>
   import searchBox from 'components/searchBox'
-
+  import { _getUserList } from 'common/javascript/adminApi'
   export default {
     components: {
       searchBox
     },
+    created () {
+      this.getUserList()
+    },
     data () {
       return {
-        filter: '',
+        property: '',
+        pageNum: 1,
+        pages: 1,
+        keyword: '',
         options: [
           {
             label: '用户id',
-            value: 'id'
+            value: 'userId'
           },
           {
             label: '用户名',
-            value: 'name'
+            value: 'userName'
           },
           {
             label: '手机号',
             value: 'phone'
           }
         ],
-        infoData: [
-          {
-            id: '1321321321',
-            name: '王小虎',
-            phone: 1231321321,
-            address: '上海市普陀区金沙江路 1518 弄'
-          },
-          {
-            id: '1321321321',
-            name: '王小虎',
-            phone: 1231321321,
-            address: '上海市普陀区金沙江路 1518 弄'
-          },
-          {
-            id: '1321321321',
-            name: '王小虎',
-            phone: 1231321321,
-            address: '上海市普陀区金沙江路 1518 弄'
-          },
-          {
-            id: '1321321321',
-            name: '王小虎',
-            phone: 1231321321,
-            address: '上海市普陀区金沙江路 1518 弄'
-          }
-        ]
+        infoData: []
       }
     },
     methods: {
+      getUserList () {
+        const { pageNum, keyword, property } = this
+        _getUserList(pageNum, keyword, property).then(res => {
+          this.infoData = res.data.list
+          this.pages = res.data.pages
+          this.pageNum = res.data.pageNum
+        })
+      },
+      changePage (page) {
+        this.pageNum = page
+        this.getUserList()
+      },
       search (keyword) {
-        alert(`搜索${keyword},分类，${this.filter}`)
+        this.keyword = keyword
+        this.pageNum = 1
+        this.getUserList()
       }
     }
   }

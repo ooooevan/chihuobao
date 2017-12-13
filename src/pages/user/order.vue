@@ -7,7 +7,7 @@
     </div>
     <div class="content">
       <!-- <order-card :key='index' @accept='accept' @cancel='cancelOrder' class='orderCard' v-for='(item, index) in info' :info='item'></order-card> -->
-      <order-card @accept='accept' @del='del' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.status === activeTag)'></order-card>
+      <order-card @goaccept='goaccept' @accept='accept' @del='del' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.status === activeTag)'></order-card>
     </div>
     <el-pagination
       class='el-pagination'
@@ -16,11 +16,23 @@
       @current-change='changePage'
       :page-count="totalPage">
     </el-pagination>
+    <el-dialog
+        title="提示"
+        :visible.sync='dialogVisible'
+        width='30%'
+        :before-close='handleClose'>
+        <span>请支付完后点击我已支付,若已支付请点击‘我已支付’</span>
+        <a :href='payLocation' target='_blank' class='payLocation'>若未正常跳转可点击手动跳转</a>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click='handleClose'>取消支付</el-button>
+          <el-button type="primary" @click='handleClick'>我已支付</el-button>
+        </span>
+      </el-dialog>
   </div>
 </template>
 <script>
   import orderCard from './userOrderCard'
-  import { _getUserOrder, _deleteOrder, _getSopPhone, _finishOrder } from 'common/javascript/userApi'
+  import { _getUserOrder, _deleteOrder, _getSopPhone, _finishOrder, _payOrder, _handleIsPay } from 'common/javascript/userApi'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -55,7 +67,10 @@
         pageNum: 1,
         totalPage: 1,
         pageSize: 7,
-        currentInfo: []
+        currentInfo: [],
+        dialogVisible: false,
+        payLocation: '',  // 支付的链接
+        userOrderId: ''
       }
     },
     mounted () {
@@ -69,7 +84,37 @@
         ]
       )
     },
+    created () {
+      if (!this.userInfo.userId) {
+        this.$router.push('/login')
+      }
+    },
     methods: {
+      handleClick () {
+        // 点击我已支付
+        const { orderCode } = this
+        _handleIsPay(orderCode).then(res => {
+          if (res.code === 1) {
+            this.$router.push('/shopCart/success')
+          } else {
+            this.$message({
+              type: 'error',
+              message: '未检测到支付，请稍后'
+            })
+          }
+        })
+      },
+      handleClose () {
+        this.dialogVisible = false
+      },
+      goaccept (item) {
+        this.orderCode = item.userOrderId
+        _payOrder(item.userOrderId).then(res => {
+          this.dialogVisible = true
+          this.payLocation = res.data
+          window.open(res.data)
+        })
+      },
       changePage (page) {
         this.pageNum = page
         this.getUserOrder()
@@ -138,7 +183,7 @@
         const userId = this.userInfo.userId
         _getUserOrder(userId, pageNum, activeTag).then(res => {
           this.pageNum = res.data.page
-          this.totalPage = res.data.total
+          this.totalPage = res.data.total || 1
           this.currentInfo = res.data.orders
         })
       },
@@ -173,7 +218,7 @@
             box-shadow: 0px -2px #1e89e0 inset
             color: #1e89e0
   .content
-    height: 550px
+    min-height: 550px
     margin: 10px 0
     padding: 15px
     background: #fff
@@ -181,6 +226,11 @@
       margin-bottom: 20px
   .el-pagination
     position: absolute
-    bottom: 25px
+    bottom: 0
     right: 100px
+  .payLocation
+    cursor: pointer
+    color: red
+    &:hover
+      text-decoration: underline
 </style>

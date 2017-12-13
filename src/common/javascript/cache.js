@@ -40,18 +40,18 @@ export function _getUserInfo () {
 
 // 商家信息
 export function _saveSellerInfo (info) {
-  storage.set(sellerKey, info)
+  storage.session.set(sellerKey, info)
   return info
 }
 export function _clearSellerInfo () {
-  storage.remove(sellerKey)
+  storage.session.remove(sellerKey)
   return null
 }
 export function _hasSellerInfo () {
-  return storage.has(sellerKey)
+  return storage.session.has(sellerKey)
 }
 export function _getSellerInfo () {
-  return storage.get(sellerKey)
+  return storage.session.get(sellerKey)
 }
 
 // 购物车信息
