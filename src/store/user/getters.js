@@ -19,3 +19,5 @@ export const shopDetail = state => state.shopDetail
 export const cartList = state => state.cartList
 
 export const shopTypeList = state => state.shopTypeList
+
+export const reLogin = state => state.reLogin

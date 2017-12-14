@@ -1,4 +1,3 @@
-// import axios from 'axios'
 import { basePOST1, baseGET, baseGET2 } from './baseApi'
 // import config from './config'
 import ALLAPI from './apiList'

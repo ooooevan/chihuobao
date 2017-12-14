@@ -26,11 +26,11 @@ const Shop = new mongoose.Schema({
   shop_detail_images: String,
   shop_longitude: Number,
   shop_latitude: Number,
-  level: {            // 平均评分，实际保存的是累加评分
+  level: {            // 保存的是累加评分，请求时再做平均计算
     type: Number,
     default: 0
   },
-  total_time: Number,
+  total_time: Number,   // 累计的配送时间，用来算平均配送时间
   monthly_sales: {
     type: Number,
     default: 0

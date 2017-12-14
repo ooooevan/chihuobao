@@ -71,9 +71,18 @@ export default {
   computed: {
     ...mapGetters('admin',
       [
-        'adminInfo'
+        'adminInfo',
+        'reLogin'
       ]
     )
+  },
+  watch: {
+    reLogin (lll) {
+      if (lll) {
+        this.$router.push('/admin')
+        this.setReLogin(false)
+      }
+    }
   },
   created () {
     // 判断是否登录，弹出窗口
@@ -117,7 +126,8 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setShopType: 'admin/SET_SHOPTYPE'
+      setShopType: 'admin/SET_SHOPTYPE',
+      setReLogin: 'admin/SET_RE_LOGIN'
     }),
     getShopType () {
       _getShopType().then(res => {

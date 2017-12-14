@@ -10,3 +10,7 @@ export function saveAdminInfo ({commit, state}, info) {
 export function clearSAdminInfo ({commit, state}, info) {
   commit(types.SET_ADMIN_INFO, _clearAdminInfo(info))
 }
+export function reLogin ({commit, state}) {
+  _clearAdminInfo()
+  commit(types.SET_RE_LOGIN, true)
+}

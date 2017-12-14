@@ -30,7 +30,8 @@ export default {
       ),
     ...mapMutations({
       noteKaidian: 'user/NOTE_KAIDIAN',
-      clearKaidianNote: 'user/CLEAR_KAIDIAN_NOTE'
+      clearKaidianNote: 'user/CLEAR_KAIDIAN_NOTE',
+      setReLogin: 'user/SET_RE_LOGIN'
     }),
     getShopType () {
       _getShopType().then(res => {
@@ -68,11 +69,20 @@ export default {
       this.$router.push('/')
     }
   },
+  watch: {
+    reLogin (lll) {
+      if (lll) {
+        this.$router.push('/login')
+        this.setReLogin(false)
+      }
+    }
+  },
   computed: {
     ...mapGetters(
       'user',
       [
-        'userInfo'
+        'userInfo',
+        'reLogin'
       ]
     ),
     home () {

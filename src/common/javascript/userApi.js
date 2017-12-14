@@ -1,11 +1,9 @@
 import axios from 'axios'
 import { jsonp, basePOST, baseGET } from './baseApi'
 import config from './config'
+import store from '../../store'
 import ALLAPI from './apiList'
 const API = ALLAPI.user
-
-// import { encodeGeoHash } from './geohash'
-// import apiList from './apiList'
 axios.defaults.withCredentials = true
 
 export function _initCity () {
@@ -79,16 +77,6 @@ export function _getUserOrder (userId, page, orderType) {
   return basePOST(API.getUserOrder, { userId, page, orderType })
 }
 
-// export function _cancelOrder (userOrderId) {
-//   return axios({
-//     method: 'post',
-//     url: API.cancelOrder,
-//     data: {
-//       userOrderId
-//     }
-//   }).then(res => res.data)
-// }
-
 export function _getSopPhone (shopId) {
   return basePOST(API.getShopPhone, { shopId })
 }
@@ -114,6 +102,8 @@ export function _getShopType () {
 export function _newOrder (shopId, shopName, userId, cartList, amount, remarks, acceptAddress) {
   // const dishs = cartList
   // return basePOST(API.newOrder, { shopId, shopName, userId, dishs, amount, remarks, acceptAddress })
+
+  // java后端要接收List<>，所以这里把对象数组的cartList转化
   let dishs = {}
   cartList.forEach((item, index) => {
     for (let key in item) {
@@ -147,6 +137,9 @@ export function _newOrder (shopId, shopName, userId, cartList, amount, remarks, 
       acceptAddress
     })
   }).then(res => res.data)
+  .catch(() => {
+    store.dispatch('user/reLogin')
+  })
 }
 export function _payOrder (userOrdersId) {
   return basePOST(API.payOrder, { userOrdersId })

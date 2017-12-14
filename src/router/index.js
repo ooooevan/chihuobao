@@ -3,14 +3,14 @@ import Router from 'vue-router'
 import { _hashExactAddress, _hasAdminInfo, _hasSellerInfo } from 'common/javascript/cache'
 
 // 用户页面
-const index = () => import('pages/user/index')
+const index = () => import('pages/index')
 const join = () => import('pages/user/join')
 const home = () => import('pages/user/home')
 const order = () => import('pages/user/order')
 const userProfile = () => import('pages/user/profile')
 const place = () => import('pages/user/place')
 const register = () => import('pages/user/register')
-const login = () => import('pages/user/login')
+const login = () => import('pages/login')
 const shop = () => import('pages/user/shop')
 const applyShop = () => import('pages/user/applyShop')
 const checkout = () => import('pages/user/checkout')

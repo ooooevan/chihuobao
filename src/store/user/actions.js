@@ -21,6 +21,11 @@ export function saveUserInfo ({commit, state}, info) {
   commit(types.SET_USER_INFO, _saveUserInfo(info))
 }
 
+export function reLogin ({commit, state}) {
+  _clearUserInfo()
+  commit(types.SET_RE_LOGIN, true)
+}
+
 export function logOut ({commit, state}, userId) {
   _logOutApi(userId)
   commit(types.SET_USER_INFO, _clearUserInfo())

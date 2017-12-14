@@ -11,7 +11,8 @@ const state = {
   shopDetail: {},   // 商铺信息
   shopDishs: [],   // 商铺的菜单
   cartList: _getCartList() || [],     // 用户购物车列表
-  shopTypeList: _getShopTypeList() || []    // 商铺类型
+  shopTypeList: _getShopTypeList() || [],    // 商铺类型
+  reLogin: false  // 判断是否重新登录，401的时候重新登录
 }
 
 export default state
