@@ -24,7 +24,8 @@ export default {
     getShopType: `${baseUrl}/types`,
     newOrder: `${baseUrl}/order/new`,
     payOrder: `${baseUrl}/order/pay`,
-    handleIsPay: `${baseUrl}/order/handleIsPay`
+    handleIsPay: `${baseUrl}/order/handleIsPay`,
+    getApplyStatus: `${baseUrl}/info/want2OpenShop`
   },
   seller: {
     initInfo: `${baseUrl}/shop/shopMsg`,

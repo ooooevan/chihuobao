@@ -61,7 +61,7 @@ require('../models/menu')
 // })
 
 // 添加商铺申请
-// const ShopApply = mongoose.model('ShopApply')
+const ShopApply = mongoose.model('ShopApply')
 // ShopApply.create({
 //   user_id: '5a2bcb6395f94c4708b6d154',
 //   identification_num: '442546199901019541',
@@ -174,7 +174,22 @@ const Shop = mongoose.model('Shop')
 // console.log(new Date(moment(new Date())))
 
 // 查看销量，看order的food_list长度
-// const ShopOrder = mongoose.model('ShopOrder')
+const ShopOrder = mongoose.model('ShopOrder')
 // ShopOrder.find({shop_id: '5a2e6babd8760360f828cde9'}).exec((err, order) => {
 //   console.log(JSON.parse(order[0].food_list))
+// })
+
+// 用populate联查
+// ShopOrder.findOne({_id: '5a30f4627582053d4c122ecc'}).populate('user_id shop_id', 'user_name shop_name').exec((err, order) => {
+//   console.log(order)
+// })
+
+// ShopApply.find({user_id: '5a2bcb6395f94c4708b6d155'}).exec((err, apply) => {
+//   console.log(apply)
+// })
+// ShopOrder.update({_id: '5a321b8010e3372c1c021764'}, {$set: {is_comment: 1}}).exec()
+
+// Shop.findOne({}).exec((err, shop) => {
+//   console.log(shop.total_time)
+//   console.log(shop)
 // })

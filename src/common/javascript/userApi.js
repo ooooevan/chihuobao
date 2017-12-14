@@ -152,6 +152,10 @@ export function _payOrder (userOrdersId) {
   return basePOST(API.payOrder, { userOrdersId })
 }
 
-export function _handleIsPay (userOrderCode) {
-  return basePOST(API.handleIsPay, { userOrderCode })
+export function _handleIsPay (userOrdersId) {
+  return basePOST(API.handleIsPay, { userOrdersId })
+}
+
+export function _getApplyStatus (userId) {
+  return basePOST(API.getApplyStatus, { userId })
 }

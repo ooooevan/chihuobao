@@ -35,12 +35,12 @@ export default {
     }
   },
   methods: {
-    commend () {
-      const promises = this.info.map(item => {
+    async commend () {
+      const promises = await this.info.map(item => {
         const { dishId, level, commend, userId, userOrderId, shopId } = item
         return _rate(dishId, level, commend, userId, userOrderId, shopId)
       })
-      Promise.all(promises).then(res => {
+      await Promise.all(promises).then(res => {
         this.$message({
           type: 'success',
           message: '评论成功'
@@ -53,6 +53,7 @@ export default {
         })
         console.log(err)
       })
+      this.$emit('haveRated')
     },
     close () {
       this.$emit('close')

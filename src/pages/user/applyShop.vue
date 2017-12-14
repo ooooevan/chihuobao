@@ -1,6 +1,7 @@
 <template>
   <div class='applyShop'>
     <p class='title'>店铺申请</p>
+    <p class='status' v-if='Applyed'>审核状态：{{status}}</p>
     <el-form :model="validateForm" ref="validateForm" label-width="100px" class="demo-ruleForm _el-form">
       <el-form-item
         label="店铺名称"
@@ -9,7 +10,7 @@
           { required: true, message: '名称不能为空'}
         ]"
       >
-        <el-input type="name" v-model="validateForm.name" auto-complete="off"></el-input>
+        <el-input type="name" :disabled='Applyed' v-model="validateForm.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
         label="简介"
@@ -18,7 +19,7 @@
           { required: true, message: '联系人不能为空'}
         ]"
       >
-        <el-input type="abstract" v-model="validateForm.abstract" auto-complete="off"></el-input>
+        <el-input type="abstract" :disabled='Applyed' v-model="validateForm.abstract" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
         label="身份证"
@@ -27,7 +28,7 @@
           { required: true, message: '身份证不能为空'}
         ]"
       >
-        <el-input type="userId" v-model="validateForm.cardId" auto-complete="off"></el-input>
+        <el-input type="userId" :disabled='Applyed' v-model="validateForm.cardId" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
         label="类型"
@@ -36,7 +37,7 @@
           { required: true, message: '类型不能为空'}
         ]"
       >
-        <el-select v-model="validateForm.type" placeholder="请选择商铺类型">
+        <el-select v-model="validateForm.type" :disabled='Applyed' placeholder="请选择商铺类型">
           <el-option :key='item.value' :label='item.label' :value='item.value' v-for='item in types'></el-option>
         </el-select>
       </el-form-item>
@@ -46,13 +47,15 @@
         :rules="[
           { required: true, message: '地址不能为空'}
         ]">
-        <el-input type="address" v-model="validateForm.address" auto-complete="off"></el-input>
+        <el-input type="address" :disabled='Applyed' v-model="validateForm.address" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item
         label="logo"
         prop="logoUrl">
+        <img v-if="Applyed" :src="logoUrl" class="avatar">
         <el-upload
           class="avatar-uploader"
+          v-else
           :action='uploadUrl'
           name='image'
           :with-credentials="TRUE"
@@ -67,8 +70,10 @@
       <el-form-item
         label="身份证照片"
         prop="cardPic">
+        <img v-if="Applyed" :src="cardPic" class="avatar">
         <el-upload
           class="avatar-uploader"
+          v-else
           :action='uploadUrl'
           name='image'
           :with-credentials="TRUE"
@@ -83,7 +88,9 @@
       <el-form-item
         label="商铺照片"
         prop="imgUrl">
+        <img v-if="Applyed" :src="imgUrl" class="avatar">
         <el-upload
+          v-else
           class="avatar-uploader"
           :action='uploadUrl'
           name='image'
@@ -97,7 +104,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('validateForm')">提交</el-button>
+        <el-button type="primary" v-if='!Applyed' @click="submitForm('validateForm')">提交</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -105,7 +112,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { _apply, _initCity } from 'common/javascript/userApi'
+import { _apply, _initCity, _getApplyStatus } from 'common/javascript/userApi'
+import config from 'common/javascript/config'
 import ALLAPI from 'common/javascript/apiList'
 const API = ALLAPI.user.upload
 
@@ -113,8 +121,10 @@ export default {
   data () {
     return {
       logoUrl: '',
+      Applyed: false,  // 已经申请过
       imgUrl: '',
       cardPic: '',
+      status: '',
       TRUE: '',
       uploadUrl: API,
       longitude: '',
@@ -148,6 +158,8 @@ export default {
     }
   },
   created () {
+    // 判断是否已经申请过了，申请过了就不能再申请，显示申请信息
+    this.getApplyStatus()
     this.initCity()  // 用于获取经纬度
   },
   methods: {
@@ -164,6 +176,7 @@ export default {
           const { logoUrl, imgUrl, cardPic, longitude, latitude } = this
           const userId = this.userInfo.userId
           const { name, abstract, cardId, type, address } = this.validateForm
+          debugger
           _apply(userId, name, abstract, cardId, type, address, logoUrl, cardPic, imgUrl, longitude, latitude).then(res => {
             if (res.code === 1) {
               this.$message({
@@ -181,6 +194,26 @@ export default {
         } else {
           console.log('error submit!!')
           return false
+        }
+      })
+    },
+    getApplyStatus () {
+      const { userId } = this.userInfo
+      _getApplyStatus(userId).then(res => {
+        // 申请过则显示信息
+        if (res.code === 1) {
+          this.validateForm = Object.assign(this.validateForm, {
+            abstract: res.data.shopAbstract,
+            name: res.data.shopName,
+            type: this.types.find(item => (item.value === res.data.shopType)).label,
+            address: res.data.shopLocation,
+            cardId: res.data.identificationNum
+          })
+          this.logoUrl = res.data.shopLogo
+          this.imgUrl = res.data.identificationPic
+          this.cardPic = res.data.shopAuthImages
+          this.status = config.applyStatus[res.data.shopStatus]
+          this.Applyed = true
         }
       })
     },
@@ -226,6 +259,9 @@ export default {
     text-align: center
     font-weight: 600
     padding: 30px
+  .status
+    text-align: center
+    color: #e00101
   .el-form._el-form
     margin: 30px auto 0
     width: 60%

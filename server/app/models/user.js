@@ -12,7 +12,10 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   avator: String,
-  gender: Number,
+  gender: {
+    type: Number,
+    default: 1
+  },
   accept_address: String,
   introduction: String,
   is_merchant: {   // 是否商户
@@ -29,16 +32,16 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', (next) => {
   const user = this
   if (this.isNew) {
     this.create_at = this.update_at = Date.now()
   } else {
     this.update_at = Date.now()
   }
-  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) return next(err)
-    bcrypt.hash(user.user_pwd, salt, function (err, hash) {
+    bcrypt.hash(user.user_pwd, salt, (err, hash) => {
       if (err) return next(err)
       user.user_pwd = hash
       next()

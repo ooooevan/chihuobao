@@ -20,7 +20,10 @@ const DishComment = new mongoose.Schema({
     type: ObjectId,
     ref: 'User'
   },
-  level: Number,
+  level: {
+    type: Number,
+    default: 0
+  },
   comment: String,
   comment_date: {
     type: Date,

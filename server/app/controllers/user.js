@@ -164,6 +164,7 @@ exports.getUserInfo = async ctx => {
   const _user = ctx.session.db
   try {
     const user = await User.findOne({_id: _user._id}).exec()
+    console.log(user)
     ctx.body = {
       code: 1,
       data: {
@@ -186,7 +187,7 @@ exports.getUserInfo = async ctx => {
 
 exports.modifyInfo = async ctx => {
   let _user = ctx.session.db
-  const { userId, userName, avator, gender, acceptAddress, introduction, phone } = ctx.request.body
+  const { userName, avator, gender, acceptAddress, introduction, phone } = ctx.request.body
   try {
     const user = await User.findOne({_id: _user._id}).exec()
     if (avator) user.avator = avator
@@ -203,6 +204,37 @@ exports.modifyInfo = async ctx => {
     ctx.body = {
       code: 0,
       data: err
+    }
+  }
+}
+
+exports.getApplyInfo = async ctx => {
+  const { userId } = ctx.request.body
+  try {
+    const apply = await ShopApply.findOne({user_id: userId}).exec()
+    if (apply) {
+      console.log(apply)
+      ctx.body = {
+        code: 1,
+        data: {
+          userId: apply.user_id,
+          shopAbstract: apply.shop_abstract,
+          shopName: apply.shop_name,
+          identificationNum: apply.identification_num,
+          shopType: apply.shop_type,
+          shopLocation: apply.shop_location,
+          shopLogo: apply.shop_logo,
+          identificationPic: apply.identification_pic,
+          shopAuthImages: apply.shop_auth_images,
+          shopLongitude: apply.shop_longitude,
+          shopLatitude: apply.shop_latitude,
+          shopStatus: apply.status
+        }
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0
     }
   }
 }
@@ -224,6 +256,8 @@ exports.applyShop = async ctx => {
       shop_longitude: shopLongitude,
       shop_latitude: shopLatitude
     })
+    // 将用户表 标记为商户
+    await User.update({_id: userId}, {$set: {is_merchant: 1}}).exec()
     ctx.body = {
       code: 1
     }
@@ -236,7 +270,7 @@ exports.applyShop = async ctx => {
 }
 
 exports.getShopList = async ctx => {
-  const { longitude, latitude, pageNum, shopType, name } = ctx.request.query
+  const { pageNum } = ctx.request.query /* 其他参数：longitude, latitude, shopType, name */
   // 本来是要根据经纬度，返回附近的商家，现在直接返回全部商家
   const totalPage = Math.ceil(await Shop.count({}) / shopListNumPerPage)
   const shopList = await Shop.find({})
@@ -254,50 +288,10 @@ exports.getShopList = async ctx => {
         shopName: item.shop_name,
         shopLogo: item.shop_logo,
         shopAbstract: item.shop_abstract,
-        shopDeliveryCost: item.shopDeliveryCost || '3',
-        level: item.level || 3,
-        monthlySales: item.monthlySales || 121
+        shopDeliveryCost: item.shop_delivery_cost,
+        level: +((item.level / item.comment_sales).toFixed(1) || 0),
+        monthlySales: item.monthly_sales
       }))
-    /*
-      // shopBrieflys: [
-      //   {
-      //     shopId: 123,
-      //     shopName: '名字',
-      //     shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
-      //     shopAbstract: '这是商铺简介',
-      //     shopDeliveryCost: '3',
-      //     level: 3,
-      //     monthlySales: 312
-      //   },
-      //   {
-      //     shopId: 123,
-      //     shopName: '名字1',
-      //     shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
-      //     shopAbstract: '这是商铺简介1',
-      //     shopDeliveryCost: '3',
-      //     level: 4,
-      //     monthlySales: 312
-      //   },
-      //   {
-      //     shopId: 321,
-      //     shopName: '名字2',
-      //     shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
-      //     shopAbstract: '这是商铺简介2',
-      //     shopDeliveryCost: '3',
-      //     level: 3.5,
-      //     monthlySales: 433
-      //   },
-      //   {
-      //     shopId: 121,
-      //     shopName: '名字3',
-      //     shopLogo: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70',
-      //     shopAbstract: '这是商铺简介3',
-      //     shopDeliveryCost: '3',
-      //     level: 3,
-      //     monthlySales: 122
-      //   }
-      // ]
-      */
     }
   }
 }
@@ -316,28 +310,27 @@ exports.getInfoByShopId = async ctx => {
           logo: shop.shop_logo,
           shopAbstract: shop.shop_abstract,
           shopLocation: shop.shop_location,
-          shopAnnouncement: shop.shop_announcement || '公告公告···',
-          shopPhone: shop.shop_phone || 13151315432,
-          shopWorkTime: shop.shop_work_time || '8:00~22:00',
-          shopDeliveryCost: shop.shop_delivery_cost || 3,
-          level: shop.level || 5,
-          shopStartDelivery: shop.shop_start_delivery || 12,
-          deliveryTime: shop.shop_delivery_time || 49,
-          status: shop.shop_status || 1,
+          shopAnnouncement: shop.shop_announcement,
+          shopPhone: shop.shop_phone,
+          shopWorkTime: shop.shop_work_time,
+          shopDeliveryCost: shop.shop_delivery_cost,
+          level: +((shop.level / shop.comment_sales).toFixed(1) || 0),
+          shopStartDelivery: shop.shop_start_delivery,
+          deliveryTime: +((shop.total_time / shop.monthly_sales).toFixed(1) || 0),
+          status: shop.shop_status,
           storesImages: shop.shop_stores_images,
-          detailImages: shop.shop_detail_images || 'https://fuss10.elemecdn.com/c/b4/8b2b01d64f72a4e9bf434b72c8a85jpeg.jpeg?imageMogr/format/webp/'
+          detailImages: shop.shop_detail_images
         },
         dishs: dishs.map(item => ({
           dishId: item._id,
           dishName: item.dish_name,
           dishImage: item.dish_pics,
           dishPrice: item.dish_price,
-          level: item.level || '4',
+          level: +((item.level / item.comment_sales).toFixed(1) || 0),
           dishAbstract: item.dish_introduction,
           monthlySales: item.monthly_sales,
-          dishType: item.dish_type || 2
+          dishType: item.dish_type
         }))
-  
       }
     }
   } catch (err) {
@@ -354,17 +347,9 @@ exports.getCommentByDishId = async ctx => {
   const { dishId } = ctx.request.query
   try {
     const dish = await MenuModel.findOne({_id: dishId}).exec()
-    let comments = await DishComment.find({dish_id: dishId}).exec()
-    comments = await Promise.all(comments.map(async item => {
-      const user = await User.findOne({_id: item.user_id}).exec()
-      return {
-        commentId: item._id,
-        username: user.user_name,
-        level: item.level,
-        comment: item.comment,
-        commentDate: item.comment_date
-      }
-    }))
+    let comments = await DishComment.find({dish_id: dishId})
+                                    .populate('user_id', 'user_name')
+                                    .exec()
     ctx.body = {
       code: 1,
       data: {
@@ -375,7 +360,13 @@ exports.getCommentByDishId = async ctx => {
           dishPrice: dish.dish_price,
           dishAbstract: dish.dish_abstract
         },
-        dishComment: comments
+        dishComment: comments.map(item => ({
+          commentId: item._id,
+          username: item.user_id.user_name,
+          level: item.level,
+          comment: item.comment,
+          commentDate: item.comment_date
+        }))
       }
     }
   } catch (err) {
@@ -399,36 +390,33 @@ exports.getUserOrder = async ctx => {
     let orderList = await UserOrder.find({user_id: userId, order_status: orderType})
                         .skip((page - 1) * userOrderPerPage)
                         .limit(userOrderPerPage)
+                        .populate('shop_id', 'shop_name')
                         .exec()
-    orderList = await Promise.all(orderList.map(async item => {
-      const shop = await Shop.findOne({_id: item.shop_id}).exec()
-      return ({
-        userOrderId: item._id,
-        userId: item.user_id,
-        shopId: item.shop_id,
-        shopNamme: shop.shop_name,
-        orderCode: +Math.random().toString().substr(2, 10),  // 不需要，临时随机用
-        amount: item.order_amount,
-        isComment: item.is_comment,
-        status: item.order_status,
-        createTime: item.order_create_time,
-        remarks: item.order_remarks,
-        deliveryWay: '美团专送',  // 不需要，临时随机用
-        payWay: '支付宝', // 不需要，临时随机用
-        acceptAddress: item.accept_address,
-        dishs: item.food_list && JSON.parse(item.food_list).concat({   // 将配送费放入商品列表
-          dishName: '配送费',
-          dishNum: 1,
-          dishPrice: Shop.shop_delivery_cost
-        })
-      })
-    }))
     ctx.body = {
       code: 1,
       data: {
         total: totalPage,
         page,
-        orders: orderList
+        orders: orderList.map(item => ({
+          userOrderId: item._id,
+          userId: item.user_id,
+          shopId: item.shop_id._id,
+          shopNamme: item.shop_id.shop_name,
+          orderCode: +Math.random().toString().substr(2, 10),  // 不需要，临时随机用
+          amount: item.order_amount,
+          isComment: item.is_comment,
+          status: item.order_status,
+          createTime: item.order_create_time,
+          remarks: item.order_remarks,
+          deliveryWay: '美团专送',  // 不需要，临时随机用
+          payWay: '支付宝', // 不需要，临时随机用
+          acceptAddress: item.accept_address,
+          dishs: item.food_list && JSON.parse(item.food_list).concat({   // 将配送费放入商品列表
+            dishName: '配送费',
+            dishNum: 1,
+            dishPrice: item.shop_id.shop_delivery_cost
+          })
+        }))
       }
     }
   } catch (err) {
@@ -445,12 +433,12 @@ exports.getUserOrder = async ctx => {
 }
 
 exports.deleteOrder = async ctx => {
-  const { userOrdersId } = ctx.request.body
+  const { userOrderId } = ctx.request.body
   try {
     const res = await new Promise((resolve, reject) => {
       request.post(`${config.domain}/api/shopOrder/handle`, {
         form: {
-          shopOrderId: userOrdersId,
+          shopOrderId: userOrderId,
           type: 4
         }
       }, (err, res, body) => {
@@ -473,7 +461,7 @@ exports.getShopPhone = async ctx => {
   ctx.body = {
     code: 1,
     data: {
-      shop_phone: shop.shop_phone || 110
+      shop_phone: shop.shop_phone
     }
   }
 }
@@ -505,12 +493,15 @@ exports.rateOrder = async ctx => {
   const { dishId, level, commend, userId, userOrderId, shopId } = ctx.request.body
   try {
     await DishComment.create({dish_id: dishId, shop_id: shopId, order_id: userOrderId, user_id: userId, level: +level, comment: commend})
-    let userOrder = await UserOrder.findOne({_id: userOrderId}).exec()
-    let shopOrder = await ShopOrder.findOne({_id: userOrderId}).exec()
-    userOrder.is_comment = 1  // 标记订单为已评论
-    shopOrder.is_comment = 1
-    userOrder.save()
-    shopOrder.save()
+    MenuModel.update({_id: dishId}, {$inc: {level}}).exec()   // 将这道菜评分加上
+    MenuModel.update({_id: dishId}, {$inc: {comment_sales: 1}}).exec()   // 将这道菜评分加上
+    Shop.update({_id: shopId}, {$inc: {level}}).exec()   // 将商家总体的评分加上
+    Shop.update({_id: shopId}, {$inc: {comment_sales: 1}}).exec()   // 将商家
+    UserOrder.update({_id: userOrderId}, {$set: {is_comment: 1}}).exec()  // 标记订单为已评论
+    ShopOrder.update({_id: userOrderId}, {$set: {is_comment: 1}}).exec()
+    UserOrder.update({_id: userOrderId}, {$inc: {comment_sales: 1}}).exec()  // 评价数加一，用于计算评价平均分
+    ShopOrder.update({_id: userOrderId}, {$inc: {comment_sales: 1}}).exec()
+
     ctx.body = {
       code: 1,
       data: {}
@@ -528,7 +519,7 @@ exports.getShopType = async ctx => {
   const types = _types.map(item => {
     return {
       shopType: item.type,
-      shopTypeCode: item.code
+      shopTypeCode: item._id
     }
   })
   ctx.body = {
@@ -537,7 +528,7 @@ exports.getShopType = async ctx => {
   }
 }
 exports.newOrder = async ctx => {
-  const { shopId, shopName, userId, dishs, amount, remarks, acceptAddress } = ctx.request.body
+  const { shopId, userId, dishs, amount, remarks, acceptAddress } = ctx.request.body
   // 生成订单，默认未支付状态
   const userOrder = await UserOrder.create({
     user_id: userId,
@@ -571,11 +562,11 @@ exports.payOrder = async ctx => {
 }
 exports.handleIsPay = async ctx => {
   // 判断是否已经支付
-  const { userOrderCode } = ctx.request.body
+  const { userOrdersId } = ctx.request.body
   if (Math.random() > 0.5) {
     try {
-      let userOrder = await UserOrder.findOne({_id: userOrderCode})
-      let shopOrder = await ShopOrder.findOne({_id: userOrderCode})
+      let userOrder = await UserOrder.findOne({_id: userOrdersId})
+      let shopOrder = await ShopOrder.findOne({_id: userOrdersId})
       userOrder.order_status = 3
       shopOrder.order_status = 3
       userOrder.save()

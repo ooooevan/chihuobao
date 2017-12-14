@@ -7,7 +7,7 @@
     </div>
     <div class="content">
       <!-- <order-card :key='index' @accept='accept' @cancel='cancelOrder' class='orderCard' v-for='(item, index) in info' :info='item'></order-card> -->
-      <order-card @goaccept='goaccept' @accept='accept' @del='del' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.status === activeTag)'></order-card>
+      <order-card @haveRated='haveRated' @goaccept='goaccept' @accept='accept' @del='del' @notAccept='notAccept' @cancel='cancelOrder' class='orderCard' :info='currentInfo.filter(item => item.status === activeTag)'></order-card>
     </div>
     <el-pagination
       class='el-pagination'
@@ -117,6 +117,9 @@
       },
       changePage (page) {
         this.pageNum = page
+        this.getUserOrder()
+      },
+      haveRated () {
         this.getUserOrder()
       },
       accept (item) {

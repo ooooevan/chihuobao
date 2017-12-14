@@ -13,10 +13,14 @@ const Apply = new mongoose.Schema({
   shop_logo: String,
   shop_abstract: String,
   shop_location: String,
-  shop_auth_images: String, // 门面照1111
-  shop_type: Number,
+  shop_auth_images: String, // 门面照
+  shop_type: String,
   shop_longitude: Number,
   shop_latitude: Number,
+  create_time: {
+    type: Date,
+    default: Date.now()
+  },
   status: {
     type: Number,
     default: 0

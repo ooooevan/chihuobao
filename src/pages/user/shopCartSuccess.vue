@@ -2,18 +2,29 @@
   <div class='success'>支付成功, {{second}} 秒后返回首页...</div>
 </template>
 <script>
+  import { mapActions } from 'vuex'
   export default {
     data () {
       return {
-        second: 5
+        second: 5,
+        timer: 0
       }
     },
     created () {
       this.mins()
+      this.clearCartList()
+    },
+    beforeDestroy () {
+      clearTimeout(this.timer)
     },
     methods: {
+      ...mapActions('user',
+        [
+          'clearCartList'
+        ]
+      ),
       mins () {
-        setTimeout(() => {
+        this.timer = setTimeout(() => {
           if (this.second === 1) {
             this.$router.push('/place')
           } else {

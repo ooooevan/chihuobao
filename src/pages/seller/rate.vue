@@ -21,7 +21,6 @@
       </li>
     </ul>
     <el-pagination
-      class='el-pagination'
       layout="prev, pager, next"
       :page-size='pageSize'
       @current-change='changePage'
@@ -74,11 +73,10 @@
     }
   }
 </script>
-<style lang='sass'>
+<style lang='sass' scoped>
   .rate
     background: #fff
-    position: relative
-    height: 100%
+    min-height: 100%
     ul
       li
         padding: 25px 28px
@@ -99,12 +97,5 @@
             font-size: 15px
       .el-rate
         transform: translateY(-3px)
-    .el-pagination
-      position: absolute
-      bottom: 17px
-      right: 10px
-      ul
-        li
-          margin-top: 0
-
+    
 </style>

@@ -66,7 +66,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <rate-card class='rateCard' @rate='handleRate' :visible='rateVisible' @close='closeRate' :info='rateItems'></rate-card>
+  <rate-card class='rateCard' @haveRated='haveRated' :visible='rateVisible' @close='closeRate' :info='rateItems'></rate-card>
   </div>
 </template>
 <script>
@@ -113,16 +113,8 @@
         })
         this.rateVisible = true
       },
-      handleRate (item) {
-        this.$confirm('确认评价订单吗？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$emit('rate', item)
-        }).catch(() => {
-          console.log(`取消rate订单`)
-        })
+      haveRated () {
+        this.$emit('haveRated')
       },
       dispatch (item) {
         this.$emit('dispatch', item)

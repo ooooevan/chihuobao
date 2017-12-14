@@ -53,7 +53,6 @@ export default {
   beforeDestroy () {
     window.onscroll = null
     this.clearShopList()   // 情况shopList防止再次返回时数据重复，如果不存store就不用这样
-    console.log('执行了beforeDestory')
   },
   computed: {
     ...mapGetters('user', [

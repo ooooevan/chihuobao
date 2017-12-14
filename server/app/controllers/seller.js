@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const ShopOrder = mongoose.model('ShopOrder')
-const request = require('request')
-const User = mongoose.model('User')
+// const request = require('request')
+// const User = mongoose.model('User')
 const UserOrder = mongoose.model('UserOrder')
 const MenuModel = mongoose.model('MenuModel')
 const DishComment = mongoose.model('DishComment')
@@ -27,6 +27,7 @@ exports.getShopOrder = async ctx => {
   try {
     const totalPage = Math.ceil(await ShopOrder.count({shop_id: shopId, order_status: type}) / shopOrderPerPage)
     const orderList = await ShopOrder.find({shop_id: shopId, order_status: type})
+                                    .populate('user_id shop_id', 'phone_num shop_delivery_cost')
                                     .skip((pageNum - 1) * shopOrderPerPage)
                                     .limit(shopOrderPerPage)
                                     .exec()
@@ -35,19 +36,20 @@ exports.getShopOrder = async ctx => {
       data: {
         pageNum,
         totalPage,
-        shopOrders: await Promise.all(orderList.map(async item => {
-          const user = await User.findOne({_id: item.user_id}).exec()
-          return {
-            shopOrderId: item._id,
-            userName: item.userName || '名字',
-            dishName: item.dishName || '鸡翅',
-            orderAmount: item.order_amount,
-            acceptAddress: item.accept_address,
-            orderRemarks: item.order_remarks,
-            userPhone: user.phone_num,
-            orderStatus: item.order_status,
-            dishs: JSON.parse(item.food_list)
-          }
+        shopOrders: orderList.map(item => ({
+          shopOrderId: item._id,
+          userName: item.userName || '名字',
+          dishName: item.dishName || '鸡翅',
+          orderAmount: item.order_amount,
+          acceptAddress: item.accept_address,
+          orderRemarks: item.order_remarks,
+          userPhone: item.user_id.phone_num,
+          orderStatus: item.order_status,
+          dishs: JSON.parse(item.food_list).concat({   // 将配送费放入商品列表
+            dishName: '配送费',
+            dishNum: 1,
+            dishPrice: item.shop_id.shop_delivery_cost
+          })
         }))
       }
     }
@@ -60,11 +62,11 @@ exports.getShopOrder = async ctx => {
 }
 
 exports.handleOrder = async ctx => {
-  // 1为接单，2不接单, 3取消订单, 4删除订单,5已收货
-  const { shopId, shopOrderId, type } = ctx.request.body
+  // 1为接单，2不接单, 3取消订单, 4删除订单, 5已收货
+  const { shopOrderId, type } = ctx.request.body   // 其他参数：shopId
   // 两个订单表_id是一样的
-  const shopOrder = await ShopOrder.findOne({/* shop_id: shopId, */_id: shopOrderId}).exec()
-  const userOrder = await UserOrder.findOne({/* shop_id: shopId, */_id: shopOrderId}).exec()
+  const shopOrder = await ShopOrder.findOne({_id: shopOrderId}).exec()
+  const userOrder = await UserOrder.findOne({_id: shopOrderId}).exec()
   try {
     if (type === '1') {
       shopOrder.order_status = 4
@@ -79,15 +81,19 @@ exports.handleOrder = async ctx => {
       shopOrder.order_status = 6
       userOrder.order_status = 6
     } else if (type === '5') {
-      // 已完成订单，将菜品销量加一
+      // 已完成订单，将菜品销量加一,商铺销量加一
       shopOrder.order_status = 2
       userOrder.order_status = 2
+      await Shop.update({_id: shopOrder.shop_id}, {$inc: {monthly_sales: 1}}).exec()
       let foodList = JSON.parse(shopOrder.food_list)
-      await Promise.all(foodList.forEach(async item => {
-        let menu = await MenuModel.findOne({_id: item.dishId}).exec()
-        menu.monthly_sales++
-        await menu.save()
+      await Promise.all(foodList.map(async item => {
+        await MenuModel.update({_id: item.dishId}, {$inc: {monthly_sales: 1}}).exec()
       }))
+      // 计算配送时间,减去上次的update_time
+      const pre = shopOrder.order_update_time
+      const minutes = (new Date() - pre) / 1000 / 60 // 距上次用了多少分钟
+      shopOrder.total_time += minutes
+      userOrder.total_time += minutes
     }
     await shopOrder.save()
     await userOrder.save()
@@ -120,7 +126,7 @@ exports.getAllDish = async ctx => {
       dishPrice: item.dish_price,
       dishAbstract: item.dish_introduction,
       dishType: item.dish_type,
-      level: item.level,
+      level: +((item.level / item.comment_sales).toFixed(1) || 0),
       monthlySales: item.monthly_sales
     }))
   }
@@ -146,7 +152,7 @@ exports.getShopInfo = async ctx => {
         storesImages: shop.shop_stores_images,
         detailImages: shop.shop_detail_images,
         deliveryTime: shop.delivery_time,
-        level: shop.level
+        level: +((shop.level / shop.comment_sales).toFixed(1) || 0)
       }
     }
   } catch (err) {
@@ -158,7 +164,7 @@ exports.getShopInfo = async ctx => {
 }
 
 exports.modifyDish = async ctx => {
-  const { shopId, dishId, dishPrice, dishAbstract, dishType } = ctx.request.body
+  const { dishId, dishPrice, dishAbstract, dishType } = ctx.request.body // 其他参数：shopId
   let dish
   try {
     dish = await MenuModel.findOne({_id: dishId}).exec()
@@ -232,22 +238,32 @@ exports.getRateList = async ctx => {
   try {
     totalPage = Math.ceil(await DishComment.count({shop_id: shopId}) / commentPerPage)
     commentList = await DishComment.find({shop_id: shopId})
+                                  .populate('user_id dish_id', 'user_name dish_name')
                                   .skip((pageNum - 1) * commentPerPage)
                                   .limit(commentPerPage)
                                   .exec()
-    commentList = await Promise.all(commentList.map(async item => {
-      const user = await User.findOne({_id: item.user_id}).exec()
-      const dish = await MenuModel.findOne({_id: item.dish_id}).exec()
-      return {
-        commentId: item._id,
-        dishId: item.dish_id,
-        dishName: dish.dish_name,
-        username: user.user_name,
-        level: item.level,
-        comment: item.comment,
-        commentDate: item.comment_date
-      }
+    commentList = commentList.map(item => ({
+      commentId: item._id,
+      dishId: item.dish_id,
+      dishName: item.dish_id.dish_name,
+      username: item.user_id.user_name,
+      level: item.level,
+      comment: item.comment,
+      commentDate: item.comment_date
     }))
+    // commentList = await Promise.all(commentList.map(async item => {
+    //   const user = await User.findOne({_id: item.user_id}).exec()
+    //   const dish = await MenuModel.findOne({_id: item.dish_id}).exec()
+    //   return {
+    //     commentId: item._id,
+    //     dishId: item.dish_id,
+    //     dishName: dish.dish_name,
+    //     username: user.user_name,
+    //     level: item.level,
+    //     comment: item.comment,
+    //     commentDate: item.comment_date
+    //   }
+    // }))
   } catch (err) {
     code = 0
   }

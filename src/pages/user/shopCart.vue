@@ -36,7 +36,7 @@ export default {
     totalMoney () {
       const { accAdd, accMul } = config
       let money = 0
-      const shopDeliveryCost = this.cartList.find(item => (!item.dishId)).dishPrice
+      const shopDeliveryCost = this.shopDetail.shopDeliveryCost
       this.cartList.filter(item => (item.dishId)).forEach(item => {
         money = accAdd(money, accMul(item.num, item.dishPrice))
       })

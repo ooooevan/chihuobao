@@ -56,14 +56,14 @@ export function _getSellerInfo () {
 
 // 购物车信息
 export function _clearCartList () {
-  storage.remove(cartKey)
+  storage.session.remove(cartKey)
   return []
 }
 export function _hashCartList () {
-  return storage.has(cartKey)
+  return storage.session.has(cartKey)
 }
 export function _getCartList () {
-  return storage.get(cartKey) || []
+  return storage.session.get(cartKey) || []
 }
 export function _addCartNum (item) {
   let list = _getCartList()
@@ -82,7 +82,7 @@ export function _addCartNum (item) {
     item.num = 1
     list.push(item)
   }
-  storage.set(cartKey, list)
+  storage.session.set(cartKey, list)
   return list
 }
 export function _subCartNum (item) {
@@ -94,7 +94,7 @@ export function _subCartNum (item) {
   } else {
     temp.num--
   }
-  storage.set(cartKey, list)
+  storage.session.set(cartKey, list)
   return list
 }
 export function _getShopTypeList () {

@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const Shop = mongoose.model('Shop')
-const Menu = mongoose.model('MenuModel')
+// const Menu = mongoose.model('MenuModel')
 const DishType = mongoose.model('DishType')
 const ShopType = mongoose.model('ShopType')
 const Admin = mongoose.model('Admin')
 const ShopApply = mongoose.model('ShopApply')
-const request = require('request')
+// const request = require('request')
 const Session = require('../common/session')
-const config = require('../../config')
+// const config = require('../../config')
 // const { registerName } = require('../common/utils')
 const MapMsg = require('./dataMapping').codeToMessage
 const shopApplyPerPage = 8
@@ -175,45 +175,6 @@ exports.getShopsList = async ctx => {
         shopLocation: item.shop_location,
         shopStatus: item.shop_status
       }))
-      /*
-        // list: [
-        //   {
-        //     shopId: 1,
-        //     userId: 1,
-        //     shopName: 'abc',
-        //     shopPhone: '1333333111',
-        //     shopLocation: '北京xxxxxx'
-        //   },
-        //   {
-        //     shopId: 2,
-        //     userId: 2,
-        //     shopName: 'abc',
-        //     shopPhone: '13233333222',
-        //     shopLocation: '北京xxxxxx'
-        //   },
-        //   {
-        //     shopId: 3,
-        //     userId: 3,
-        //     shopName: 'abc',
-        //     shopPhone: '1333333333',
-        //     shopLocation: '北京xxxxxx'
-        //   },
-        //   {
-        //     shopId: 4,
-        //     userId: 4,
-        //     shopName: 'abc',
-        //     shopPhone: '13233333444',
-        //     shopLocation: '北京xxxxxx'
-        //   },
-        //   {
-        //     shopId: 5,
-        //     userId: 5,
-        //     shopName: '55',
-        //     shopPhone: '13233333555',
-        //     shopLocation: '北京xxxxxx'
-        //   }
-        // ]
-      */
     }
   }
 }
@@ -236,7 +197,7 @@ exports.getShopInfoById = async ctx => {
         shopPhone: shop.shop_phone, // 商铺联系方式
         shopWorkTime: shop.shop_work_time, // 商铺营业时间
         shopDeliveryCost: shop.shop_delivery_cost, // 商铺配送费
-        shopStartDelivery: shop.shop_delivery_time, // 商铺起送价
+        shopStartDelivery: shop.shop_start_delivery, // 商铺起送价
         shopStores_images: shop.shop_stores_images, // 商铺门店照
         shopDetail_images: shop.shop_detail_images, // 商铺简介照
         shopLongitude: shop.shop_longitude, // 商铺经度
@@ -413,9 +374,9 @@ exports.delFoodType = async ctx => {
 }
 
 exports.addFoodType = async ctx => {
-  const { type } = ctx.request.body
+  const { typeDes } = ctx.request.body
   try {
-    await DishType.create({type})
+    await DishType.create({typeDes})
     ctx.body = {
       code: 1
     }
@@ -429,9 +390,9 @@ exports.addFoodType = async ctx => {
 }
 
 exports.addShopType = async ctx => {
-  const { type } = ctx.request.body
+  const { typeDes } = ctx.request.body
   try {
-    await ShopType.create({type})
+    await ShopType.create({typeDes})
     ctx.body = {
       code: 1
     }

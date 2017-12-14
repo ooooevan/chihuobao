@@ -26,12 +26,22 @@ const ShopOrder = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  order_update_time: {
+    type: Date,
+    default: Date.now()
+  },
   order_create_time: {
     type: Date,
     default: Date.now()
   },
+  total_time: {   // 累计配送的分钟数，用于求平均送达时间
+    type: Number,
+    default: 0
+  },
   order_remarks: String,
   accept_address: String
 })
-
+ShopOrder.pre('save', (next) => {
+  this.order_update_time = Date.now()
+})
 module.exports = mongoose.model('ShopOrder', ShopOrder)

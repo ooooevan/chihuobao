@@ -64,12 +64,12 @@ export function _delFoodTags (foodTypeId) {
   return basePOST1(API.delFoodType, { foodTypeId })
 }
 
-export function _addShopType (type) {
-  return basePOST1(API.addShopType, { type })
+export function _addShopType (typeDes) {
+  return basePOST1(API.addShopType, { typeDes })
 }
 
-export function _addFoodType (type) {
-  return basePOST1(API.addFoodType, { type })
+export function _addFoodType (typeDes) {
+  return basePOST1(API.addFoodType, { typeDes })
 }
 
 export function _getUserList (pageNum, keyword, property) {
