@@ -289,7 +289,7 @@ exports.getShopList = async ctx => {
         shopLogo: item.shop_logo,
         shopAbstract: item.shop_abstract,
         shopDeliveryCost: item.shop_delivery_cost,
-        level: +((item.level / item.comment_sales).toFixed(1) || 0),
+        level: +(item.level / item.comment_sales).toFixed(1) || 0,
         monthlySales: item.monthly_sales
       }))
     }
@@ -314,9 +314,9 @@ exports.getInfoByShopId = async ctx => {
           shopPhone: shop.shop_phone,
           shopWorkTime: shop.shop_work_time,
           shopDeliveryCost: shop.shop_delivery_cost,
-          level: +((shop.level / shop.comment_sales).toFixed(1) || 0),
+          level: +(shop.level / shop.comment_sales).toFixed(1) || 0,
           shopStartDelivery: shop.shop_start_delivery,
-          deliveryTime: +((shop.total_time / shop.monthly_sales).toFixed(1) || 0),
+          deliveryTime: +(shop.total_time / shop.monthly_sales).toFixed(1) || 0,
           status: shop.shop_status,
           storesImages: shop.shop_stores_images,
           detailImages: shop.shop_detail_images
@@ -326,7 +326,7 @@ exports.getInfoByShopId = async ctx => {
           dishName: item.dish_name,
           dishImage: item.dish_pics,
           dishPrice: item.dish_price,
-          level: +((item.level / item.comment_sales).toFixed(1) || 0),
+          level: +(item.level / item.comment_sales).toFixed(1) || 0,
           dishAbstract: item.dish_introduction,
           monthlySales: item.monthly_sales,
           dishType: item.dish_type

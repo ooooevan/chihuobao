@@ -123,7 +123,6 @@
         this.$emit('cancel', item)
       },
       del (item) {
-        debugger
         this.$confirm('确认删除订单吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

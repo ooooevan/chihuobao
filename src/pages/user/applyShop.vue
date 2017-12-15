@@ -176,7 +176,6 @@ export default {
           const { logoUrl, imgUrl, cardPic, longitude, latitude } = this
           const userId = this.userInfo.userId
           const { name, abstract, cardId, type, address } = this.validateForm
-          debugger
           _apply(userId, name, abstract, cardId, type, address, logoUrl, cardPic, imgUrl, longitude, latitude).then(res => {
             if (res.code === 1) {
               this.$message({

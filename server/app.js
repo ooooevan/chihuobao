@@ -8,6 +8,9 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-session2')
 const router = require('koa-router')()
+var compress = require('koa-compress')
+var path = require('path')
+var staticCache = require('koa-static-cache')
 const multer = require('koa-multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -51,6 +54,17 @@ app.use(views(`${__dirname}/views`, {
   extension: 'pug'
 }))
 
+// 响应压缩
+app.use(compress({
+  threshold: 2048,
+  flush: require('zlib').Z_SYNC_FLUSH
+}))
+// 静态资源缓存
+const cacheTime = 365 * 24 * 60 * 60
+app.use(staticCache(path.join(__dirname, 'public'), {
+  maxAge: cacheTime
+}))
+
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()
@@ -62,13 +76,12 @@ app.use(async (ctx, next) => {
 app.use(session({
   key: 'sessionid---'
 }))
-app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
-  // ctx.set('Access-Control-Allow-Origin', 'http://localhost:8081')
-  ctx.set('Access-Control-Allow-Credentials', 'true')
-  ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  await next()
-})
+// app.use(async (ctx, next) => {
+  // ctx.set('Access-Control-Allow-Origin', 'http://localhost:8080')
+  // ctx.set('Access-Control-Allow-Credentials', 'true')
+  // ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  // await next()
+// })
 // 处理路由
 require('./routes/index')(router, upload)
 

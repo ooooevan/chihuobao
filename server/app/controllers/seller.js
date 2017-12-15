@@ -126,7 +126,7 @@ exports.getAllDish = async ctx => {
       dishPrice: item.dish_price,
       dishAbstract: item.dish_introduction,
       dishType: item.dish_type,
-      level: +((item.level / item.comment_sales).toFixed(1) || 0),
+      level: +(item.level / item.comment_sales).toFixed(1) || 0,
       monthlySales: item.monthly_sales
     }))
   }
@@ -152,7 +152,7 @@ exports.getShopInfo = async ctx => {
         storesImages: shop.shop_stores_images,
         detailImages: shop.shop_detail_images,
         deliveryTime: shop.delivery_time,
-        level: +((shop.level / shop.comment_sales).toFixed(1) || 0)
+        level: +(shop.level / shop.comment_sales).toFixed(1) || 0
       }
     }
   } catch (err) {

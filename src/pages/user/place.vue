@@ -19,7 +19,7 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import searchBox from 'components/searchBox'
-import sellerFilter from 'components/sellerfilter'
+import sellerFilter from 'components/sellerFilter'
 import shopCard from 'components/shopCard'
 import { _getShopList } from 'common/javascript/userApi'
 
