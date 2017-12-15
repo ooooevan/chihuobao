@@ -1,0 +1,10 @@
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d80"},"type":"辛辣","code":1,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d81"},"type":"麻辣","code":2,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d82"},"type":"点心","code":3,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d83"},"type":"水果","code":4,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d84"},"type":"下午茶","code":5,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d86"},"type":"清淡","code":7,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d88"},"type":"烧烤","code":9,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d87"},"type":"面食","code":8,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2bc8b6c8154e3af8ec2d85"},"type":"饮料","code":6,"create_time":{"$date":"2017-12-09T11:27:50.502Z"},"__v":0}
+{"_id":{"$oid":"5a2e41978e03fd3068c24b1c"},"type":"雪碧","create_time":{"$date":"2017-12-11T08:27:53.408Z"},"__v":0}

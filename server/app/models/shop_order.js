@@ -41,7 +41,8 @@ const ShopOrder = new mongoose.Schema({
   order_remarks: String,
   accept_address: String
 })
-ShopOrder.pre('save', (next) => {
+ShopOrder.pre('save', function (next) {
   this.order_update_time = Date.now()
+  next()
 })
 module.exports = mongoose.model('ShopOrder', ShopOrder)
