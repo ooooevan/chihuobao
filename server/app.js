@@ -19,8 +19,6 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({storage: storage})
-const moment = require('moment')
-moment().format('YYYY-MM-DD HH:mm:ss')
 
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise

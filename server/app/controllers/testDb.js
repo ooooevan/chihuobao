@@ -49,7 +49,7 @@ require('../models/menu')
 // })
 
 // 添加用户
-// const User = mongoose.model('User')
+const User = mongoose.model('User')
 // User.create({user_name: 'user', user_pwd: '123456', phone_num: '12345678910', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})
 // User.create({user_name: 'eee', user_pwd: '123456', phone_num: '11111122331', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})
 // User.create({user_name: 'test1', user_pwd: '123456', phone_num: '11111122332', avator: 'https://fuss10.elemecdn.com/a/07/b14a3c916e62d27163ced7a1c9c7fpng.png?imageMogr2/thumbnail/70x70', gender: 1, acceptAddress: '', introduction: 'hhh'})
@@ -193,3 +193,10 @@ const ShopOrder = mongoose.model('ShopOrder')
 //   console.log(shop.total_time)
 //   console.log(shop)
 // })
+// process.on('unhandledRejection', error => {
+//   // Prints "unhandledRejection woops!"
+//   console.log('unhandledRejection', error.test)
+// })
+
+// // new Promise((_, reject) => reject({ test: 'woops!' }))
+User.create({user_pwd: '123456', user_name: 'far4e3r233', phone_num: 13432841079})

@@ -44,7 +44,7 @@ const adminNo = () => import('pages/admin/pageNoFind')
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',

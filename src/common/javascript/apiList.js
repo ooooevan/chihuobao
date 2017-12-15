@@ -1,4 +1,4 @@
-const domain = `http://localhost:3333`
+const domain = `http://localhost:8080`
 const baseUrl = `${domain}/api`
 export default {
   user: {

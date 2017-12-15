@@ -96,9 +96,9 @@ exports.sendCode = async ctx => {
 }
 
 exports.register = async ctx => {
-  const { phone, password, code } = ctx.request.body
+  const { phone, password, checkCode } = ctx.request.body
   const session = ctx.session
-  if (session.code === code) {
+  if (session.code === checkCode) {
     // 判断是否已经注册
     const hasRegister = await User.findOne({phone_num: phone})
     if (hasRegister) {

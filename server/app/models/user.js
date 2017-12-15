@@ -32,16 +32,16 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function (next) {
   const user = this
   if (this.isNew) {
     this.create_at = this.update_at = Date.now()
   } else {
     this.update_at = Date.now()
   }
-  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
     if (err) return next(err)
-    bcrypt.hash(user.user_pwd, salt, (err, hash) => {
+    bcrypt.hash(user.user_pwd, salt, function (err, hash) {
       if (err) return next(err)
       user.user_pwd = hash
       next()
@@ -64,8 +64,8 @@ UserSchema.statics = {
 UserSchema.methods = {
   // 第一个参数是传入的（未加密的），第二个是数据库中的（是已经加密的）
   comparePassword: function (_pass, pass) {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(_pass, pass, (err, isMatch) => {
+    return new Promise(function (resolve, reject) {
+      bcrypt.compare(_pass, pass, function (err, isMatch) {
         if (!err) {
           resolve(isMatch)
         } else {
