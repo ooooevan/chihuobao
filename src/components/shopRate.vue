@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for='item in data' class='outer'>
+      <li :key='item.rated_at' v-for='item in data' class='outer'>
         <div class="clearfix">
           <div class="name">{{item.user_name}}</div>
           <div class='time'>{{item.rated_at}}</div>
@@ -15,11 +15,9 @@
             text-color="#ff9900">
           </el-rate>
           <ul>
-            <li v-for='food in item.foodList'>{{food.foodName}}</li>
+            <li :key='food.foodName' v-for='food in item.foodList'>{{food.foodName}}</li>
           </ul>
         </div>
-        
-
       </li>
     </ul>
   </div>
@@ -41,7 +39,6 @@
     box-shadow: 0 1px #eee
     .text
       color: #999
-      
     .name
       float: left
     .time

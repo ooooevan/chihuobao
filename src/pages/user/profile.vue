@@ -90,7 +90,7 @@
     },
     methods: {
       cardPicSuccess (res, file) {
-        // this.cardPic = URL.createObjectURL(file.raw)
+        // this.info.avator = URL.createObjectURL(file.raw)
         this.info.avator = res.data.imageUrl
       },
       beforeAvatarUpload (file) {

@@ -8,9 +8,9 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-session2')
 const router = require('koa-router')()
-var compress = require('koa-compress')
-var path = require('path')
-var staticCache = require('koa-static-cache')
+const compress = require('koa-compress')
+const path = require('path')
+const staticCache = require('koa-static-cache')
 const multer = require('koa-multer')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,10 +22,16 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({storage: storage})
-
+const options = {  // 设置连接池，自动连接，否则可能会出现：topology was destroyed
+  useMongoClient: true,
+  // auto_reconnect: true,
+  poolSize: 10,
+  reconnectTries: 30,
+  reconnectInterval: 3000
+}
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/vue', {useMongoClient: true})
+mongoose.connect('mongodb://localhost/vue', options)
 mongoose.connection.on('error', console.log.bind(console, '连接mongoDb数据库错误'))
 mongoose.connection.on('open', console.log.bind(console, '连接数据库成功'))
 
@@ -54,8 +60,11 @@ app.use(views(`${__dirname}/views`, {
   extension: 'pug'
 }))
 
-// 响应压缩
+// 压缩
 app.use(compress({
+  filter: function (contentType) {
+    return /text/i.test(contentType)
+  },
   threshold: 2048,
   flush: require('zlib').Z_SYNC_FLUSH
 }))

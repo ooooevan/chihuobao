@@ -184,9 +184,18 @@ exports.modifyDish = async ctx => {
 }
 
 exports.delDish = async ctx => {
-  ctx.body = {
-    code: 1,
-    data: ''
+  const { dishId } = ctx.request.body
+  try {
+    await MenuModel.remove({_id: dishId})
+    ctx.body = {
+      code: 1
+    }
+  } catch (err) {
+    ctx.body = {
+      code: 0,
+      data: err
+    }
+    console.log(err)
   }
 }
 
@@ -246,7 +255,7 @@ exports.getRateList = async ctx => {
       commentId: item._id,
       dishId: item.dish_id,
       dishName: item.dish_id.dish_name,
-      username: item.user_id.user_name,
+      userName: item.user_id.user_name,
       level: item.level,
       comment: item.comment,
       commentDate: item.comment_date

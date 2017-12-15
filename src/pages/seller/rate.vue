@@ -2,7 +2,7 @@
   <div class="rate" ref='rate'>
     <ul>
       <li :key='item.commentId' v-for='item in rateList'>
-        <div class='name' :title='item.username'>{{item.username.slice(0, 2) + '**' + item.username.substr(-2)}}</div>
+        <div class='name' :title='item.userName'>{{item.userName.slice(0, 2) + '**' + item.userName.substr(-2)}}</div>
         <div class='comment'>
           <div class="clearfix">
             <p class='fl dishName'>{{item.dishName}}</p>

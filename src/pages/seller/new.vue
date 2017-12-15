@@ -142,7 +142,9 @@
       handleAvatarSuccess (res, file) {
         // 这里需要修改url
         // this.imageUrl = URL.createObjectURL(file.raw)
+        // setTimeout(() => {
         this.imageUrl = res.data.imageUrl
+        // }, 2000)
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/gif' // 多允许几个后缀
