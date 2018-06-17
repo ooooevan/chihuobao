@@ -39,14 +39,18 @@ UserSchema.pre('save', function (next) {
   } else {
     this.update_at = Date.now()
   }
-  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-    if (err) return next(err)
-    bcrypt.hash(user.user_pwd, salt, function (err, hash) {
+  if (this.modify === 'modify') {
+    next()
+  } else {
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
       if (err) return next(err)
-      user.user_pwd = hash
-      next()
+      bcrypt.hash(user.user_pwd, salt, function (err, hash) {
+        if (err) return next(err)
+        user.user_pwd = hash
+        next()
+      })
     })
-  })
+  }
 })
 UserSchema.statics = {
   fetch: function (cb) {
