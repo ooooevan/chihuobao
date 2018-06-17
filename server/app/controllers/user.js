@@ -196,6 +196,7 @@ exports.modifyInfo = async ctx => {
     if (userName) user.user_name = userName
     if (acceptAddress) user.accept_address = acceptAddress
     if (introduction) user.introduction = introduction
+    user.modify = 'modify'
     await user.save()
     ctx.body = {
       code: 1
